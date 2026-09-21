@@ -34,29 +34,29 @@
       </g>
       <line x1="340" y1="230" x2="340" y2="270" stroke="#888780" stroke-width="1.2" marker-end="url(#flarr)"/>
 
+      <g class="flow-node" id="flow-instalar-hastes">
+        <rect x="190" y="270" width="300" height="48" rx="8" fill="#B5D4F4" stroke="#185FA5" stroke-width="0.5"/>
+        <text x="340" y="294" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="500" fill="#042C53">Instalar hastes e cabos</text>
+      </g>
+      <line x1="340" y1="318" x2="340" y2="358" stroke="#888780" stroke-width="1.2" marker-end="url(#flarr)"/>
+
       <g class="flow-node" id="flow-decisao-rho">
-        <polygon points="340,270 450,314 340,358 230,314" fill="#FAC775" stroke="#854F0B" stroke-width="0.5"/>
-        <text x="340" y="310" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="500" fill="#412402">ρ &gt; 500 Ω·m?</text>
+        <polygon points="340,358 450,402 340,446 230,402" fill="#FAC775" stroke="#854F0B" stroke-width="0.5"/>
+        <text x="340" y="398" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="500" fill="#412402">ρ &gt; 500 Ω·m?</text>
       </g>
 
-      <line x1="340" y1="358" x2="340" y2="418" stroke="#3B6D11" stroke-width="1.2" marker-end="url(#flarr)"/>
-      <text x="358" y="390" font-size="12" fill="#3B6D11">Não</text>
+      <line x1="340" y1="446" x2="340" y2="496" stroke="#3B6D11" stroke-width="1.2" marker-end="url(#flarr)"/>
+      <text x="358" y="458" font-size="12" fill="#3B6D11">Não</text>
 
-      <line x1="450" y1="314" x2="578" y2="314" stroke="#854F0B" stroke-width="1.2" marker-end="url(#flarr)"/>
-      <text x="514" y="306" text-anchor="middle" font-size="12" fill="#633806">Sim</text>
+      <line x1="450" y1="402" x2="578" y2="402" stroke="#854F0B" stroke-width="1.2" marker-end="url(#flarr)"/>
+      <text x="514" y="394" text-anchor="middle" font-size="12" fill="#633806">Sim</text>
 
       <g class="flow-node" id="flow-bentonita">
-        <rect x="578" y="290" width="72" height="48" rx="8" fill="#FAC775" stroke="#854F0B" stroke-width="0.5"/>
-        <text x="614" y="308" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="500" fill="#412402">Aplicar</text>
-        <text x="614" y="324" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="500" fill="#412402">bentonita</text>
+        <rect x="578" y="378" width="72" height="48" rx="8" fill="#FAC775" stroke="#854F0B" stroke-width="0.5"/>
+        <text x="614" y="396" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="500" fill="#412402">Aplicar</text>
+        <text x="614" y="412" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="500" fill="#412402">bentonita</text>
       </g>
-      <path d="M614 290 L614 206 L492 206" fill="none" stroke="#854F0B" stroke-width="1.2" stroke-dasharray="5 3" marker-end="url(#flarr)"/>
-
-      <g class="flow-node" id="flow-instalar-hastes">
-        <rect x="190" y="418" width="300" height="48" rx="8" fill="#B5D4F4" stroke="#185FA5" stroke-width="0.5"/>
-        <text x="340" y="442" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="500" fill="#042C53">Instalar hastes e cabos</text>
-      </g>
-      <line x1="340" y1="466" x2="340" y2="496" stroke="#888780" stroke-width="1.2" marker-end="url(#flarr)"/>
+      <path d="M614 426 L614 470 L358 470" fill="none" stroke="#854F0B" stroke-width="1.2" stroke-dasharray="5 3" marker-end="url(#flarr)"/>
 
       <g class="flow-node" id="flow-medir-rg">
         <rect x="190" y="496" width="300" height="48" rx="8" fill="#B5D4F4" stroke="#185FA5" stroke-width="0.5"/>

@@ -75,7 +75,7 @@
             ev2.stopPropagation();
             const text = itemEl.querySelector('textarea').value.trim();
             if(!text) return;
-            window.Ugtm.State.setJustification(key, text);
+            window.Ugtm.State.setJustification(key, text, def.label);
             draw();
             if(onChange) onChange();
           });

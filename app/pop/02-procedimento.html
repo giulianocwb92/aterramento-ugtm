@@ -171,6 +171,7 @@
       chk.addEventListener('change', function(){
         if(!chk.checked) return;
         window.Ugtm.State.setStepDone(item.id, true);
+        if(item.timer) window.Ugtm.State.setBentonitaReleasedAt(new Date().toISOString());
         const row = document.getElementById('hub-item-'+item.id);
         if(row) row.classList.add('done');
         setTimeout(function(){

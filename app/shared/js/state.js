@@ -16,7 +16,7 @@
       hubFurthest:0,          // índice do item mais avançado já desbloqueado dentro do hub do Procedimento
       solo:{rho:null},
       criterio:{rg:null, rgSecundario:null},
-      bentonita:{appliedAt:null},
+      bentonita:{appliedAt:null, releasedAt:null},
       registro:{},
       log:[]
     };
@@ -67,10 +67,11 @@
       addLog(checked ? 'check' : 'uncheck', itemKey);
       save();
     },
-    setJustification(itemKey, text){
+    setJustification(itemKey, text, label){
       const item = state.checklist[itemKey] || {};
       item.justification = text;
       item.justifiedAt = text ? new Date().toISOString() : null;
+      if(label) item.label = label;
       state.checklist[itemKey] = item;
       addLog('justify', itemKey+' :: '+text);
       save();
@@ -122,8 +123,16 @@
     setRgSecundario(v){ state.criterio.rgSecundario = v; addLog('rg-secundario', String(v)); save(); },
     getRgSecundario(){ return state.criterio.rgSecundario; },
 
-    setBentonitaAppliedAt(iso){ state.bentonita.appliedAt = iso; addLog('bentonita-aplicada', iso||''); save(); },
+    setBentonitaAppliedAt(iso){
+      state.bentonita.appliedAt = iso;
+      if(iso==null) state.bentonita.releasedAt = null;
+      addLog('bentonita-aplicada', iso||''); save();
+    },
     getBentonitaAppliedAt(){ return state.bentonita.appliedAt; },
+    // tempo real em que o operador confirmou ter aguardado (fim da espera) —
+    // separado do tempo-alvo do timer, para constar na trilha de auditoria.
+    setBentonitaReleasedAt(iso){ state.bentonita.releasedAt = iso; addLog('bentonita-liberada', iso||''); save(); },
+    getBentonitaReleasedAt(){ return state.bentonita.releasedAt; },
 
     // ---- formulário de registro ----
     setRegistroField(field, value){ state.registro[field] = value; save(); },

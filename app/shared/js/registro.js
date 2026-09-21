@@ -1,7 +1,8 @@
 /* ======================= REGISTRO DA OPERAÇÃO (POP — 07-registro.html) =======================
    window.Ugtm.Registro — formulário final. Pré-preenche com ρ/Rg já medidos nas
-   páginas anteriores, valida os campos, e exporta um registro em texto que agora
-   inclui a trilha de auditoria completa (checklist, justificativas, timestamps). */
+   páginas anteriores, valida os campos, e exporta um registro em texto com um
+   resumo da trilha de auditoria: um valor/check por passo do Procedimento,
+   mais justificativas quando existirem (não o log cronológico bruto). */
 (function(){
   window.Ugtm = window.Ugtm || {};
 
@@ -37,10 +38,85 @@
     return ok;
   }
 
+  function fmtHora(iso){
+    return iso ? new Date(iso).toTimeString().slice(0,5) : '—';
+  }
+
+  /** Justificativas registradas dentro de um grupo de checklist (ex.: "materiais"),
+   * já com o rótulo do item salvo no momento da justificativa. */
+  function collectJustifications(groupId){
+    const checklist = window.Ugtm.State.all().checklist;
+    const out = [];
+    Object.keys(checklist).forEach(function(key){
+      if(key.indexOf(groupId+'.')!==0) return;
+      const item = checklist[key];
+      if(item.justification){
+        out.push({label: item.label || key.slice(groupId.length+1), text: item.justification});
+      }
+    });
+    return out;
+  }
+
+  function withJustifications(line, groupId){
+    collectJustifications(groupId).forEach(function(j){
+      line += `\n    ⚠ ${j.label}: "${j.text}"`;
+    });
+    return line;
+  }
+
+  /** Um resumo direto por passo do Procedimento (12 itens do hub): só o valor
+   * ou o check de cada passo, mais justificativas quando existirem — em vez
+   * do log cronológico bruto de cada clique. */
   function auditTrailText(){
-    const log = window.Ugtm.State.getLog();
-    if(!log.length) return '(sem eventos registrados)';
-    return log.map(e=>`  [${e.ts.replace('T',' ').slice(0,19)}] ${e.action} ${e.detail}`).join('\n');
+    const Hub = window.Ugtm.Hub, State = window.Ugtm.State;
+    if(!Hub) return '(procedimento não iniciado)';
+    Hub.autoAdvanceSkips();
+    const furthest = State.getHubFurthest();
+
+    return Hub.ITEMS.map(function(item, idx){
+      const passo = `Passo ${idx+1} — ${item.title}`;
+      const app = Hub.applicability(item);
+      if(app==='skip') return `${passo}: não aplicável`;
+
+      if(item.id==='solo'){
+        const v = State.getRho();
+        return withJustifications(`${passo}: ${v!=null ? v+' Ω·m' : '—'}`, 'solo');
+      }
+      if(item.id==='medir-rg'){
+        const v = State.getRg();
+        return `${passo}: ${v!=null ? v+' Ω' : '—'}`;
+      }
+      if(item.id==='config-secundaria'){
+        const v = State.getRgSecundario();
+        return `${passo}: ${v!=null ? v+' Ω' : '—'}`;
+      }
+      if(item.id==='espera-bentonita'){
+        const applied = State.getBentonitaAppliedAt();
+        const released = State.getBentonitaReleasedAt();
+        if(applied && released){
+          const min = Math.round((new Date(released)-new Date(applied))/60000);
+          return `${passo}: ✓ aplicada às ${fmtHora(applied)}, liberada às ${fmtHora(released)} — tempo real de espera: ${min} min`;
+        }
+        if(applied) return `${passo}: aplicada às ${fmtHora(applied)} (espera ainda não concluída)`;
+        return `${passo}: pendente`;
+      }
+      if(item.id==='criterio'){
+        const rg = State.getRg();
+        if(rg==null) return `${passo}: —`;
+        return `${passo}: ${rg<=40 ? '✅ aprovado (Rg ≤ 40 Ω)' : '⚠️ reprovado (Rg > 40 Ω)'}`;
+      }
+      if(item.id==='cancelar'){
+        const done = State.isStepDone(item.id);
+        return `${passo}: ${done ? '⛔ intervenção cancelada — engenharia acionada' : 'pendente'}`;
+      }
+      if(item.id==='epi' || item.id==='materiais'){
+        const done = idx < furthest;
+        return withJustifications(`${passo}: ${done ? '✓ concluído' : 'pendente'}`, item.id);
+      }
+      // itens inline simples (hastes, bentonita, cabos, neutro)
+      const done = State.isStepDone(item.id) || idx < furthest;
+      return `${passo}: ${done ? '✓ concluído' : (idx===furthest ? 'em andamento' : 'pendente')}`;
+    }).join('\n');
   }
 
   function exportar(){
@@ -78,7 +154,7 @@ Bentonita:     ${bentonita.options[bentonita.selectedIndex]?.text||'—'}
 Responsável:   ${resp}
 Observações:   ${obs}
 ──────────────────────────────────
-TRILHA DE AUDITORIA (checklist, justificativas, passos)
+TRILHA DE AUDITORIA (resumo por passo)
 ──────────────────────────────────
 ${auditTrailText()}
 ══════════════════════════════════`;
