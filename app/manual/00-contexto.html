@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="theme-color" content="#1d5bbf">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="POP UGTM">
+<link rel="apple-touch-icon" href="../assets/icons/icon-180.png">
+<link rel="icon" href="../assets/icons/icon-192.png">
+<title>Contexto — Manual Técnico UGTM</title>
+<link rel="stylesheet" href="../shared/css/base.css">
+<link rel="stylesheet" href="../shared/css/layout.css">
+<link rel="stylesheet" href="../shared/css/components.css">
+<link rel="stylesheet" href="../shared/css/wizard.css">
+</head>
+<body>
+<div id="topbar-mount"></div>
+
+<div class="doc-header">
+  <div class="doc-header-inner">
+    <div class="doc-eyebrow">
+      <span class="doc-type">MANUAL TÉCNICO</span>
+      <span class="doc-code">COPEL-DIST-AT-002</span>
+    </div>
+    <h1>Fundamentação técnica do sistema de aterramento provisório para UGTM</h1>
+    <p>Base científica e normativa que sustenta cada decisão do Procedimento Operacional Padrão. Desenvolvido como parte do PFC2 — PUCPR Engenharia Elétrica 2026/2.</p>
+    <div class="doc-meta">
+      <div class="meta-item"><div class="meta-label">Relé</div><div class="meta-val">SEPAM S40</div></div>
+      <div class="meta-item"><div class="meta-label">Função</div><div class="meta-val">50N</div></div>
+      <div class="meta-item"><div class="meta-label">Critério</div><div class="meta-val">Rg ≤ 40 Ω</div></div>
+      <div class="meta-item"><div class="meta-label">Malha</div><div class="meta-val">17 m × 4 m</div></div>
+      <div class="meta-item"><div class="meta-label">Método</div><div class="meta-val">Schwarz</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="app-body">
+<div class="sidebar-col" id="sidebar-mount"></div>
+<div class="content-col">
+<div class="main">
+
+  <div class="section" id="contexto">
+    <div class="section-title"><span class="sec-num">01</span>Contexto e problema</div>
+
+    <div class="prose">
+      <p>Em um cenário de falta fase-terra, a corrente de defeito percorre o sistema de aterramento e se dissipa radialmente no solo ao redor dos eletrodos. Quando a resistividade do solo é elevada, essa dissipação é dificultada e o potencial elétrico na superfície cresce abruptamente — fenômeno denominado <strong>Elevação de Potencial de Terra (GPR)</strong>.</p>
+      <p>A <a href="09-referencias.html#ref-1" class="cite">IEEE 80-2013 [1]</a> define o GPR como o produto da corrente de falta pela resistência de aterramento, determinando diretamente a magnitude das tensões perigosas na área de operação. Dois riscos decorrem diretamente do GPR:</p>
+    </div>
+
+    <div class="two-col-grid">
+      <div class="card">
+        <div class="card-title">Tensão de toque</div>
+        <div class="prose"><p>Diferença de potencial entre a carcaça da UGTM e o ponto do solo onde o operador pisa ao encostar no equipamento. A corrente percorre braço, tronco e pés.</p></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Tensão de passo</div>
+        <div class="prose"><p>Diferença de potencial entre os dois pés de um operador que caminha na área afetada, criando caminho de corrente pelas pernas sem necessitar tocar o equipamento.</p></div>
+      </div>
+    </div>
+
+    <div class="alert warning">
+      <span class="alert-icon">⚠️</span>
+      <div>
+        <strong>Limite fisiológico — <a href="09-referencias.html#ref-2" class="cite" style="color:inherit;">IEC 60479-1:2018 [2]</a></strong>
+        <p>Correntes a partir de 116 mA podem causar fibrilação ventricular em exposições de um segundo, tornando ambos os fenômenos potencialmente letais em instalações com aterramento inadequado.</p>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>As instalações com haste única produzem resistências de <strong>100 a 300 Ω</strong> em campo — valores que inviabilizam a atuação da proteção de neutro. O kit portátil foi desenvolvido para garantir Rg ≤ 40 Ω em qualquer condição de solo operacional da COPEL no Paraná, conforme as diretrizes de aterramento provisório em subestações móveis da <a href="09-referencias.html#ref-20" class="cite">IEEE 1246-2020 [20]</a> e da <a href="09-referencias.html#ref-19" class="cite">IEEE 1268-2016 [19]</a>.</p>
+    </div>
+
+    <div class="normas">
+      <a href="09-referencias.html#ref-1" class="norma-tag">IEEE 80-2013<span class="tag-num">1</span></a>
+      <a href="09-referencias.html#ref-2" class="norma-tag">IEC 60479-1:2018<span class="tag-num">2</span></a>
+      <a href="09-referencias.html#ref-4" class="norma-tag">NR-10<span class="tag-num">4</span></a>
+      <a href="09-referencias.html#ref-20" class="norma-tag">IEEE 1246-2020<span class="tag-num">20</span></a>
+      <a href="09-referencias.html#ref-19" class="norma-tag">IEEE 1268-2016<span class="tag-num">19</span></a>
+    </div>
+  </div>
+
+  <div class="wizard-footer">
+    <span></span>
+    <a class="wizard-btn wizard-btn-next" href="01-blocos.html">Próximo: Diagrama de blocos →</a>
+  </div>
+</div>
+</div>
+</div>
+
+<script src="../shared/js/pwa.js"></script>
+<script>window.Ugtm.PWA.init('../');</script>
+<script src="../shared/js/state.js"></script>
+<script src="../shared/js/chrome.js"></script>
+<script src="../shared/js/theme.js"></script>
+<script>
+  window.Ugtm.Chrome.render({mode:'manual', activeId:'contexto', basePath:'../'});
+</script>
+</body>
+</html>

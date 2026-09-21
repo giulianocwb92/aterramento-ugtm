@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="../../manifest.webmanifest">
+<meta name="theme-color" content="#1d5bbf">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="POP UGTM">
+<link rel="apple-touch-icon" href="../../assets/icons/icon-180.png">
+<link rel="icon" href="../../assets/icons/icon-192.png">
+<title>EPI — Procedimento — POP Aterramento UGTM</title>
+<link rel="stylesheet" href="../../shared/css/base.css">
+<link rel="stylesheet" href="../../shared/css/layout.css">
+<link rel="stylesheet" href="../../shared/css/components.css">
+<link rel="stylesheet" href="../../shared/css/wizard.css">
+</head>
+<body>
+<div id="topbar-mount"></div>
+<div id="progress-mount"></div>
+
+<div class="app-body">
+<div class="sidebar-col" id="sidebar-mount"></div>
+<div class="content-col">
+<div class="main" style="padding-top:1.75rem;">
+
+  <div class="section">
+    <div class="section-title">EPI obrigatório e isolamento da área</div>
+    <div class="alert danger" style="margin-bottom:10px;">
+      <span class="alert-icon">⛔</span>
+      <div><strong>Nenhuma etapa deve ser iniciada sem EPI completo e área isolada.</strong> Estes itens são de segurança crítica — não podem ser justificados, só confirmados de fato.</div>
+    </div>
+
+    <div id="gate-banner-mount"></div>
+    <div id="epi-checklist-mount"></div>
+
+    <div class="alert info" style="margin-top:1rem;">
+      <span class="alert-icon">ℹ️</span>
+      <div>
+        <strong>Raio de isolamento</strong>
+        <p>Delimitar a zona controlada com fita de sinalização e cones a partir de um raio mínimo de <strong>1,38 m</strong> do ponto energizado mais próximo (Rc para instalações de 13,8 kV, conforme a tabela de raios de delimitação do Anexo I da NR-10).</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="wizard-footer-mount"></div>
+</div>
+</div>
+</div>
+
+<script src="../../shared/js/pwa.js"></script>
+<script>window.Ugtm.PWA.init('../../');</script>
+<script src="../../shared/js/state.js"></script>
+<script src="../../shared/js/chrome.js"></script>
+<script src="../../shared/js/theme.js"></script>
+<script src="../../shared/js/wizard.js"></script>
+<script src="../../shared/js/hub.js"></script>
+<script src="../../shared/js/checklist.js"></script>
+<script>
+  window.Ugtm.Hub.guardItem('epi','../');
+  window.Ugtm.Chrome.render({mode:'pop', activeId:'procedimento', basePath:'../../'});
+  window.Ugtm.Hub.renderProgress('progress-mount','epi');
+
+  var EPI_ITEMS = [
+    {key:'luvas',    label:'Luvas de raspa', critical:true},
+    {key:'capacete', label:'Capacete de segurança', critical:true},
+    {key:'botina',   label:'Botina dielétrica', critical:true},
+    {key:'oculos',   label:'Óculos de proteção', critical:true},
+    {key:'colete',   label:'Colete de alta visibilidade', critical:true},
+    {key:'roupa',    label:'Roupa antichama', critical:true},
+    {key:'area',     label:'Área isolada com fita e cones (raio ≥ 1,38 m)', critical:true}
+  ];
+
+  function canAdvance(){ return window.Ugtm.Wizard.evaluateChecklist(EPI_ITEMS.map(function(i){return {key:'epi.'+i.key, label:i.label, critical:i.critical};})); }
+
+  window.Ugtm.Checklist.render('epi-checklist-mount', 'epi', EPI_ITEMS, function(){
+    window.Ugtm.Wizard.renderGateBanner('gate-banner-mount', canAdvance());
+  });
+
+  window.Ugtm.Hub.renderItemFooter('wizard-footer-mount', {itemId:'epi', basePath:'../', canAdvance:canAdvance, bannerMount:'gate-banner-mount'});
+</script>
+</body>
+</html>

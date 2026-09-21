@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>POP - Aterramento Portátil UGTM</title>
+</head>
+
+<body style="font-family: Arial, sans-serif; margin: 40px;">
+
+<h1>Aterramento Provisório Portátil para UGTM</h1>
+<p><em>Protótipo inicial — POP (Procedimento Operacional Padronizado) — versão de estudo</em></p>
+
+<hr>
+
+<h2>1. Objetivo</h2>
+<p>
+Garantir que o aterramento provisório instalado em uma Unidade Geradora e Transformadora
+Móvel (UGTM) atinja resistência de aterramento <b>Rg ≤ 40 Ω</b>, valor que garante
+simultaneamente (a) a atuação da proteção de neutro do relé SEPAM e (b) a segurança dos
+operadores quanto às tensões de toque e de passo, conforme IEEE 80-2013.
+</p>
+
+<h2>2. Materiais necessários</h2>
+<table border="1" cellpadding="8" cellspacing="0">
+<tr><th>Item</th><th>Especificação</th><th>Qtd. mínima</th></tr>
+<tr><td>Hastes de aterramento</td><td>Aço cobreado, 2400 mm x 5/8" (conforme ABNT NBR 13571)</td><td>6 unidades (4 primárias + 2 suplementares)</td></tr>
+<tr><td>Cabo de interligação entre hastes</td><td>Cobre flexível, 25 mm²</td><td>Conforme geometria da instalação</td></tr>
+<tr><td>Cabo de conexão malha–carreta</td><td>Cobre flexível, 50 mm²</td><td>1 trecho, comprimento conforme distância</td></tr>
+<tr><td>Terminais de compressão</td><td>Cobre, compatíveis com 25 mm² e 50 mm²</td><td>Conforme número de emendas</td></tr>
+<tr><td>Bentonita sódica</td><td>Grau elétrico, hidratada antes da aplicação</td><td>Conforme seção 4</td></tr>
+<tr><td>Terrômetro digital</td><td>4 terminais (C1, P1, P2, C2), faixa mínima 0,01 a 10.000 Ω·m</td><td>1 unidade</td></tr>
+<tr><td>Eletrodos auxiliares de medição</td><td>Hastes metálicas para método fall-of-potential</td><td>2 unidades</td></tr>
+<tr><td>Fita de sinalização</td><td>Amarela/preta, uso externo</td><td>Suficiente para isolar o perímetro</td></tr>
+<tr><td>Cones de sinalização</td><td>Tráfego ou obra, altura mínima 500 mm</td><td>Mínimo 4 unidades</td></tr>
+<tr><td>EPIs</td><td>Luvas de borracha classe compatível com MT, capacete, botina de segurança</td><td>Por operador em campo</td></tr>
+</table>
+
+<h2>3. Procedimento</h2>
+<ol>
+<li><b>Isolar o local:</b> delimitar o perímetro com fita de sinalização e cones antes de qualquer
+atividade. Nenhum operador sem EPI adequado deve permanecer dentro da área após a energização
+da UGTM. A NR-10 exige a definição de Zona de Risco e Zona Controlada em instalações de
+média tensão.</li>
+<li>Medir a resistividade do solo (ρ) pelo método de Wenner com o terrômetro na função de
+4 terminais.</li>
+<li>Verificar se ρ &gt; 500 Ω·m: em caso positivo, aplicar bentonita sódica antes da cravação
+das hastes (ver seção 4).</li>
+<li>Instalar a configuração primária: cravar 4 hastes nos vértices de um quadrado com lado
+igual ao perímetro da carreta acrescido de 1 m, interligá-las com cabo de 25 mm² formando
+o anel perimetral, e conectar o anel ao barramento de aterramento da carreta com cabo de
+50 mm².</li>
+<li>Medir a resistência de aterramento (Rg) pelo método de queda de potencial
+(fall-of-potential).</li>
+<li>Se Rg ≤ 40 Ω, autorizar a operação e registrar o valor medido.</li>
+<li>Se Rg &gt; 40 Ω, instalar as 2 hastes suplementares e medir novamente.</li>
+<li>Caso Rg &gt; 40 Ω mesmo com a configuração completa de 6 hastes, acionar o engenheiro
+responsável antes de energizar.</li>
+</ol>
+
+<h2>4. Tratamento do solo</h2>
+<p>
+Se a resistividade medida for superior a 500 Ω·m, aplicar bentonita sódica ao redor de
+cada haste antes da cravação e aguardar a hidratação completa antes de medir Rg.
+Esse limiar foi definido com base no dimensionamento pelo método de Schwarz, que estima
+Rg de aproximadamente 34,27 Ω para ρ igual a 500 Ω·m na geometria da malha adotada,
+confirmando a adequação ao critério de 40 Ω.
+</p>
+<p>
+Ensaios de campo demonstraram que a bentonita sódica hidratada reduziu a resistência de
+aterramento de uma haste isolada de 132 Ω para 15 Ω em 90 minutos (redução de 88,6%)
+em solo com ρ = 76 Ω·m. Na configuração com anel perimetral, a aplicação de bentonita
+reduziu Rg de 15,89 Ω para 7,53 Ω após 60 minutos.
+</p>
+
+<h2>5. Calculadora de resistividade</h2>
+<p>
+Digite o valor de resistividade medido em campo (Ω·m):
+<br><br>
+<input type="number" id="rho" step="0.1" style="font-size: 16px; padding: 4px; width: 150px;">
+<button onclick="calcular()" style="font-size: 16px; padding: 4px 12px;">Calcular</button>
+</p>
+<p id="resultado" style="font-weight: bold; font-size: 16px;"></p>
+
+<script>
+function calcular() {
+  var rho = parseFloat(document.getElementById('rho').value);
+  var resultado = document.getElementById('resultado');
+
+  if (isNaN(rho) || rho <= 0) {
+    resultado.innerHTML = "Digite um valor válido de resistividade.";
+    return;
+  }
+
+  if (rho <= 500) {
+    resultado.innerHTML = "Resultado: NÃO é necessária bentonita. Instalar as hastes e medir Rg diretamente.";
+  } else {
+    resultado.innerHTML = "Resultado: aplicar bentonita sódica antes de cravar as hastes e aguardar a hidratação completa antes de medir Rg.";
+  }
+}
+</script>
+
+<h2>6. Critério de aceite</h2>
+<p>
+O valor de 40 Ω foi derivado a partir de dois critérios independentes:
+</p>
+<ul>
+<li><b>Sensibilidade da proteção:</b> com Rg = 40 Ω, a corrente de falta fase-terra é de
+87,4 A — cerca de 14 vezes o pickup da função de proteção do relé SEPAM (6,28 A),
+garantindo sua atuação com margem de 30 vezes sobre o limite mínimo calculado (1.217 Ω).</li>
+<li><b>Segurança de pessoas:</b> com resistividade de camada superficial de até 500 Ω·m,
+as tensões de toque (1.172 V) e de passo (2.679 V) permanecem dentro dos limites
+fisiológicos admissíveis pela IEC 60479-1. A segurança do operador posicionado sobre
+o anel perimetral é reforçada pela equipotencialização promovida pelo cabo de 50 mm²,
+que reduz a tensão de exposição a aproximadamente 0,6 V, abaixo do limiar de percepção
+elétrica.</li>
+</ul>
+
+<h2>7. Sobre esta página</h2>
+<p>
+Esta é a versão inicial de estudo do POP. A versão final integra o passo a passo
+operacional completo em uma única página acessível por computador, tablet ou smartphone,
+sem necessidade de conexão à internet, complementada pelo Manual Técnico com a
+fundamentação analítica completa.
+</p>
+
+<hr>
+<p><small>Protótipo de estudo — Felipe Woo e Giuliano Luigi Montagnoli — PUCPR Engenharia Elétrica</small></p>
+
+</body>
+</html>

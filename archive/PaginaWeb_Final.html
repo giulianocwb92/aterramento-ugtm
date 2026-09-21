@@ -1,0 +1,2342 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aterramento Provisório UGTM — POP e Manual Técnico</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+:root{
+  --bg:#f4f2ed;
+  --surface:#ffffff;
+  --surface2:#eceae4;
+  --border:rgba(0,0,0,0.09);
+  --border-strong:rgba(0,0,0,0.16);
+  --text:#181815;
+  --muted:#636360;
+  --hint:#a0a09a;
+  --accent:#1d5bbf;
+  --accent-bg:#eaf0fc;
+  --accent-text:#1a4d9f;
+  --green:#1a7a4a;
+  --green-bg:#e5f5ed;
+  --green-text:#145c38;
+  --orange:#b84800;
+  --orange-bg:#fdf0e5;
+  --orange-text:#8f3800;
+  --red:#b81c1c;
+  --red-bg:#fce8e8;
+  --red-text:#8a1414;
+  --yellow:#8a6500;
+  --yellow-bg:#fdf6e3;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  --mono:ui-monospace,'SF Mono','Cascadia Mono','Roboto Mono','Droid Sans Mono','Courier New',monospace;
+  --radius:10px;
+}
+
+@media(prefers-color-scheme:dark){
+  :root:not(.light){
+    --bg:#131310;
+    --surface:#1c1c19;
+    --surface2:#242420;
+    --border:rgba(255,255,255,0.09);
+    --border-strong:rgba(255,255,255,0.16);
+    --text:#e5e3dc;
+    --muted:#888880;
+    --hint:#555550;
+    --accent:#4f8ef7;
+    --accent-bg:rgba(79,142,247,0.12);
+    --accent-text:#7aaeff;
+    --green:#2ec48e;
+    --green-bg:rgba(46,196,142,0.12);
+    --green-text:#5dd6a8;
+    --orange:#f5a623;
+    --orange-bg:rgba(245,166,35,0.12);
+    --orange-text:#f7bd55;
+    --red:#f04040;
+    --red-bg:rgba(240,64,64,0.12);
+    --red-text:#f07070;
+    --yellow:#e6b800;
+    --yellow-bg:rgba(230,184,0,0.12);
+  }
+}
+
+:root.dark{
+  --bg:#131310;
+  --surface:#1c1c19;
+  --surface2:#242420;
+  --border:rgba(255,255,255,0.09);
+  --border-strong:rgba(255,255,255,0.16);
+  --text:#e5e3dc;
+  --muted:#888880;
+  --hint:#555550;
+  --accent:#4f8ef7;
+  --accent-bg:rgba(79,142,247,0.12);
+  --accent-text:#7aaeff;
+  --green:#2ec48e;
+  --green-bg:rgba(46,196,142,0.12);
+  --green-text:#5dd6a8;
+  --orange:#f5a623;
+  --orange-bg:rgba(245,166,35,0.12);
+  --orange-text:#f7bd55;
+  --red:#f04040;
+  --red-bg:rgba(240,64,64,0.12);
+  --red-text:#f07070;
+  --yellow:#e6b800;
+  --yellow-bg:rgba(230,184,0,0.12);
+}
+
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.65;}
+
+/* TOPBAR */
+.topbar{
+  background:var(--surface);
+  border-bottom:1px solid var(--border);
+  padding:0 1.25rem;
+  height:50px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+.topbar-left{display:flex;align-items:center;gap:10px;}
+.topbar-logo{
+  font-family:var(--mono);
+  font-size:11px;
+  font-weight:500;
+  background:var(--accent-bg);
+  color:var(--accent-text);
+  padding:3px 10px;
+  border-radius:6px;
+  letter-spacing:0.04em;
+}
+.topbar-title{font-size:14px;font-weight:500;}
+.topbar-right{display:flex;align-items:center;gap:8px;}
+.topbar-version{font-size:11px;color:var(--muted);font-family:var(--mono);}
+.btn-back{
+  font-size:12px;
+  font-weight:500;
+  color:var(--accent-text);
+  background:var(--accent-bg);
+  border:none;
+  border-radius:6px;
+  padding:4px 12px;
+  cursor:pointer;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+}
+
+/* APP BODY (sidebar + conteúdo) */
+.app-body{
+  display:flex;
+  align-items:flex-start;
+}
+.sidebar-col{
+  width:230px;
+  flex-shrink:0;
+  position:sticky;
+  top:50px;
+  align-self:flex-start;
+  height:calc(100vh - 50px);
+  overflow-y:auto;
+  background:var(--surface);
+  border-right:1px solid var(--border);
+}
+.content-col{
+  flex:1;
+  min-width:0;
+}
+
+/* NAV ANCHORS — coluna vertical à esquerda */
+.nav-anchors{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  padding:1rem 0.75rem;
+}
+.nav-anchor{
+  font-size:13px;
+  font-weight:500;
+  color:var(--muted);
+  padding:9px 12px;
+  border-radius:8px;
+  border-left:2px solid transparent;
+  cursor:pointer;
+  text-align:left;
+  white-space:normal;
+  background:none;
+  border-top:none;
+  border-right:none;
+  border-bottom:none;
+  transition:color 0.15s,background 0.15s,border-color 0.15s;
+}
+.nav-anchor:hover{color:var(--text);background:var(--surface2);}
+.nav-anchor.active{color:var(--accent-text);background:var(--accent-bg);border-left-color:var(--accent);}
+
+@media(max-width:760px){
+  .app-body{flex-direction:column;}
+  .sidebar-col{
+    width:100%;
+    height:auto;
+    position:sticky;
+    top:50px;
+    z-index:90;
+    border-right:none;
+    border-bottom:1px solid var(--border);
+  }
+  .nav-anchors{
+    flex-direction:row;
+    gap:0;
+    padding:0 1.25rem;
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+  .nav-anchors::-webkit-scrollbar{display:none;}
+  .nav-anchor{
+    border-left:none;
+    border-bottom:2px solid transparent;
+    border-radius:0;
+    white-space:nowrap;
+    padding:10px 14px;
+  }
+  .nav-anchor.active{background:none;border-left-color:transparent;border-bottom-color:var(--accent);}
+}
+
+/* HERO / CABEÇALHO DO DOCUMENTO */
+.doc-header{
+  background:var(--surface);
+  border-bottom:1px solid var(--border);
+  padding:1.75rem 1.25rem 1.5rem;
+}
+.doc-header-inner{max-width:680px;margin:0 auto;}
+
+.doc-eyebrow{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:12px;
+}
+.doc-type{
+  font-family:var(--mono);
+  font-size:11px;
+  font-weight:500;
+  color:var(--accent-text);
+  background:var(--accent-bg);
+  padding:3px 10px;
+  border-radius:5px;
+  letter-spacing:0.06em;
+}
+.doc-code{font-size:12px;color:var(--muted);font-family:var(--mono);}
+
+.doc-header h1{font-size:22px;font-weight:600;line-height:1.25;margin-bottom:6px;}
+.doc-header p{font-size:14px;color:var(--muted);margin-bottom:1.25rem;}
+
+.doc-meta{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+  gap:8px;
+}
+.meta-item{
+  background:var(--surface2);
+  border-radius:var(--radius);
+  padding:10px 12px;
+}
+.meta-label{font-size:11px;color:var(--muted);margin-bottom:2px;font-family:var(--mono);text-transform:uppercase;letter-spacing:0.05em;}
+.meta-val{font-size:13px;font-weight:500;}
+
+/* MAIN */
+.main{max-width:680px;margin:0 auto;padding:1.75rem 1.25rem 4rem;}
+
+/* SECTION */
+.section{margin-bottom:2rem;scroll-margin-top:110px;}
+.section-title{
+  font-size:16px;
+  font-weight:600;
+  margin-bottom:1rem;
+  padding-bottom:0.6rem;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.sec-num{
+  font-family:var(--mono);
+  font-size:11px;
+  font-weight:500;
+  color:var(--accent-text);
+  background:var(--accent-bg);
+  padding:2px 8px;
+  border-radius:5px;
+}
+
+/* ALERT */
+.alert{
+  border-radius:var(--radius);
+  padding:12px 14px;
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  margin-bottom:1rem;
+  font-size:14px;
+}
+.alert-icon{font-size:18px;flex-shrink:0;margin-top:1px;}
+.alert strong{font-weight:600;display:block;margin-bottom:2px;font-size:14px;}
+.alert p{font-size:13px;line-height:1.5;}
+.alert.warning{background:var(--orange-bg);color:var(--orange-text);}
+.alert.danger{background:var(--red-bg);color:var(--red-text);}
+.alert.success{background:var(--green-bg);color:var(--green-text);}
+.alert.info{background:var(--accent-bg);color:var(--accent-text);}
+.alert.neutral{background:var(--surface2);color:var(--text);}
+
+/* OBJETIVO E APLICAÇÃO */
+.info-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-bottom:1rem;
+}
+.info-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:14px 16px;
+}
+.info-card-label{font-size:11px;font-family:var(--mono);text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);margin-bottom:6px;}
+.info-card-text{font-size:13px;line-height:1.55;}
+
+/* NORMAS */
+.normas{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+}
+.norma-tag{
+  font-size:12px;
+  font-family:var(--mono);
+  font-weight:500;
+  padding:4px 12px;
+  border-radius:100px;
+  background:var(--surface);
+  border:1px solid var(--border-strong);
+  color:var(--text);
+}
+.norma-tag[href]{
+  text-decoration:none;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  transition:background 0.15s,border-color 0.15s;
+}
+.norma-tag[href]:hover{background:var(--accent-bg);border-color:var(--accent-text);color:var(--accent-text);}
+.norma-tag .tag-num{
+  font-size:10px;
+  font-weight:700;
+  background:var(--accent-text);
+  color:#fff;
+  border-radius:100px;
+  padding:1px 6px;
+}
+
+/* ===== CITAÇÕES INLINE ===== */
+.cite{
+  font-family:var(--mono);
+  font-size:12px;
+  font-weight:600;
+  color:var(--accent-text);
+  text-decoration:none;
+  cursor:pointer;
+  padding:0 1px;
+  border-radius:3px;
+}
+.cite:hover{background:var(--accent-bg);text-decoration:underline;}
+
+/* ===== REFERÊNCIAS ===== */
+.ref-list{
+  counter-reset:refcounter;
+}
+.ref-item{
+  display:flex;
+  gap:12px;
+  padding:10px 0;
+  border-bottom:1px solid var(--border);
+  font-size:13.5px;
+  line-height:1.55;
+  scroll-margin-top:100px;
+}
+.ref-item:target{
+  background:var(--accent-bg);
+  border-radius:8px;
+  padding:10px 12px;
+  margin:0 -12px;
+}
+.ref-num{
+  font-family:var(--mono);
+  font-weight:700;
+  color:var(--accent-text);
+  min-width:26px;
+  flex-shrink:0;
+}
+.ref-text{color:var(--text);}
+.ref-text a{color:var(--accent-text);}
+.ref-tag{
+  display:inline-block;
+  font-family:var(--mono);
+  font-size:10px;
+  font-weight:600;
+  color:var(--muted);
+  border:1px solid var(--border-strong);
+  border-radius:4px;
+  padding:0 5px;
+  margin-left:6px;
+  vertical-align:middle;
+}
+
+/* EPI */
+.epi-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+  gap:8px;
+}
+.epi-item{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:12px 14px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.epi-icon{font-size:22px;flex-shrink:0;}
+.epi-name{font-size:13px;font-weight:500;}
+
+/* MATERIAIS */
+.mat-table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;font-size:13px;}
+.mat-table th{background:var(--surface2);padding:8px 14px;text-align:left;font-size:11px;font-weight:500;color:var(--muted);border-bottom:1px solid var(--border);font-family:var(--mono);text-transform:uppercase;letter-spacing:0.05em;}
+.mat-table td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:middle;}
+.mat-table tr:last-child td{border-bottom:none;}
+.mat-table tr:hover td{background:var(--surface2);}
+.qty{font-family:var(--mono);font-weight:500;color:var(--accent-text);}
+.spec-tag{font-family:var(--mono);font-size:11px;background:var(--accent-bg);color:var(--accent-text);padding:2px 7px;border-radius:4px;}
+
+/* PASSOS */
+.steps{display:flex;flex-direction:column;gap:6px;}
+.step{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:12px 14px;
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+}
+.step.critical{border-left:3px solid var(--orange);}
+.step.verify{border-left:3px solid var(--green);}
+.step.conditional{border-left:3px solid var(--yellow);opacity:0.85;}
+.step-num{
+  width:26px;height:26px;border-radius:50%;
+  background:var(--accent-bg);color:var(--accent-text);
+  font-size:12px;font-weight:600;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;font-family:var(--mono);
+}
+.step.critical .step-num{background:var(--orange-bg);color:var(--orange-text);}
+.step.verify .step-num{background:var(--green-bg);color:var(--green-text);}
+.step.conditional .step-num{background:var(--yellow-bg);color:var(--yellow);}
+.step-body{flex:1;}
+.step-title{font-size:14px;font-weight:500;margin-bottom:3px;}
+.step-desc{font-size:13px;color:var(--muted);line-height:1.5;}
+.step-tag{
+  font-size:11px;font-family:var(--mono);font-weight:500;
+  padding:2px 7px;border-radius:4px;
+  display:inline-block;margin-top:5px;
+}
+.tag-warn{background:var(--orange-bg);color:var(--orange-text);}
+.tag-ok{background:var(--green-bg);color:var(--green-text);}
+.tag-info{background:var(--accent-bg);color:var(--accent-text);}
+.tag-cond{background:var(--yellow-bg);color:var(--yellow);}
+
+/* TABELA DE SOLO INTERATIVA */
+.rho-input-wrap{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  margin-bottom:1rem;
+  flex-wrap:wrap;
+}
+.rho-input-wrap label{font-size:14px;font-weight:500;white-space:nowrap;}
+.rho-input{
+  font-family:var(--mono);
+  font-size:16px;
+  font-weight:500;
+  width:140px;
+  padding:8px 12px;
+  border:1px solid var(--border-strong);
+  border-radius:var(--radius);
+  background:var(--surface);
+  color:var(--text);
+  outline:none;
+}
+.rho-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,142,247,0.15);}
+.rho-unit{font-size:14px;color:var(--muted);font-family:var(--mono);}
+
+.soil-table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;font-size:14px;}
+.soil-table th{background:var(--surface2);padding:9px 14px;text-align:left;font-size:11px;font-weight:500;color:var(--muted);border-bottom:1px solid var(--border);font-family:var(--mono);text-transform:uppercase;letter-spacing:0.05em;}
+.soil-table td{padding:11px 14px;border-bottom:1px solid var(--border);vertical-align:middle;}
+.soil-table tr:last-child td{border-bottom:none;}
+.soil-row.highlighted td{background:var(--accent-bg);}
+.soil-row.highlighted .rho-range{color:var(--accent-text);font-weight:600;}
+.rho-range{font-family:var(--mono);font-size:13px;}
+.action-badge{font-size:12px;font-weight:500;padding:3px 10px;border-radius:100px;display:inline-block;}
+.badge-green{background:var(--green-bg);color:var(--green-text);}
+.badge-orange{background:var(--orange-bg);color:var(--orange-text);}
+.badge-red{background:var(--red-bg);color:var(--red-text);}
+.time-num{font-family:var(--mono);font-size:15px;font-weight:500;}
+
+.soil-result{
+  display:none;
+  border-radius:var(--radius);
+  padding:14px 16px;
+  margin-top:10px;
+  font-size:14px;
+}
+.soil-result.show{display:block;}
+.soil-result.ok{background:var(--green-bg);color:var(--green-text);}
+.soil-result.bentonita{background:var(--orange-bg);color:var(--orange-text);}
+.soil-result.engenharia{background:var(--red-bg);color:var(--red-text);}
+.soil-result-title{font-size:16px;font-weight:600;margin-bottom:4px;}
+.soil-result-sub{font-size:13px;line-height:1.5;margin-top:4px;}
+
+/* CRITÉRIO */
+.criterio-block{
+  background:var(--green-bg);
+  border:1px solid rgba(26,122,74,0.25);
+  border-radius:var(--radius);
+  padding:1.5rem;
+  display:flex;
+  align-items:center;
+  gap:1.5rem;
+  flex-wrap:wrap;
+  margin-bottom:1rem;
+}
+.criterio-val{
+  font-size:40px;font-weight:600;
+  font-family:var(--mono);
+  color:var(--green-text);
+  line-height:1;flex-shrink:0;
+}
+.criterio-info-title{font-size:15px;font-weight:600;color:var(--green-text);margin-bottom:4px;}
+.criterio-info-sub{font-size:13px;color:var(--green);line-height:1.5;}
+
+.resultado-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+
+/* REGISTRO */
+.registro-form{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:1.25rem;
+}
+.form-row{margin-bottom:12px;}
+.form-row label{display:block;font-size:12px;font-weight:500;color:var(--muted);margin-bottom:5px;font-family:var(--mono);text-transform:uppercase;letter-spacing:0.05em;}
+.form-input{
+  width:100%;
+  padding:9px 12px;
+  border:1px solid var(--border-strong);
+  border-radius:8px;
+  background:var(--surface);
+  color:var(--text);
+  font-size:14px;
+  font-family:var(--sans);
+  outline:none;
+  transition:border-color 0.15s;
+}
+.form-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,142,247,0.12);}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.form-row-full{grid-column:1/-1;}
+
+.btn-exportar{
+  width:100%;
+  margin-top:12px;
+  padding:11px;
+  background:var(--accent);
+  color:#fff;
+  border:none;
+  border-radius:var(--radius);
+  font-size:14px;
+  font-weight:500;
+  cursor:pointer;
+  font-family:var(--sans);
+  transition:opacity 0.15s;
+}
+.btn-exportar:hover{opacity:0.88;}
+
+.btn-limpar{
+  width:100%;
+  margin-top:8px;
+  padding:9px;
+  background:transparent;
+  color:var(--muted);
+  border:1px solid var(--border-strong);
+  border-radius:var(--radius);
+  font-size:13px;
+  cursor:pointer;
+  font-family:var(--sans);
+}
+.btn-limpar:hover{background:var(--surface2);}
+
+.export-preview{
+  display:none;
+  background:var(--surface2);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:14px;
+  margin-top:12px;
+  font-family:var(--mono);
+  font-size:12px;
+  line-height:1.8;
+  white-space:pre-wrap;
+  color:var(--text);
+}
+.export-preview.show{display:block;}
+.btn-copiar{
+  width:100%;
+  margin-top:8px;
+  padding:9px;
+  background:var(--green-bg);
+  color:var(--green-text);
+  border:1px solid rgba(26,122,74,0.2);
+  border-radius:var(--radius);
+  font-size:13px;
+  font-weight:500;
+  cursor:pointer;
+  font-family:var(--sans);
+}
+
+/* FOOTER */
+footer{
+  background:var(--surface);
+  border-top:1px solid var(--border);
+  padding:1.25rem;
+  text-align:center;
+}
+.footer-inner{max-width:680px;margin:0 auto;}
+.footer-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:3px;}
+.footer-meta{font-size:11px;color:var(--muted);}
+
+@media(max-width:560px){
+  .info-row{grid-template-columns:1fr;}
+  .form-grid{grid-template-columns:1fr;}
+  .resultado-grid{grid-template-columns:1fr;}
+  .epi-grid{grid-template-columns:1fr 1fr;}
+}
+
+/* ===== MANUAL TÉCNICO — estilos exclusivos ===== */
+/* BLOCO */
+.bloco-header{display:flex;align-items:center;gap:10px;margin-bottom:0.75rem;}
+.bloco-badge{font-family:var(--mono);font-size:11px;font-weight:500;padding:3px 10px;border-radius:5px;letter-spacing:0.04em;}
+.b1{background:var(--green-bg);color:var(--green-text);}
+.b2{background:var(--accent-bg);color:var(--accent-text);}
+.b3{background:var(--orange-bg);color:var(--orange-text);}
+.b4{background:var(--red-bg);color:var(--red-text);}
+.b5{background:var(--yellow-bg);color:var(--yellow);}
+.b6{background:var(--surface2);color:var(--muted);}
+
+/* CARD */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem 1.5rem;margin-bottom:1rem;}
+.card-title{font-size:14px;font-weight:600;margin-bottom:8px;color:var(--text);}
+
+/* ALERT */
+.alert{border-radius:var(--radius);padding:12px 14px;display:flex;gap:10px;align-items:flex-start;margin-bottom:1rem;font-size:14px;}
+.alert-icon{font-size:18px;flex-shrink:0;margin-top:1px;}
+.alert strong{font-weight:600;display:block;margin-bottom:2px;font-size:14px;}
+.alert p{font-size:13px;line-height:1.5;}
+.alert.info{background:var(--accent-bg);color:var(--accent-text);}
+.alert.success{background:var(--green-bg);color:var(--green-text);}
+.alert.warning{background:var(--orange-bg);color:var(--orange-text);}
+
+/* EQUAÇÃO */
+.eq-wrap{background:var(--surface2);border-radius:var(--radius);padding:1.25rem 1.5rem;margin:1rem 0;text-align:center;}
+.eq{font-family:var(--mono);font-size:20px;font-weight:500;color:var(--text);margin-bottom:10px;}
+.eq-vars{text-align:left;display:inline-block;font-size:13px;color:var(--muted);line-height:1.9;}
+.eq-vars span{font-family:var(--mono);font-weight:500;color:var(--text);}
+.eq-num{font-family:var(--mono);font-size:11px;color:var(--hint);float:right;margin-top:-28px;}
+
+/* TABELA */
+.data-table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;font-size:13px;margin-bottom:1rem;}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:1rem;}
+.table-scroll table{margin-bottom:0;min-width:420px;}
+.two-col-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:1rem 0;}
+.table-stack{display:grid;grid-template-columns:1fr;gap:1.25rem;margin:1rem 0;}
+.two-col-grid .data-table th:first-child,.table-stack .data-table th:first-child{text-align:center;}
+@media(max-width:520px){
+  .two-col-grid{grid-template-columns:1fr;}
+}
+.diagram-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1rem 0.5rem;margin-bottom:1rem;}
+.diagram-node{cursor:pointer;}
+.diagram-node rect{transition:opacity 0.15s;}
+.diagram-node:hover rect{opacity:0.72;}
+.data-table th{background:var(--surface2);padding:9px 14px;text-align:center;font-size:11px;font-weight:500;color:var(--muted);border-bottom:1px solid var(--border);font-family:var(--mono);text-transform:uppercase;letter-spacing:0.05em;}
+.data-table th:first-child{text-align:left;}
+.data-table td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:middle;}
+.data-table td.mono{text-align:center;}
+.data-table tr:last-child td{border-bottom:none;}
+.data-table tr:hover td{background:var(--surface2);}
+.mono{font-family:var(--mono);font-size:13px;font-weight:500;}
+
+/* RESULTADO DESTAQUE */
+.result-card{background:var(--green-bg);border:1px solid rgba(26,122,74,0.25);border-radius:var(--radius);padding:1.25rem 1.5rem;display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap;margin:1rem 0;}
+.result-val{font-size:36px;font-weight:600;font-family:var(--mono);color:var(--green-text);line-height:1;flex-shrink:0;}
+.result-info-title{font-size:14px;font-weight:600;color:var(--green-text);margin-bottom:3px;}
+.result-info-sub{font-size:13px;color:var(--green);line-height:1.5;}
+
+/* BLOCOS DIAGRAM */
+.blocos-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:1rem;}
+.bloco-card{border-radius:var(--radius);padding:14px;cursor:pointer;transition:opacity 0.15s;}
+.bloco-card:hover{opacity:0.85;}
+.bloco-card-num{font-family:var(--mono);font-size:10px;font-weight:500;margin-bottom:4px;opacity:0.7;}
+.bloco-card-title{font-size:13px;font-weight:600;margin-bottom:2px;}
+.bloco-card-sub{font-size:11px;opacity:0.75;}
+.bc1{background:var(--green-bg);color:var(--green-text);}
+.bc2{background:var(--accent-bg);color:var(--accent-text);}
+.bc3{background:var(--orange-bg);color:var(--orange-text);}
+.bc4{background:var(--red-bg);color:var(--red-text);}
+.bc5{background:var(--yellow-bg);color:var(--yellow);}
+.bc6{background:var(--surface2);color:var(--muted);}
+
+/* GRÁFICO */
+.chart-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;}
+.chart-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;flex-wrap:wrap;gap:8px;}
+.chart-title{font-size:14px;font-weight:500;}
+.chart-meta{font-size:12px;color:var(--muted);margin-top:2px;}
+.legend-row{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--muted);}
+.legend-item{display:flex;align-items:center;gap:6px;}
+
+/* PROSE */
+.prose{font-size:14px;line-height:1.75;color:var(--text);}
+.prose p{margin-bottom:0.85rem;}
+.prose strong{font-weight:600;}
+.prose em{font-family:var(--mono);font-size:13px;background:var(--surface2);padding:1px 5px;border-radius:4px;font-style:normal;}
+
+
+/* MALHA SVG */
+.malha-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;margin:1rem 0;}
+
+
+@media(max-width:560px){
+  .blocos-grid{grid-template-columns:1fr 1fr;}
+  .doc-header h1{font-size:18px;}
+}
+
+/* ===== MODE SWITCH (POP / MANUAL) ===== */
+.mode-switch{
+  display:flex;
+  background:var(--surface2);
+  border-radius:8px;
+  padding:2px;
+  gap:2px;
+}
+.mode-btn{
+  font-family:var(--sans);
+  font-size:12px;
+  font-weight:500;
+  color:var(--muted);
+  background:none;
+  border:none;
+  border-radius:6px;
+  padding:6px 12px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:5px;
+  white-space:nowrap;
+  transition:background 0.15s,color 0.15s;
+}
+.mode-btn:hover{color:var(--text);}
+.mode-btn.active{background:var(--surface);color:var(--text);box-shadow:0 1px 2px rgba(0,0,0,0.08);}
+.mode-btn.active[data-mode="pop"]{color:var(--accent-text);}
+.mode-btn.active[data-mode="manual"]{color:var(--orange-text);}
+@media(max-width:720px){
+  .topbar{flex-wrap:wrap;height:auto;padding:8px 1.25rem;gap:8px;}
+  .topbar-right{margin-left:auto;}
+}
+@media(max-width:420px){
+  .mode-btn span.mode-btn-label{display:none;}
+}
+
+/* ===== LANDING (ABERTURA) ===== */
+.landing{
+  min-height:100vh;
+  display:flex;
+  flex-direction:row;
+  align-items:stretch;
+  background:var(--bg);
+}
+.landing-sidebar{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:16px;
+  width:300px;
+  flex-shrink:0;
+  padding:2rem 1.5rem;
+  background:var(--surface);
+  border-right:1px solid var(--border);
+}
+.landing-content{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:flex-start;
+  max-width:420px;
+  text-align:left;
+  padding:2rem 2.5rem;
+}
+.landing-logo{
+  font-family:var(--mono);
+  font-size:12px;
+  font-weight:500;
+  color:var(--muted);
+  letter-spacing:0.06em;
+  margin-bottom:1.25rem;
+}
+.landing-content h1{
+  font-size:28px;
+  font-weight:600;
+  color:var(--text);
+  margin-bottom:0.6rem;
+  letter-spacing:-0.01em;
+}
+.landing-content>p{
+  font-size:15px;
+  color:var(--muted);
+  margin-bottom:0;
+}
+@media(max-width:760px){
+  .landing{flex-direction:column;}
+  .landing-sidebar{width:100%;border-right:none;border-bottom:1px solid var(--border);padding:1.75rem 1.25rem;}
+  .landing-content{align-items:center;text-align:center;max-width:480px;margin:0 auto;padding:2rem 1.25rem;}
+  .landing-content h1{font-size:22px;}
+}
+.landing-btn{
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  text-align:left;
+  gap:14px;
+  width:100%;
+  background:var(--surface);
+  border:1px solid var(--border-strong);
+  border-radius:14px;
+  padding:20px 18px;
+  cursor:pointer;
+  font-family:var(--sans);
+  transition:transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+}
+.landing-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 24px rgba(0,0,0,0.10);
+}
+.landing-btn-icon{font-size:30px;flex-shrink:0;}
+.landing-btn-title{font-size:17px;font-weight:600;color:var(--text);}
+.landing-btn-sub{font-size:12.5px;color:var(--muted);line-height:1.4;}
+.landing-btn-pop:hover{border-color:var(--accent-text);}
+.landing-btn-manual:hover{border-color:var(--orange-text);}
+.landing-footer{
+  margin-top:1.5rem;
+  font-size:12px;
+  color:var(--muted);
+}
+.home-btn{
+  background:var(--surface2);
+  border:1px solid var(--border-strong);
+  border-radius:8px;
+  padding:4px 10px;
+  font-size:13px;
+  font-weight:500;
+  color:var(--text);
+  cursor:pointer;
+  font-family:var(--sans);
+  display:flex;
+  align-items:center;
+  gap:4px;
+}
+</style>
+</head>
+<body>
+
+<!-- ABERTURA -->
+<div class="landing" id="landing">
+  <div class="landing-sidebar">
+    <button class="landing-btn landing-btn-pop" onclick="enterMode('pop')">
+      <span class="landing-btn-icon">👷</span>
+      <span>
+        <span class="landing-btn-title">POP</span><br>
+        <span class="landing-btn-sub">Procedimento operacional passo a passo, com calculadora de solo e registro da operação.</span>
+      </span>
+    </button>
+    <button class="landing-btn landing-btn-manual" onclick="enterMode('manual')">
+      <span class="landing-btn-icon">🎓</span>
+      <span>
+        <span class="landing-btn-title">Manual Técnico</span><br>
+        <span class="landing-btn-sub">Fundamentação técnica, normas, cálculos e referências de cada bloco do sistema.</span>
+      </span>
+    </button>
+  </div>
+  <div class="landing-content">
+    <div class="landing-logo">UGTM · COPEL-DIST-AT-001/002</div>
+    <h1>Aterramento Provisório de UGTM</h1>
+    <p>Escolha como você quer acessar o conteúdo, ao lado.</p>
+    <div class="landing-footer">Você pode alternar entre os dois modos a qualquer momento pelo topo da página.</div>
+  </div>
+</div>
+
+<!-- TOPBAR -->
+<div class="topbar" id="topbar" style="display:none;">
+  <div class="topbar-left">
+    <button class="home-btn" onclick="goHome()" title="Voltar à abertura">🏠</button>
+    <span class="topbar-logo" id="topbar-logo">POP · COPEL-DIST-AT-001</span>
+    <div class="mode-switch">
+      <button class="mode-btn active" data-mode="pop" onclick="setMode('pop')">👷 <span class="mode-btn-label">POP</span></button>
+      <button class="mode-btn" data-mode="manual" onclick="setMode('manual')">🎓 <span class="mode-btn-label">Manual Técnico</span></button>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <span class="topbar-version" id="topbar-version">v1.1.0 · 2026</span>
+    <button id="theme-btn" onclick="toggleTheme()" style="background:var(--surface2);border:1px solid var(--border-strong);border-radius:8px;padding:4px 12px;font-size:13px;font-weight:500;color:var(--text);cursor:pointer;font-family:var(--sans);display:flex;align-items:center;gap:6px;transition:background 0.15s;">
+      <span id="theme-icon">☀️</span>
+      <span id="theme-label">Claro</span>
+    </button>
+  </div>
+</div>
+
+<div class="app-body">
+<div class="sidebar-col">
+<!-- NAV — POP -->
+<div class="nav-anchors" id="nav-pop" style="display:none;">
+
+  <button class="nav-anchor active" onclick="goTo('objetivo')">Objetivo</button>
+  <button class="nav-anchor" onclick="goTo('epi')">EPI</button>
+  <button class="nav-anchor" onclick="goTo('materiais')">Materiais</button>
+  <button class="nav-anchor" onclick="goTo('procedimento')">Procedimento</button>
+  <button class="nav-anchor" onclick="goTo('solo')">Tabela de solo</button>
+  <button class="nav-anchor" onclick="goTo('criterio')">Critério</button>
+  <button class="nav-anchor" onclick="goTo('registro')">Registro</button></div>
+
+<!-- NAV — MANUAL -->
+<div class="nav-anchors" id="nav-manual" style="display:none;">
+
+  <button class="nav-anchor active" onclick="goTo('contexto')">Contexto</button>
+  <button class="nav-anchor" onclick="goTo('blocos')">Blocos</button>
+  <button class="nav-anchor" onclick="goTo('b1')">B1 — Solo</button>
+  <button class="nav-anchor" onclick="goTo('b2')">B2 — Critério</button>
+  <button class="nav-anchor" onclick="goTo('b3')">B3 — Sistema físico</button>
+  <button class="nav-anchor" onclick="goTo('b3b')">B3 — Bentonita</button>
+  <button class="nav-anchor" onclick="goTo('b4')">B4 — Proteção</button>
+  <button class="nav-anchor" onclick="goTo('b5')">B5 — Medição Rg</button>
+  <button class="nav-anchor" onclick="goTo('b6')">B6 — Suplementar</button>
+  <button class="nav-anchor" onclick="goTo('referencias')">Referências</button></div>
+</div>
+
+<div class="content-col">
+<!-- CABEÇALHOS -->
+<!-- CABEÇALHO DO DOCUMENTO -->
+<div class="doc-header" id="header-pop" style="display:none;">
+  <div class="doc-header-inner">
+    <div class="doc-eyebrow">
+      <span class="doc-type">POP</span>
+      <span class="doc-code">COPEL-DIST-AT-001</span>
+    </div>
+    <h1>Aterramento provisório de Unidade Geradora e Transformadora Móvel</h1>
+    <p>Instalação do kit portátil de 4 hastes com critério de aceite Rg ≤ 40 Ω conforme função 50N do relé SEPAM S40.</p>
+    <div class="doc-meta">
+      <div class="meta-item"><div class="meta-label">Versão</div><div class="meta-val">1.1.0</div></div>
+      <div class="meta-item"><div class="meta-label">Emissão</div><div class="meta-val">2026</div></div>
+      <div class="meta-item"><div class="meta-label">Prazo mínimo</div><div class="meta-val">−100 min</div></div>
+      <div class="meta-item"><div class="meta-label">Critério</div><div class="meta-val">Rg ≤ 40 Ω</div></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- CABEÇALHO -->
+<div class="doc-header" id="header-manual" style="display:none;">
+  <div class="doc-header-inner">
+    <div class="doc-eyebrow">
+      <span class="doc-type">MANUAL TÉCNICO</span>
+      <span class="doc-code">COPEL-DIST-AT-002</span>
+    </div>
+    <h1>Fundamentação técnica do sistema de aterramento provisório para UGTM</h1>
+    <p>Base científica e normativa que sustenta cada decisão do Procedimento Operacional Padrão. Desenvolvido como parte do PFC2 — PUCPR Engenharia Elétrica 2026/2.</p>
+    <div class="doc-meta">
+      <div class="meta-item"><div class="meta-label">Relé</div><div class="meta-val">SEPAM S40</div></div>
+      <div class="meta-item"><div class="meta-label">Função</div><div class="meta-val">50N</div></div>
+      <div class="meta-item"><div class="meta-label">Critério</div><div class="meta-val">Rg ≤ 40 Ω</div></div>
+      <div class="meta-item"><div class="meta-label">Malha</div><div class="meta-val">17 m × 4 m</div></div>
+      <div class="meta-item"><div class="meta-label">Método</div><div class="meta-val">Schwarz</div></div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="main" id="main-pop" style="display:none;">
+<!-- AVISO PRINCIPAL -->
+  <div class="alert danger">
+    <span class="alert-icon">⛔</span>
+    <div>
+      <strong>Início obrigatório com 100 minutos de antecedência</strong>
+      <p>O procedimento deve ser iniciado no mínimo 100 minutos antes do horário previsto para o desligamento da rede. Não iniciar após esse prazo sem autorização da engenharia.</p>
+    </div>
+  </div>
+
+  <!-- OBJETIVO E APLICAÇÃO -->
+  <div class="section" id="objetivo">
+    <div class="section-title"><span class="sec-num">01</span>Objetivo e aplicação</div>
+    <div class="info-row">
+      <div class="info-card">
+        <div class="info-card-label">Objetivo</div>
+        <div class="info-card-text">Garantir aterramento provisório eficaz da UGTM durante operações de campo, atingindo Rg ≤ 40 Ω para proteção de equipamentos e pessoas.</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">Aplicação</div>
+        <div class="info-card-text">UGTMs equipadas com relé SEPAM S40, função 50N. Aplicável a solos com resistividade de até 500 Ω·m — cenário de pior caso adotado para as tensões de toque e passo (IEEE 80-2013, ver Bloco 2 do Manual Técnico).</div>
+      </div>
+    </div>
+    <div class="section-title" style="margin-top:1.25rem;"><span class="sec-num">02</span>Referências normativas</div>
+    <div class="normas">
+      <span class="norma-tag">NR-10</span>
+      <span class="norma-tag">ABNT NBR 5410</span>
+      <span class="norma-tag">ABNT NBR 14039</span>
+      <span class="norma-tag">IEEE 80-2013</span>
+      <span class="norma-tag">SEPAM S40 — Schneider Electric</span>
+    </div>
+  </div>
+
+  <!-- EPI -->
+  <div class="section" id="epi">
+    <div class="section-title"><span class="sec-num">03</span>EPI obrigatório</div>
+    <div class="alert danger" style="margin-bottom:10px;">
+      <span class="alert-icon">⛔</span>
+      <div><strong>Nenhuma etapa deve ser iniciada sem EPI completo.</strong></div>
+    </div>
+    <div class="epi-grid">
+      <div class="epi-item"><span class="epi-name">Luvas de raspa</span></div>
+      <div class="epi-item"><span class="epi-name">Capacete de segurança</span></div>
+      <div class="epi-item"><span class="epi-name">Botina dielétrica</span></div>
+      <div class="epi-item"><span class="epi-name">Óculos de proteção</span></div>
+      <div class="epi-item"><span class="epi-name">Colete de alta visibilidade</span></div>
+      <div class="epi-item"><span class="epi-name">Roupa antichama</span></div>
+    </div>
+  </div>
+
+  <!-- MATERIAIS -->
+  <div class="section" id="materiais">
+    <div class="section-title"><span class="sec-num">04</span>Materiais necessários</div>
+    <table class="mat-table">
+      <thead>
+        <tr>
+          <th>Qtd</th>
+          <th>Item</th>
+          <th>Especificação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="qty">4</span></td><td>Haste de aterramento</td><td><span class="spec-tag">5/8" × 2.400 mm — aço cobreado</span></td></tr>
+        <tr><td><span class="qty">1</span></td><td>Cabo de neutro</td><td><span class="spec-tag">50 mm² — 5 m</span></td></tr>
+        <tr><td><span class="qty">42 m</span></td><td>Cabo de interligação</td><td><span class="spec-tag">25 mm²</span></td></tr>
+        <tr><td><span class="qty">4 doses</span></td><td>Bentonita sódica</td><td><span class="spec-tag">Pré-dosada por ponto</span></td></tr>
+        <tr><td><span class="qty">1</span></td><td>Terrômetro</td><td><span class="spec-tag">Método queda de potencial</span></td></tr>
+        <tr><td><span class="qty">1</span></td><td>Marreto / martelete</td><td><span class="spec-tag">Para cravação das hastes</span></td></tr>
+        <tr><td><span class="qty">1</span></td><td>Ferramental adequado para a instalação</td><td><span class="spec-tag">Alicate de compressão, chaves e ferramentas para as conexões</span></td></tr>
+        <tr><td><span class="qty">≥ 6 m</span></td><td>Fita de sinalização</td><td><span class="spec-tag">Isolamento do perímetro — raio mín. 1,38 m</span></td></tr>
+        <tr><td><span class="qty">4</span></td><td>Cones de sinalização</td><td><span class="spec-tag">Delimitação da zona controlada</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- PROCEDIMENTO -->
+  <div class="section" id="procedimento">
+    <div class="section-title"><span class="sec-num">05</span>Procedimento de instalação</div>
+
+    <div class="alert warning" style="margin-bottom:10px;">
+      <span class="alert-icon">⚠️</span>
+      <div>
+        <strong>Legenda das bordas coloridas</strong>
+        <p>Laranja = passo crítico de segurança &nbsp;·&nbsp; Verde = verificação obrigatória &nbsp;·&nbsp; Amarelo = passo condicional</p>
+      </div>
+    </div>
+
+    <!-- FLUXOGRAMA SVG -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin-bottom:1rem;">
+      <div style="font-size:13px;font-weight:500;color:var(--muted);margin-bottom:1rem;font-family:var(--mono);text-transform:uppercase;letter-spacing:0.05em;">Fluxograma de decisão</div>
+      <svg width="100%" viewBox="0 0 680 980" role="img" style="font-family:'Inter',sans-serif;">
+        <title>Fluxograma de decisão — POP aterramento provisório UGTM</title>
+        <desc>Sequência de decisões para instalação do kit de aterramento.</desc>
+        <defs>
+          <marker id="flarr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+        </defs>
+
+        <!-- INÍCIO -->
+        <ellipse cx="340" cy="48" rx="130" ry="26" fill="#D3D1C7" stroke="#5F5E5A" stroke-width="0.5"/>
+        <text x="340" y="48" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="500" fill="#2C2C2A">Início — 100 min antes</text>
+        <line x1="340" y1="74" x2="340" y2="104" stroke="#888780" stroke-width="1.2" marker-end="url(#flarr)"/>
+
+        <!-- EPI -->
+        <rect x="190" y="104" width="300" height="48" rx="8" fill="#B5D4F4" stroke="#185FA5" stroke-width="0.5"/>
+        <text x="340" y="128" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="500" fill="#042C53">Verificar EPI e isolar a área</text>
+        <line x1="340" y1="152" x2="340" y2="182" stroke="#888780" stroke-width="1.2" marker-end="url(#flarr)"/>
+
+        <!-- MEDIR ρ -->
+        <rect x="190" y="182" width="300" height="48" rx="8" fill="#B5D4F4" stroke="#185FA5" stroke-width="0.5"/>
+        <text x="340" y="206" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="500" fill="#042C53">Medir resistividade do solo (ρ)</text>
+        <line x1="340" y1="230" x2="340" y2="270" stroke="#888780" stroke-width="1.2" marker-end="url(#flarr)"/>
+
+        <!-- DECISÃO 1 -->
+        <polygon points="340,270 450,314 340,358 230,314" fill="#FAC775" stroke="#854F0B" stroke-width="0.5"/>
+        <text x="340" y="310" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="500" fill="#412402">ρ &gt; 500 Ω·m?</text>
+
+        <!-- NÃO desce -->
+        <line x1="340" y1="358" x2="340" y2="418" stroke="#3B6D11" stroke-width="1.2" marker-end="url(#flarr)"/>
+        <text x="358" y="390" font-size="12" fill="#3B6D11">Não</text>
+
+        <!-- SIM → direita -->
+        <line x1="450" y1="314" x2="578" y2="314" stroke="#854F0B" stroke-width="1.2" marker-end="url(#flarr)"/>
+        <text x="514" y="306" text-anchor="middle" font-size="12" fill="#633806">Sim</text>
+
+        <!-- BENTONITA -->
+        <rect x="578" y="290" width="72" height="48" rx="8" fill="#FAC775" stroke="#854F0B" stroke-width="0.5"/>
+        <text x="614" y="308" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="500" fill="#412402">Aplicar</text>
+        <text x="614" y="324" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="500" fill="#412402">bentonita</text>
+
+        <!-- RETORNO bentonita → medir ρ -->
+        <path d="M614 290 L614 206 L492 206" fill="none" stroke="#854F0B" stroke-width="1.2" stroke-dasharray="5 3" marker-end="url(#flarr)"/>
+
+        <!-- INSTALAR HASTES -->
+        <rect x="190" y="418" width="300" height="48" rx="8" fill="#B5D4F4" stroke="#185FA5" stroke-width="0.5"/>
+        <text x="340" y="442" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="500" fill="#042C53">Instalar hastes e cabos</text>
+        <line x1="340" y1="466" x2="340" y2="496" stroke="#888780" stroke-width="1.2" marker-end="url(#flarr)"/>
+
+        <!-- MEDIR Rg -->
+        <rect x="190" y="496" width="300" height="48" rx="8" fill="#B5D4F4" stroke="#185FA5" stroke-width="0.5"/>
+        <text x="340" y="520" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="500" fill="#042C53">Medir Rg — queda de potencial</text>
+        <line x1="340" y1="544" x2="340" y2="584" stroke="#888780" stroke-width="1.2" marker-end="url(#flarr)"/>
+
+        <!-- DECISÃO 2 -->
+        <polygon points="340,584 450,628 340,672 230,628" fill="#FAC775" stroke="#854F0B" stroke-width="0.5"/>
+        <text x="340" y="624" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="500" fill="#412402">Rg ≤ 40 Ω?</text>
+
+        <!-- SIM → esquerda → LIBERAR -->
+        <line x1="230" y1="628" x2="150" y2="628" stroke="#3B6D11" stroke-width="1.2" marker-end="url(#flarr)"/>
+        <text x="190" y="619" text-anchor="middle" font-size="12" fill="#3B6D11">Sim</text>
+        <rect x="32" y="600" width="118" height="56" rx="28" fill="#C0DD97" stroke="#3B6D11" stroke-width="0.5"/>
+        <text x="91" y="622" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="500" fill="#173404">Registrar</text>
+        <text x="91" y="640" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="500" fill="#173404">e liberar</text>
+
+        <!-- NÃO → config secundária -->
+        <line x1="340" y1="672" x2="340" y2="712" stroke="#854F0B" stroke-width="1.2" marker-end="url(#flarr)"/>
+        <text x="358" y="694" font-size="12" fill="#633806">Não</text>
+
+        <!-- CONFIG SECUNDÁRIA -->
+        <rect x="190" y="712" width="300" height="48" rx="8" fill="#FAC775" stroke="#854F0B" stroke-width="0.5"/>
+        <text x="340" y="736" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="500" fill="#412402">Configuração secundária (+2 hastes)</text>
+        <line x1="340" y1="760" x2="340" y2="800" stroke="#888780" stroke-width="1.2" marker-end="url(#flarr)"/>
+
+        <!-- DECISÃO 3 -->
+        <polygon points="340,800 450,844 340,888 230,844" fill="#FAC775" stroke="#854F0B" stroke-width="0.5"/>
+        <text x="340" y="840" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="500" fill="#412402">Rg ≤ 40 Ω?</text>
+
+        <!-- SIM → esquerda → LIBERAR 2 -->
+        <line x1="230" y1="844" x2="150" y2="844" stroke="#3B6D11" stroke-width="1.2" marker-end="url(#flarr)"/>
+        <text x="190" y="835" text-anchor="middle" font-size="12" fill="#3B6D11">Sim</text>
+        <rect x="32" y="816" width="118" height="56" rx="28" fill="#C0DD97" stroke="#3B6D11" stroke-width="0.5"/>
+        <text x="91" y="838" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="500" fill="#173404">Registrar</text>
+        <text x="91" y="856" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="500" fill="#173404">e liberar</text>
+
+        <!-- NÃO → cancelar -->
+        <line x1="340" y1="888" x2="340" y2="924" stroke="#A32D2D" stroke-width="1.2" marker-end="url(#flarr)"/>
+        <text x="358" y="908" font-size="12" fill="#A32D2D">Não</text>
+
+        <!-- CANCELAR -->
+        <ellipse cx="340" cy="950" rx="160" ry="26" fill="#F7C1C1" stroke="#A32D2D" stroke-width="0.5"/>
+        <text x="340" y="950" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="500" fill="#501313">Cancelar — acionar engenharia</text>
+      </svg>
+    </div>
+
+    <div class="steps">
+
+      <div class="step critical">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Verificar EPI completo e isolar a área</div>
+          <div class="step-desc">Confirmar uso de todos os EPI listados na seção 03. Delimitar a zona controlada com fita de sinalização e cones a partir de um raio mínimo de <strong>1,38 m</strong> do ponto energizado mais próximo (Rc para instalações de 13,8 kV, conforme a tabela de raios de delimitação do Anexo I da NR-10). Nenhum operador sem EPI deve permanecer dentro desse raio.</div>
+          <span class="step-tag tag-warn">segurança — obrigatório · raio 1,38 m</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">Medir a resistividade do solo (ρ)</div>
+          <div class="step-desc">Utilizar o terrômetro no método de Wenner com espaçamento de 2,4 m entre eletrodos. Registrar o valor de ρ em Ω·m no formulário de registro.</div>
+          <span class="step-tag tag-info">terrômetro · método Wenner</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Consultar a tabela de solo (seção 06)</div>
+          <div class="step-desc">Com o valor de ρ medido, identificar se a bentonita é necessária. Se ρ ≤ 500 Ω·m, avançar diretamente para o passo 5.</div>
+          <span class="step-tag tag-info">ver seção 06</span>
+        </div>
+      </div>
+
+      <div class="step conditional">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-title">Aplicar bentonita sódica</div>
+          <div class="step-desc">Somente se ρ &gt; 500 Ω·m. Abrir os 4 pontos de instalação das hastes. Despejar a bentonita pré-dosada em cada ponto e adicionar água conforme a embalagem. Anotar o horário de aplicação.</div>
+          <span class="step-tag tag-cond">somente se ρ &gt; 500 Ω·m</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <div class="step-title">Instalar as 4 hastes nos vértices da carreta</div>
+          <div class="step-desc">Craveiar as hastes de 2.400 mm nos 4 cantos do retângulo 17 m × 4 m. Instalar verticalmente até o limite do comprimento.</div>
+          <span class="step-tag tag-info">retângulo 17 m × 4 m</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">6</div>
+        <div class="step-body">
+          <div class="step-title">Instalar os cabos de interligação</div>
+          <div class="step-desc">Conectar as 4 hastes entre si com o cabo 25 mm² formando o perímetro da malha. Verificar aperto de todas as conexões.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">7</div>
+        <div class="step-body">
+          <div class="step-title">Conectar o cabo de neutro</div>
+          <div class="step-desc">Conectar o cabo 50 mm² entre a malha e o neutro da UGTM. Verificar continuidade e aperto da conexão.</div>
+        </div>
+      </div>
+
+      <div class="step conditional">
+        <div class="step-num">8</div>
+        <div class="step-body">
+          <div class="step-title">Aguardar o tempo de espera da bentonita</div>
+          <div class="step-desc">Somente se bentonita foi aplicada no passo 4. Aguardar o tempo indicado na tabela de solo. Não realizar medição antes do prazo.</div>
+          <span class="step-tag tag-cond">somente se bentonita aplicada</span>
+        </div>
+      </div>
+
+      <div class="step verify">
+        <div class="step-num">9</div>
+        <div class="step-body">
+          <div class="step-title">Medir a resistência de aterramento (Rg)</div>
+          <div class="step-desc">Com o terrômetro, medir Rg pelo método da queda de potencial. Registrar o valor obtido no formulário de registro.</div>
+          <span class="step-tag tag-info">terrômetro · queda de potencial</span>
+        </div>
+      </div>
+
+      <div class="step verify">
+        <div class="step-num">10</div>
+        <div class="step-body">
+          <div class="step-title">Verificar o critério de aceite</div>
+          <div class="step-desc">Rg ≤ 40 Ω → kit aprovado, avançar para o passo 13. Rg &gt; 40 Ω → acionar a configuração secundária no passo 11.</div>
+          <span class="step-tag tag-ok">critério: Rg ≤ 40 Ω</span>
+        </div>
+      </div>
+
+      <div class="step conditional">
+        <div class="step-num">11</div>
+        <div class="step-body">
+          <div class="step-title">Configuração secundária</div>
+          <div class="step-desc">Somente se Rg &gt; 40 Ω. Instalar 2 hastes adicionais nas arestas da malha. Reconectar os cabos de interligação incluindo as novas hastes. Repetir o passo 9.</div>
+          <span class="step-tag tag-cond">somente se Rg &gt; 40 Ω</span>
+        </div>
+      </div>
+
+      <div class="step critical">
+        <div class="step-num">12</div>
+        <div class="step-body">
+          <div class="step-title">Rg ainda acima de 40 Ω após configuração secundária — cancelar intervenção</div>
+          <div class="step-desc">Se após a configuração secundária o Rg medido ainda for superior a 40 Ω, a intervenção deve ser cancelada imediatamente. Acionar a equipe de engenharia responsável para avaliação do solo e definição de procedimento alternativo. Não energizar a UGTM.</div>
+          <span class="step-tag tag-warn">cancelar · acionar engenharia</span>
+        </div>
+      </div>
+
+      <div class="step verify">
+        <div class="step-num">13</div>
+        <div class="step-body">
+          <div class="step-title">Preencher o registro da operação</div>
+          <div class="step-desc">Preencher todos os campos do formulário na seção 08. O registro é obrigatório para liberação da operação ou para documentação do cancelamento.</div>
+          <span class="step-tag tag-ok">obrigatório para liberação</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TABELA DE SOLO INTERATIVA -->
+  <div class="section" id="solo">
+    <div class="section-title"><span class="sec-num">06</span>Tabela de solo — tempo de espera</div>
+
+    <div class="rho-input-wrap">
+      <label for="rho-val">Resistividade medida:</label>
+      <input class="rho-input" type="number" id="rho-val" placeholder="76" min="0" max="99999" oninput="updateSolo()">
+      <span class="rho-unit">Ω·m</span>
+    </div>
+
+    <table class="soil-table">
+      <thead>
+        <tr>
+          <th>Resistividade (Ω·m)</th>
+          <th>Ação</th>
+          <th>Tempo de espera</th>
+        </tr>
+      </thead>
+      <tbody id="solo-tbody">
+        <tr class="soil-row" data-min="0" data-max="500">
+          <td><span class="rho-range">≤ 500</span></td>
+          <td><span class="action-badge badge-green">Sem bentonita</span></td>
+          <td><span class="time-num">—</span></td>
+        </tr>
+        <tr class="soil-row" data-min="501" data-max="999999">
+          <td><span class="rho-range">&gt; 500</span></td>
+          <td><span class="action-badge badge-orange">Aplicar bentonita</span></td>
+          <td><span class="time-num">≈ 60 min</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="soil-result" id="solo-result"></div>
+    <p style="font-size:12px;color:var(--muted);margin-top:8px;">Limiar operacional adotado no TCC: ρ ≤ 500 Ω·m dispensa bentonita (ver Bloco 2 e Bloco 3 do Manual Técnico). O tempo de espera de referência vem do ensaio de campo com anel perimetral e bentonita, medido em ρ = 76 Ω·m (Bloco 3 — Bentonita). Para resistividades muito acima de 500 Ω·m, não há dado de campo — acionar a engenharia antes de prosseguir.</p>
+  </div>
+
+  <!-- CRITÉRIO DE ACEITE -->
+  <div class="section" id="criterio">
+    <div class="section-title"><span class="sec-num">07</span>Critério de aceite</div>
+
+    <div class="criterio-block">
+      <div class="criterio-val">Rg ≤ 40 Ω</div>
+      <div>
+        <div class="criterio-info-title">Resistência máxima de aterramento</div>
+        <div class="criterio-info-sub">Derivado do pickup da função 50N do relé SEPAM S40.<br>Pickup: 6,28 A · Tempo de atuação: 30 ms.</div>
+      </div>
+    </div>
+
+    <div class="resultado-grid">
+      <div class="alert success">
+        <span class="alert-icon">✅</span>
+        <div>
+          <strong>Rg ≤ 40 Ω — Aprovado</strong>
+          <p>Preencher o registro e liberar para operação.</p>
+        </div>
+      </div>
+      <div class="alert warning">
+        <span class="alert-icon">⚠️</span>
+        <div>
+          <strong>Rg &gt; 40 Ω — Reprovado</strong>
+          <p>Acionar configuração secundária (passo 11) e medir novamente.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REGISTRO -->
+  <div class="section" id="registro">
+    <div class="section-title"><span class="sec-num">08</span>Registro da operação</div>
+
+    <div class="registro-form">
+      <div class="form-grid">
+        <div class="form-row">
+          <label for="r-data">Data</label>
+          <input class="form-input" type="date" id="r-data">
+        </div>
+        <div class="form-row">
+          <label for="r-hora">Hora de início</label>
+          <input class="form-input" type="time" id="r-hora">
+        </div>
+        <div class="form-row form-row-full">
+          <label for="r-local">Local / identificação da UGTM</label>
+          <input class="form-input" type="text" id="r-local" placeholder="Ex: UGTM-042 · Subestação Curitiba Norte">
+        </div>
+        <div class="form-row">
+          <label for="r-rho">ρ medido (Ω·m)</label>
+          <input class="form-input" type="number" id="r-rho" placeholder="76">
+        </div>
+        <div class="form-row">
+          <label for="r-rg">Rg medido (Ω)</label>
+          <input class="form-input" type="number" id="r-rg" placeholder="8.5" step="0.1">
+        </div>
+        <div class="form-row">
+          <label for="r-config">Configuração utilizada</label>
+          <select class="form-input" id="r-config">
+            <option value="">Selecionar</option>
+            <option value="primaria">Primária — 4 hastes</option>
+            <option value="secundaria">Secundária — 6 hastes</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="r-bentonita">Bentonita aplicada</label>
+          <select class="form-input" id="r-bentonita">
+            <option value="">Selecionar</option>
+            <option value="nao">Não</option>
+            <option value="sim">Sim</option>
+          </select>
+        </div>
+        <div class="form-row form-row-full">
+          <label for="r-resp">Responsável técnico</label>
+          <input class="form-input" type="text" id="r-resp" placeholder="Nome e matrícula">
+        </div>
+        <div class="form-row form-row-full">
+          <label for="r-obs">Observações</label>
+          <input class="form-input" type="text" id="r-obs" placeholder="Condições do solo, intercorrências, etc.">
+        </div>
+      </div>
+
+      <button class="btn-exportar" onclick="exportar()">Gerar registro para copiar</button>
+      <button class="btn-limpar" onclick="limpar()">Limpar formulário</button>
+
+      <div class="export-preview" id="export-preview"></div>
+      <button class="btn-copiar" id="btn-copiar" style="display:none;" onclick="copiar()">Copiar registro</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="main" id="main-manual" style="display:none;">
+<!-- SEÇÃO 1: CONTEXTO -->
+<div class="section" id="contexto">
+  <div class="section-title"><span class="sec-num">01</span>Contexto e problema</div>
+
+  <div class="prose">
+    <p>Em um cenário de falta fase-terra, a corrente de defeito percorre o sistema de aterramento e se dissipa radialmente no solo ao redor dos eletrodos. Quando a resistividade do solo é elevada, essa dissipação é dificultada e o potencial elétrico na superfície cresce abruptamente — fenômeno denominado <strong>Elevação de Potencial de Terra (GPR)</strong>.</p>
+    <p>A <a href="#ref-1" class="cite">IEEE 80-2013 [1]</a> define o GPR como o produto da corrente de falta pela resistência de aterramento, determinando diretamente a magnitude das tensões perigosas na área de operação. Dois riscos decorrem diretamente do GPR:</p>
+  </div>
+
+  <div class="two-col-grid">
+    <div class="card">
+      <div class="card-title">Tensão de toque</div>
+      <div class="prose"><p>Diferença de potencial entre a carcaça da UGTM e o ponto do solo onde o operador pisa ao encostar no equipamento. A corrente percorre braço, tronco e pés.</p></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Tensão de passo</div>
+      <div class="prose"><p>Diferença de potencial entre os dois pés de um operador que caminha na área afetada, criando caminho de corrente pelas pernas sem necessitar tocar o equipamento.</p></div>
+    </div>
+  </div>
+
+  <div class="alert warning">
+    <span class="alert-icon">⚠️</span>
+    <div>
+      <strong>Limite fisiológico — <a href="#ref-2" class="cite" style="color:inherit;">IEC 60479-1:2018 [2]</a></strong>
+      <p>Correntes a partir de 116 mA podem causar fibrilação ventricular em exposições de um segundo, tornando ambos os fenômenos potencialmente letais em instalações com aterramento inadequado.</p>
+    </div>
+  </div>
+
+  <div class="prose">
+    <p>As instalações com haste única produzem resistências de <strong>100 a 300 Ω</strong> em campo — valores que inviabilizam a atuação da proteção de neutro. O kit portátil foi desenvolvido para garantir Rg ≤ 40 Ω em qualquer condição de solo operacional da COPEL no Paraná, conforme as diretrizes de aterramento provisório em subestações móveis da <a href="#ref-20" class="cite">IEEE 1246-2020 [20]</a> e da <a href="#ref-19" class="cite">IEEE 1268-2016 [19]</a>.</p>
+  </div>
+
+  <div class="normas">
+    <a href="#ref-1" class="norma-tag">IEEE 80-2013<span class="tag-num">1</span></a>
+    <a href="#ref-2" class="norma-tag">IEC 60479-1:2018<span class="tag-num">2</span></a>
+    <a href="#ref-4" class="norma-tag">NR-10<span class="tag-num">4</span></a>
+    <a href="#ref-20" class="norma-tag">IEEE 1246-2020<span class="tag-num">20</span></a>
+    <a href="#ref-19" class="norma-tag">IEEE 1268-2016<span class="tag-num">19</span></a>
+  </div>
+</div>
+
+<!-- SEÇÃO 2: BLOCOS -->
+<div class="section" id="blocos">
+  <div class="section-title"><span class="sec-num">02</span>Diagrama de blocos do sistema</div>
+
+  <div class="prose"><p>O sistema é composto por 6 blocos funcionais. O diagrama abaixo mostra como eles dependem uns dos outros — clique em qualquer bloco para navegar até sua fundamentação técnica.</p></div>
+
+  <div class="diagram-wrap">
+  <svg viewBox="0 0 1200 1080" width="100%" style="display:block;" role="img">
+    <title>Diagrama de blocos do sistema de aterramento portátil para UGTM</title>
+    <defs>
+      <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke="#8b93a1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+      <marker id="arrowDash" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke="#a7aeb9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+      <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
+        <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#1a1f2b" flood-opacity="0.18"/>
+      </filter>
+      <filter id="chipShadow" x="-50%" y="-50%" width="200%" height="200%">
+        <feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#1a1f2b" flood-opacity="0.20"/>
+      </filter>
+      <linearGradient id="gradBlue" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1b6f8c"/><stop offset="100%" stop-color="#125269"/></linearGradient>
+      <linearGradient id="gradPurple" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#5647a3"/><stop offset="100%" stop-color="#3d3480"/></linearGradient>
+      <linearGradient id="gradRust" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#af4b2e"/><stop offset="100%" stop-color="#8c3a22"/></linearGradient>
+      <linearGradient id="gradAmber" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c4870f"/><stop offset="100%" stop-color="#a06c09"/></linearGradient>
+      <linearGradient id="gradGreen" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1f8f5a"/><stop offset="100%" stop-color="#146b43"/></linearGradient>
+      <linearGradient id="gradSlate" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#5c6472"/><stop offset="100%" stop-color="#454c58"/></linearGradient>
+    </defs>
+
+    <rect x="0" y="0" width="1200" height="1080" fill="#fbfaf8"/>
+
+    <g class="diagram-node" onclick="goTo('b4')">
+      <rect x="160" y="40" width="330" height="92" rx="16" fill="url(#gradRust)" filter="url(#softShadow)"/>
+      <rect x="160" y="40" width="330" height="92" rx="16" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>
+      <text x="325" y="79" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff" letter-spacing="0.2">Bloco 4</text>
+      <text x="325" y="107" text-anchor="middle" font-size="15.5" fill="#f6ddd3">Relé, pickup em 30 ms</text>
+    </g>
+
+    <g class="diagram-node" onclick="goTo('b2')">
+      <rect x="700" y="40" width="330" height="92" rx="16" fill="url(#gradSlate)" filter="url(#softShadow)"/>
+      <rect x="700" y="40" width="330" height="92" rx="16" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>
+      <text x="865" y="79" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff" letter-spacing="0.2">IEEE 80-2013</text>
+      <text x="865" y="107" text-anchor="middle" font-size="15.5" fill="#e6e8ec">Limite de segurança</text>
+    </g>
+
+    <g class="diagram-node" onclick="goTo('b2')">
+      <rect x="430" y="222" width="330" height="92" rx="16" fill="url(#gradPurple)" filter="url(#softShadow)"/>
+      <rect x="430" y="222" width="330" height="92" rx="16" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>
+      <text x="595" y="261" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff">Bloco 2, Critério</text>
+      <text x="595" y="289" text-anchor="middle" font-size="15.5" fill="#ded8f5">Rg ≤ 40 Ω</text>
+    </g>
+
+    <g class="diagram-node" onclick="goTo('b1')">
+      <rect x="90" y="418" width="300" height="92" rx="16" fill="url(#gradBlue)" filter="url(#softShadow)"/>
+      <rect x="90" y="418" width="300" height="92" rx="16" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>
+      <text x="240" y="457" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff">Bloco 1, Solo</text>
+      <text x="240" y="485" text-anchor="middle" font-size="15.5" fill="#d3e9f2">Mede ρ (Wenner)</text>
+    </g>
+
+    <g class="diagram-node" onclick="goTo('b3')">
+      <rect x="430" y="524" width="330" height="92" rx="16" fill="url(#gradRust)" filter="url(#softShadow)"/>
+      <rect x="430" y="524" width="330" height="92" rx="16" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>
+      <text x="595" y="563" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff">Bloco 3, Físico</text>
+      <text x="595" y="591" text-anchor="middle" font-size="15.5" fill="#f6ddd3">Hastes e bentonita</text>
+    </g>
+
+    <g class="diagram-node" onclick="goTo('b5')">
+      <rect x="430" y="704" width="330" height="92" rx="16" fill="url(#gradAmber)" filter="url(#softShadow)"/>
+      <rect x="430" y="704" width="330" height="92" rx="16" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>
+      <text x="595" y="743" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff">Bloco 5, Mede Rg</text>
+      <text x="595" y="771" text-anchor="middle" font-size="15.5" fill="#fbecd0">Queda de potencial</text>
+    </g>
+
+    <g class="diagram-node" onclick="goTo('b6')">
+      <rect x="430" y="884" width="330" height="92" rx="16" fill="url(#gradGreen)" filter="url(#softShadow)"/>
+      <rect x="430" y="884" width="330" height="92" rx="16" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>
+      <text x="595" y="923" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff">Bloco 6</text>
+      <text x="595" y="951" text-anchor="middle" font-size="15.5" fill="#cdeee0">Procedimento operacional</text>
+    </g>
+
+    <path d="M420 132 C420 168 515 166 553 220" fill="none" stroke="#8b93a1" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M770 132 C770 168 672 166 647 220" fill="none" stroke="#8b93a1" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="595" y1="314" x2="595" y2="520" stroke="#8b93a1" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M320 510 C320 548 415 552 452 524" fill="none" stroke="#8b93a1" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="595" y1="616" x2="595" y2="700" stroke="#8b93a1" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M762 726 C 886 726 886 590 762 561" fill="none" stroke="#a7aeb9" stroke-width="2" stroke-dasharray="1 7" stroke-linecap="round" marker-end="url(#arrowDash)"/>
+    <text x="897" y="649" text-anchor="middle" font-size="15.5" fill="#7a828e" font-style="italic">se Rg &gt; 40 Ω</text>
+    <line x1="595" y1="796" x2="595" y2="880" stroke="#8b93a1" stroke-width="2.25" marker-end="url(#arrow)"/>
+    <text x="702" y="843" text-anchor="middle" font-size="15.5" fill="#7a828e" font-style="italic">se Rg ≤ 40 Ω</text>
+
+    <line x1="90" y1="1008" x2="1110" y2="1008" stroke="#e4e1da" stroke-width="1"/>
+    <g>
+      <rect x="90" y="1030" width="20" height="20" rx="5" fill="url(#gradBlue)" filter="url(#chipShadow)"/>
+      <text x="120" y="1045" font-size="15.5" fill="#4a4f58">Medição</text>
+      <rect x="228" y="1030" width="20" height="20" rx="5" fill="url(#gradPurple)" filter="url(#chipShadow)"/>
+      <text x="258" y="1045" font-size="15.5" fill="#4a4f58">Cálculo do critério</text>
+      <rect x="430" y="1030" width="20" height="20" rx="5" fill="url(#gradRust)" filter="url(#chipShadow)"/>
+      <text x="460" y="1045" font-size="15.5" fill="#4a4f58">Sistema físico / proteção</text>
+      <rect x="680" y="1030" width="20" height="20" rx="5" fill="url(#gradAmber)" filter="url(#chipShadow)"/>
+      <text x="710" y="1045" font-size="15.5" fill="#4a4f58">Medição de resultado</text>
+      <rect x="918" y="1030" width="20" height="20" rx="5" fill="url(#gradGreen)" filter="url(#chipShadow)"/>
+      <text x="948" y="1045" font-size="15.5" fill="#4a4f58">Procedimento final</text>
+    </g>
+  </svg>
+  </div>
+</div>
+
+<!-- SEÇÃO 3: BLOCO 1 — SOLO -->
+<div class="section" id="b1">
+  <div class="section-title"><span class="sec-num">03</span>Bloco 1 — Medição da resistividade do solo</div>
+  <div class="bloco-header"><span class="bloco-badge b1">BLOCO 1 · WENNER</span></div>
+
+  <div class="prose">
+    <p>Antes de qualquer instalação é necessário medir a resistividade do solo no local de operação. Esse parâmetro governa diretamente a resistência de espalhamento dos eletrodos — solos com resistividades distintas podem produzir resistências que diferem em uma ordem de grandeza para uma mesma geometria de hastes <a href="#ref-8" class="cite">[8]</a>.</p>
+    <p>O método adotado é o <strong>método de Wenner</strong>, padronizado pela <a href="#ref-7" class="cite">IEEE 81-2012 [7]</a> e pela <a href="#ref-9" class="cite">ABNT NBR 7117:2020 [9]</a>. Quatro eletrodos são cravados em linha reta com espaçamento igual <em>a</em>. Uma corrente de teste I é injetada pelos eletrodos externos e a queda de tensão V é medida pelos dois internos.</p>
+  </div>
+
+  <div class="eq-wrap">
+    <div class="eq">ρ = 2π · a · R</div>
+    <div style="text-align:left;display:inline-block;">
+      <div class="eq-vars">
+        onde <span>R = V/I</span> é a resistência lida pelo instrumento<br>
+        <span>a</span> = espaçamento entre eletrodos consecutivos (m)<br>
+        <span>ρ</span> = resistividade aparente do solo (Ω·m)
+      </div>
+    </div>
+    <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (1)</div>
+  </div>
+
+  <div class="prose">
+    <p>O espaçamento <em>a</em> define a profundidade de investigação, correspondendo à resistividade média do solo até uma profundidade aproximadamente igual a <em>a</em>. Para este projeto, recomendam-se espaçamentos entre <strong>1 m e 3 m</strong>, compatíveis com o comprimento das hastes de 2,4 m.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Resistividades medidas em campo</div>
+    <table class="data-table">
+      <thead><tr><th>Condição</th><th>ρ (Ω·m)</th><th>Classificação</th></tr></thead>
+      <tbody>
+        <tr><td>Caracterização geométrica (Seção 6.1) — paralelo vs. anel</td><td class="mono">33,8</td><td>Baixa resistividade</td></tr>
+        <tr><td>Ensaios de bentonita (Seções 6.3 e 6.4)</td><td class="mono">76,0</td><td>Resistividade moderada</td></tr>
+      </tbody>
+    </table>
+    <div style="font-size:12px;color:var(--muted);margin-top:6px;">ρ = 500 Ω·m não é um valor medido em campo — é o cenário de pior caso adotado no Bloco 2 para as tensões de toque e passo, e o limiar operacional para decidir a aplicação de bentonita (ver Bloco 2 e Bloco 3).</div>
+  </div>
+
+  <div class="normas">
+    <a href="#ref-7" class="norma-tag">IEEE 81-2012<span class="tag-num">7</span></a>
+    <a href="#ref-9" class="norma-tag">ABNT NBR 7117:2020<span class="tag-num">9</span></a>
+    <a href="#ref-8" class="norma-tag">Kindermann &amp; Campagnolo (1995)<span class="tag-num">8</span></a>
+  </div>
+</div>
+
+<!-- SEÇÃO 4: BLOCO 2 — CRITÉRIO -->
+<div class="section" id="b2">
+  <div class="section-title"><span class="sec-num">04</span>Bloco 2 — Critério de aceite: 40 Ω</div>
+  <div class="bloco-header"><span class="bloco-badge b2">CRITÉRIO 1 · SENSIBILIDADE DA PROTEÇÃO</span></div>
+
+  <div class="prose">
+    <p>O critério de aceite Rg ≤ 40 Ω não é arbitrário — é derivado diretamente dos parâmetros do sistema de proteção embarcado na UGTM. O relé SEPAM S40 opera com a função <strong>50N (sobrecorrente de neutro instantânea)</strong>, com pickup ajustado em 30% da corrente nominal do lado de alta tensão e tempo de atuação configurado em 30 ms.</p>
+  </div>
+
+  <div class="eq-wrap">
+    <div class="eq">I<sub style="font-size:14px;">pickup</sub> = 0,30 × I<sub style="font-size:14px;">nominal,AT</sub> = 6,28 A</div>
+    <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (2)</div>
+  </div>
+
+  <div class="prose">
+    <p>Para que a proteção atue de forma garantida, a corrente de falta fase-terra deve ser superior ao pickup. Com Rg = 40 Ω, a corrente de falta resultante é:</p>
+  </div>
+
+  <div class="eq-wrap">
+    <div class="eq">I<sub style="font-size:14px;">falta</sub> = V<sub style="font-size:14px;">fase</sub> / Rg = 87,4 A</div>
+    <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (3)</div>
+  </div>
+
+  <div class="result-card">
+    <div class="result-val">14×</div>
+    <div>
+      <div class="result-info-title">Margem sobre o pickup da função 50N</div>
+      <div class="result-info-sub">87,4 A de falta ÷ 6,28 A de pickup = 13,9×<br>Garante a atuação instantânea da função 50N em 30 ms.</div>
+    </div>
+  </div>
+
+  <div class="prose">
+    <p>Com Rg = 40 Ω a corrente de falta representa <strong>14 vezes o pickup</strong>, garantindo a atuação instantânea da função 50N do SEPAM S40 em 30 ms. Qualquer valor acima de 40 Ω reduz a corrente de falta abaixo do limiar de operação segura.</p>
+  </div>
+
+  <div class="bloco-header" style="margin-top:1.75rem;"><span class="bloco-badge b2">CRITÉRIO 2 · SEGURANÇA DE PESSOAS</span></div>
+
+  <div class="prose">
+    <p>O segundo critério verifica se as tensões de toque e de passo a que os operadores estão expostos durante uma falta permanecem abaixo dos limites fisiológicos estabelecidos pela <a href="#ref-1" class="cite">IEEE 80-2013 [1]</a> e fundamentados na <a href="#ref-2" class="cite">IEC 60479-1:2018 [2]</a>. Para uma pessoa de 70 kg, a corrente máxima tolerável pelo corpo, com o tempo de atuação de 30 ms do relé, é:</p>
+  </div>
+
+  <div class="eq-wrap">
+    <div class="eq">I<sub style="font-size:14px;">corpo</sub> = 0,116 / √t<sub style="font-size:14px;">s</sub> = 0,116 / √0,030 = 0,670 A</div>
+    <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (15–16)</div>
+  </div>
+
+  <div class="prose">
+    <p>As tensões de toque e de passo máximas admissíveis incorporam a resistência do corpo humano (1000 Ω) e a resistência da camada superficial do solo, caracterizada pela resistividade ρₛ e pelo fator de redução Cₛ:</p>
+  </div>
+
+  <div class="eq-wrap">
+    <div class="eq">E<sub style="font-size:14px;">toque,máx</sub> = (1000 + 1,5 · ρₛ · Cₛ) × 0,670</div>
+    <div class="eq" style="margin-top:10px;">E<sub style="font-size:14px;">passo,máx</sub> = (1000 + 6 · ρₛ · Cₛ) × 0,670</div>
+    <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (17)</div>
+  </div>
+
+  <div class="prose">
+    <p>O coeficiente 6 no limite de passo, em vez de 1,5 para o toque, reflete que a corrente percorre o caminho pé a pé sem atravessar o coração diretamente, admitindo uma exposição quatro vezes maior para o mesmo risco fisiológico <a href="#ref-2" class="cite">[2]</a>. Adotando <strong>ρₛ = 500 Ω·m</strong> como cenário de pior caso e Cₛ = 1 (sem tratamento da camada superficial), os limites numéricos de aceite para este projeto são:</p>
+  </div>
+
+  <div class="two-col-grid">
+    <div class="result-card">
+      <div class="result-val" style="font-size:26px;">1.172 V</div>
+      <div>
+        <div class="result-info-title">Tensão de toque máxima</div>
+        <div class="result-info-sub">(1000 + 1,5 × 500) × 0,670</div>
+      </div>
+    </div>
+    <div class="result-card">
+      <div class="result-val" style="font-size:26px;">2.679 V</div>
+      <div>
+        <div class="result-info-title">Tensão de passo máxima</div>
+        <div class="result-info-sub">(1000 + 6 × 500) × 0,670</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert warning">
+    <span class="alert-icon">⚠️</span>
+    <div>
+      <strong>Resistividade máxima do solo: 500 Ω·m</strong>
+      <p>Solos com resistividade acima de 500 Ω·m estão fora do envelope de operação do conjunto sem análise adicional — os limites de tensão de toque e de passo calculados acima deixam de estar garantidos e a engenharia responsável deve ser consultada.</p>
+    </div>
+  </div>
+
+  <div class="prose">
+    <p>Para um operador equipotencializado com o anel perimetral do conjunto, a tensão de toque efetiva é aproximadamente zero, independentemente do valor do GPR. Para operadores fora do anel, as tensões efetivas de malha (Eₘ) e de passo (Eₛ) são calculadas pelo método de Schwarz — ver Bloco 3 — e devem permanecer dentro dos limites de 1.172 V e 2.679 V calculados acima.</p>
+    <p>Os dois critérios — sensibilidade da proteção e segurança de pessoas — convergem para o mesmo parâmetro operacional. A IEEE 1246-2020 e a IEEE 1268-2016, que tratam especificamente de sistemas de aterramento provisório em subestações móveis, convergem para a mesma abordagem: o critério de aceite deve garantir a atuação da proteção e a equipotencialização da área de trabalho (<a href="#ref-20" class="cite">20</a>, <a href="#ref-19" class="cite">19</a>).</p>
+  </div>
+
+  <div class="normas">
+    <a href="#ref-20" class="norma-tag">IEEE 1246-2020<span class="tag-num">20</span></a>
+    <a href="#ref-19" class="norma-tag">IEEE 1268-2016<span class="tag-num">19</span></a>
+    <a href="#ref-1" class="norma-tag">IEEE 80-2013<span class="tag-num">1</span></a>
+    <a href="#ref-2" class="norma-tag">IEC 60479-1:2018<span class="tag-num">2</span></a>
+    <a href="#ref-5" class="norma-tag">SEPAM S40 — Schneider Electric<span class="tag-num">5</span></a>
+  </div>
+</div>
+
+<!-- SEÇÃO 5: BLOCO 3 — SISTEMA FÍSICO -->
+<div class="section" id="b3">
+  <div class="section-title"><span class="sec-num">05</span>Bloco 3 — Sistema físico de aterramento</div>
+  <div class="bloco-header"><span class="bloco-badge b3">BLOCO 3 · SCHWARZ</span></div>
+
+  <div class="prose">
+    <p>O sistema físico é composto por três elementos que atuam em conjunto: os eletrodos verticais (hastes), o sistema de interligação (cabos) e o tratamento químico do solo (bentonita). A resistência total é calculada pelo <strong>método de Schwarz</strong> <a href="#ref-29" class="cite">[29]</a>, sistematizado no livro de <a href="#ref-30" class="cite">Visacro Filho [30]</a>, que combina a contribuição dos cabos e das hastes com suas resistências mútuas.</p>
+  </div>
+
+  <!-- GEOMETRIA SVG -->
+  <div class="malha-wrap">
+    <div style="font-size:12px;font-weight:500;color:var(--muted);margin-bottom:10px;font-family:var(--mono);text-transform:uppercase;letter-spacing:0.05em;">Vista em planta — configuração primária</div>
+    <svg width="100%" viewBox="0 0 500 160" style="font-family:'Inter',sans-serif;">
+      <!-- fundo UGTM -->
+      <rect x="60" y="30" width="380" height="100" rx="6" fill="#1a5fb010" stroke="#1a5fb0" stroke-width="1" stroke-dasharray="6 3"/>
+      <text x="250" y="80" text-anchor="middle" font-size="12" fill="#1a5fb0" font-weight="500">UGTM — 17 m × 4 m</text>
+
+      <!-- cabo perimetral -->
+      <rect x="40" y="18" width="420" height="124" rx="4" fill="none" stroke="#854F0B" stroke-width="1.5"/>
+      <text x="250" y="10" text-anchor="middle" font-size="10" fill="#854F0B">Cabo 25 mm² — anel perimetral (42 m)</text>
+
+      <!-- hastes nos vértices -->
+      <circle cx="40" cy="18" r="7" fill="#1a7a4a" stroke="#fff" stroke-width="1.5"/>
+      <circle cx="460" cy="18" r="7" fill="#1a7a4a" stroke="#fff" stroke-width="1.5"/>
+      <circle cx="40" cy="142" r="7" fill="#1a7a4a" stroke="#fff" stroke-width="1.5"/>
+      <circle cx="460" cy="142" r="7" fill="#1a7a4a" stroke="#fff" stroke-width="1.5"/>
+
+      <text x="40" y="5" text-anchor="middle" font-size="9" fill="#1a7a4a" font-weight="500">H1</text>
+      <text x="460" y="5" text-anchor="middle" font-size="9" fill="#1a7a4a" font-weight="500">H2</text>
+      <text x="40" y="158" text-anchor="middle" font-size="9" fill="#1a7a4a" font-weight="500">H3</text>
+      <text x="460" y="158" text-anchor="middle" font-size="9" fill="#1a7a4a" font-weight="500">H4</text>
+
+      <!-- dimensões -->
+      <line x1="40" y1="155" x2="460" y2="155" stroke="#888" stroke-width="0.8" marker-start="url(#dim)" marker-end="url(#dim)"/>
+      <text x="250" y="168" text-anchor="middle" font-size="10" fill="#888">17 m</text>
+      <line x1="476" y1="18" x2="476" y2="142" stroke="#888" stroke-width="0.8"/>
+      <text x="492" y="84" text-anchor="middle" font-size="10" fill="#888" transform="rotate(90,492,84)">4 m</text>
+
+      <!-- cabo neutro -->
+      <line x1="40" y1="80" x2="60" y2="80" stroke="#1a5fb0" stroke-width="2" stroke-dasharray="3 2"/>
+      <text x="15" y="78" font-size="9" fill="#1a5fb0">50 mm²</text>
+    </svg>
+    <div style="font-size:11px;color:var(--muted);margin-top:8px;">Hastes: aço cobreado 5/8" × 2.400 mm · Área da malha: 68 m² · Perímetro: 42 m</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Configuração dos eletrodos — hastes em paralelo vs. anel perimetral</div>
+    <div class="prose">
+      <p>A escolha por interligar as hastes com um cabo formando um anel perimetral, em vez de instalá-las isoladamente em paralelo, foi validada empiricamente por ensaios de campo com 1 a 5 hastes (Seção 6.1 do TCC), medindo a resistência de aterramento pelo método de queda de potencial a cada haste adicionada.</p>
+    </div>
+    <div class="table-stack">
+      <div>
+        <div style="font-size:12px;font-weight:500;color:var(--muted);margin-bottom:6px;">Solo favorável — ρ = 33,8 Ω·m</div>
+        <table class="data-table">
+          <thead><tr><th>Nº hastes</th><th>Paralelo (Ω)</th><th>Anel perimetral (Ω)</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">1</td><td class="mono">51,4</td><td class="mono">51,4</td></tr>
+            <tr><td class="mono">2</td><td class="mono">37,7</td><td class="mono">37,7</td></tr>
+            <tr><td class="mono">3</td><td class="mono">29,4</td><td class="mono">28,2</td></tr>
+            <tr><td class="mono">4</td><td class="mono">29,0</td><td class="mono">23,3</td></tr>
+            <tr><td class="mono">5</td><td class="mono">28,9</td><td class="mono">21,1</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:500;color:var(--muted);margin-bottom:6px;">Solo adverso — ρ = 500 Ω·m</div>
+        <table class="data-table">
+          <thead><tr><th>Nº hastes</th><th>Paralelo (Ω)</th><th>Anel perimetral (Ω)</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">1</td><td class="mono">293,0</td><td class="mono">293,0</td></tr>
+            <tr><td class="mono">2</td><td class="mono">143,0</td><td class="mono">143,0</td></tr>
+            <tr><td class="mono">3</td><td class="mono">93,5</td><td class="mono">78,5</td></tr>
+            <tr><td class="mono">4</td><td class="mono">72,5</td><td class="mono">35,5</td></tr>
+            <tr><td class="mono">5</td><td class="mono">58,5</td><td class="mono">25,5</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="alert info">
+      <span class="alert-icon">ℹ️</span>
+      <div>
+        <strong>Saturação a partir de 3 hastes em paralelo</strong>
+        <p>Sem interligação por anel, cada haste adicional contribui cada vez menos para reduzir Rg — as zonas de influência das hastes vizinhas se sobrepõem. A configuração com anel perimetral evita essa saturação, mantendo reduções relevantes mesmo com mais hastes. A configuração final do kit usa 6 hastes (4 primárias + 2 suplementares) — número maior que o ensaiado diretamente (5), então o comportamento com 6 hastes é uma extrapolação da tendência observada, não uma medição direta.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Método de Schwarz — 4 equações</div>
+
+    <div class="eq-wrap" style="margin-top:10px;">
+      <div style="font-size:12px;color:var(--muted);font-family:var(--mono);margin-bottom:6px;text-align:left;">Eq. (4) — Resistência da malha de cabos</div>
+      <div class="eq" style="font-size:16px;">Rc = (ρ / π·Lc) · [ln(2·Lc/h) + k₁·(Lc/√A) − k₂]</div>
+    </div>
+
+    <div class="eq-wrap">
+      <div style="font-size:12px;color:var(--muted);font-family:var(--mono);margin-bottom:6px;text-align:left;">Eq. (5) — Resistência das hastes verticais</div>
+      <div class="eq" style="font-size:16px;">Rh = (ρ / 2π·n·L) · [ln(4L/d) − 1 + (2k₁·L/√A)·(√n − 1)²]</div>
+    </div>
+
+    <div class="eq-wrap">
+      <div style="font-size:12px;color:var(--muted);font-family:var(--mono);margin-bottom:6px;text-align:left;">Eq. (6) — Resistência mútua malha–hastes</div>
+      <div class="eq" style="font-size:16px;">Rm = (ρ / π·Lc) · [ln(2·Lc/L) + k₁·(Lc/√A) − k₂ + 1]</div>
+    </div>
+
+    <div class="eq-wrap">
+      <div style="font-size:12px;color:var(--muted);font-family:var(--mono);margin-bottom:6px;text-align:left;">Eq. (7) — Resistência total combinada</div>
+      <div class="eq" style="font-size:16px;">Rg = (Rc · Rh) / (Rc + Rh − 2·Rm)</div>
+    </div>
+
+    <div class="eq-vars" style="display:block;margin-top:12px;padding:10px 14px;background:var(--surface2);border-radius:8px;">
+      <span>ρ</span> = resistividade do solo (Ω·m) &nbsp;·&nbsp;
+      <span>Lc</span> = comprimento total dos cabos = 42 m &nbsp;·&nbsp;
+      <span>h</span> ≈ 0 (cabos apoiados na superfície do solo)<br>
+      <span>A</span> = área da malha = 68 m² &nbsp;·&nbsp;
+      <span>n</span> = número de hastes = 4 &nbsp;·&nbsp;
+      <span>L</span> = comprimento das hastes = 2,40 m &nbsp;·&nbsp;
+      <span>d</span> = diâmetro das hastes = 0,01588 m (5/8")<br>
+      <span>k₁ = 1,24</span> e <span>k₂ = 5,11</span> — coeficientes geométricos da Curva A da Figura 24 da <a href="#ref-1" class="cite">IEEE 80-2013 [1]</a> para a/b = 4,25 (cabos na superfície)
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Resultados calculados — Schwarz</div>
+    <table class="data-table">
+      <thead><tr><th>Configuração</th><th>ρ (Ω·m)</th><th>Rg calculado (Ω)</th><th>Rg medido (Ω)</th><th>Nota</th></tr></thead>
+      <tbody>
+        <tr><td>Malha real — 17×4 m, 4 hastes 2,40 m</td><td class="mono">500</td><td class="mono">34,27</td><td class="mono">—</td><td style="color:var(--green-text);font-weight:500;">✓ Atende (limiar operacional adotado)</td></tr>
+        <tr><td>Protótipo em escala reduzida — 4×1,5 m, 4 hastes 1,50 m</td><td class="mono">33,8</td><td class="mono">5,15</td><td class="mono">7,85</td><td>Validação de campo (Seção 6.2)</td></tr>
+      </tbody>
+    </table>
+    <div style="font-size:12px;color:var(--muted);margin-top:6px;">O TCC não deriva uma resistividade crítica pelo método de Schwarz — o limiar operacional de aplicação de bentonita é ρ ≤ 500 Ω·m, adotado no Bloco 2 a partir do critério de tensão de toque/passo. A diferença entre o Rg previsto e o medido no protótipo é atribuída à heterogeneidade do solo no ponto de ensaio (Seção 6.2).</div>
+  </div>
+
+  <div class="normas">
+    <a href="#ref-1" class="norma-tag">IEEE 80-2013 Tab. 54<span class="tag-num">1</span></a>
+    <a href="#ref-29" class="norma-tag">Schwarz (1954)<span class="tag-num">29</span></a>
+    <a href="#ref-30" class="norma-tag">Visacro Filho (2002)<span class="tag-num">30</span></a>
+    <a href="#ref-22" class="norma-tag">ABNT NBR 14039<span class="tag-num">22</span></a>
+  </div>
+</div>
+
+<!-- SEÇÃO 6: BENTONITA -->
+<div class="section" id="b3b">
+  <div class="section-title"><span class="sec-num">06</span>Bloco 3 — Bentonita sódica</div>
+  <div class="bloco-header"><span class="bloco-badge b3">BLOCO 3 · BENTONITA</span></div>
+
+  <div class="prose">
+    <p>Para solos com ρ &gt; 500 Ω·m — limiar operacional adotado no TCC (Bloco 2) — a geometria da malha não é suficiente para atingir o critério de 40 Ω com segurança. Nesses casos, aplica-se <strong>bentonita sódica</strong> ao redor de cada haste. A bentonita é um argilomineral com alta capacidade de absorção hídrica — ao hidratar, expande e reduz significativamente a resistividade do solo ao redor dos eletrodos, podendo incorporar até cinco vezes o próprio peso em água <a href="#ref-24" class="cite">[24]</a>.</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-header">
+      <div>
+        <div class="chart-title">Rg × tempo — haste isolada com bentonita sódica hidratada (Tabela 5)</div>
+        <div class="chart-meta">ρ = 76 Ω·m · haste 1,50 m · bentonita aplicada em diâmetro de 30 cm ao redor da haste</div>
+      </div>
+      <div class="legend-row">
+        <span class="legend-item"><span style="width:10px;height:10px;border-radius:50%;background:#1a5fb0;display:inline-block;"></span>Rg medido (Ω)</span>
+        <span class="legend-item"><span style="width:20px;height:2px;border-top:2px dashed #b81c1c;display:inline-block;"></span>Referência: critério do conjunto (40 Ω)</span>
+      </div>
+    </div>
+    <div style="position:relative;height:280px;">
+      <div id="chartBentonita"></div>
+    </div>
+    <div class="alert success" style="margin-top:1rem;">
+      <span class="alert-icon">✅</span>
+      <div><strong>Redução de 88,6% em 90 minutos</strong><p>Rg caiu de 132 Ω para 15 Ω (fator de 8,8×), sem sinal claro de estabilização ao final do ensaio. Ensaio de campo com haste isolada — Seção 6.3 do TCC. Este valor não é diretamente comparável ao critério de 40 Ω do conjunto completo (é uma única haste, não a malha de 4–6 hastes).</p></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:1rem;">
+    <div class="card-title">Bentonita combinada com anel perimetral (Tabela 6)</div>
+    <div class="prose">
+      <p>Um segundo ensaio combinou as duas soluções adotadas no projeto — interligação por anel perimetral e tratamento com bentonita — usando 4 hastes de 1,5 m interligadas por um anel de 3 × 1,5 m, no mesmo solo do ensaio anterior (ρ = 76 Ω·m).</p>
+    </div>
+    <div class="two-col-grid">
+      <div class="result-card">
+        <div class="result-val" style="font-size:28px;">15,89 Ω</div>
+        <div><div class="result-info-title">Sem bentonita</div></div>
+      </div>
+      <div class="result-card">
+        <div class="result-val" style="font-size:28px;">7,53 Ω</div>
+        <div><div class="result-info-title">Com bentonita (60 min)</div></div>
+      </div>
+    </div>
+    <div class="prose">
+      <p>Os dois efeitos — anel perimetral e bentonita sódica — são complementares: essa configuração combinada apresentou a maior redução de resistência entre todos os ensaios do TCC, confirmando a bentonita como tratamento eficaz mesmo sobre uma malha já otimizada geometricamente.</p>
+    </div>
+  </div>
+
+  <div class="normas">
+    <a href="#ref-24" class="norma-tag">Martínez Ángeles et al. (2025)<span class="tag-num">24</span></a>
+    <a href="#ref-1" class="norma-tag">IEEE 80-2013<span class="tag-num">1</span></a>
+    <span class="norma-tag">Ensaio de campo — Os autores (2026)</span>
+  </div>
+</div>
+
+<!-- SEÇÃO 7: BLOCO 4 — PROTEÇÃO -->
+<div class="section" id="b4">
+  <div class="section-title"><span class="sec-num">07</span>Bloco 4 — Sistema de proteção: SEPAM S40</div>
+  <div class="bloco-header"><span class="bloco-badge b4">BLOCO 4 · PROTEÇÃO 50N</span></div>
+
+  <div class="prose">
+    <p>O relé SEPAM S40 da Schneider Electric é o equipamento de proteção embarcado na UGTM <a href="#ref-5" class="cite">[5]</a>. A função relevante para este projeto é a <strong>função 50N — sobrecorrente de neutro instantânea</strong>, que detecta correntes de falta fase-terra pelo transformador de corrente toroidal ou pela conexão Holmgreen, conforme a família de normas <a href="#ref-31" class="cite">IEC 60255 [31]</a> para relés de proteção.</p>
+    <p>O SEPAM S40 foi parametrizado para atuação instantânea, com tempo de operação fixo de <strong>30 ms</strong> sempre que a corrente de falta supera o pickup — sem depender de uma curva de tempo-corrente inversa. Esse tempo fixo é o valor usado no cálculo da corrente máxima suportável pelo corpo humano, conforme a <a href="#ref-1" class="cite">IEEE 80-2013 [1]</a> (Bloco 2, Seção 04).</p>
+  </div>
+
+  <div class="table-stack">
+    <div class="card">
+      <div class="card-title">Parâmetros da função 50N</div>
+      <table class="data-table" style="margin-top:8px;">
+        <tbody>
+          <tr><td style="color:var(--muted);">Relé</td><td class="mono">SEPAM S40</td></tr>
+          <tr><td style="color:var(--muted);">Função</td><td class="mono">50N</td></tr>
+          <tr><td style="color:var(--muted);">Pickup</td><td class="mono">6,28 A (30% In,AT)</td></tr>
+          <tr><td style="color:var(--muted);">Tempo de atuação</td><td class="mono">30 ms</td></tr>
+          <tr><td style="color:var(--muted);">Detecção</td><td class="mono">TC toroidal / Holmgreen</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-title">Com Rg = 40 Ω</div>
+      <table class="data-table" style="margin-top:8px;">
+        <tbody>
+          <tr><td style="color:var(--muted);">Corrente de falta</td><td class="mono">87,4 A</td></tr>
+          <tr><td style="color:var(--muted);">Múltiplo do pickup</td><td class="mono">13,9× (≈ 14×)</td></tr>
+          <tr><td style="color:var(--muted);">Atuação</td><td class="mono">Instantânea — 30 ms</td></tr>
+          <tr><td style="color:var(--muted);">Margem de segurança Rg</td><td class="mono">24× sobre 1,66 Ω</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="normas">
+    <a href="#ref-5" class="norma-tag">SEPAM S40 — Schneider Electric<span class="tag-num">5</span></a>
+    <a href="#ref-1" class="norma-tag">IEEE 80-2013<span class="tag-num">1</span></a>
+    <a href="#ref-31" class="norma-tag">IEC 60255<span class="tag-num">31</span></a>
+  </div>
+</div>
+
+<!-- SEÇÃO 8: BLOCO 5 — MEDIÇÃO Rg -->
+<div class="section" id="b5">
+  <div class="section-title"><span class="sec-num">08</span>Bloco 5 — Medição da resistência de aterramento</div>
+  <div class="bloco-header"><span class="bloco-badge b5">BLOCO 5 · FALL-OF-POTENTIAL</span></div>
+
+  <div class="prose">
+    <p>A resistência do conjunto instalado é medida pelo <strong>método de queda de potencial (fall-of-potential)</strong>, padronizado pela <a href="#ref-7" class="cite">IEEE 81-2012 [7]</a> e pela <a href="#ref-9" class="cite">ABNT NBR 7117:2020 [9]</a>, com fundamentação prática descrita por <a href="#ref-25" class="cite">Mari (2020) [25]</a>.</p>
+    <p>Uma corrente de teste é injetada entre o eletrodo sob ensaio e um eletrodo auxiliar de corrente posicionado a pelo menos <strong>25 m do centro da malha</strong>. A tensão é medida por um terceiro eletrodo posicionado a <strong>62% dessa distância</strong> — ponto que minimiza a influência de ambos os eletrodos auxiliares sobre o resultado.</p>
+  </div>
+
+  <div class="alert info">
+    <span class="alert-icon">ℹ️</span>
+    <div>
+      <strong>Por que 62%?</strong>
+      <p>A posição 0,62·D minimiza o erro de medição causado pela sobreposição das zonas de influência do eletrodo sob ensaio e do eletrodo auxiliar de corrente. Abaixo desse ponto, o solo ainda está sob influência do eletrodo principal; acima, começa a influência do auxiliar.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Parâmetros de medição</div>
+    <table class="data-table" style="margin-top:8px;">
+      <tbody>
+        <tr><td style="color:var(--muted);">Método</td><td>Fall-of-potential (queda de potencial)</td></tr>
+        <tr><td style="color:var(--muted);">Eletrodo auxiliar de corrente</td><td class="mono">≥ 25 m do centro da malha</td></tr>
+        <tr><td style="color:var(--muted);">Eletrodo auxiliar de potencial</td><td class="mono">62% da distância</td></tr>
+        <tr><td style="color:var(--muted);">Instrumento</td><td>Terrômetro (função 3 terminais)</td></tr>
+        <tr><td style="color:var(--muted);">Critério de aceite</td><td class="mono">Rg ≤ 40 Ω</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="normas">
+    <a href="#ref-7" class="norma-tag">IEEE 81-2012<span class="tag-num">7</span></a>
+    <a href="#ref-9" class="norma-tag">ABNT NBR 7117:2020<span class="tag-num">9</span></a>
+    <a href="#ref-25" class="norma-tag">Mari (2020)<span class="tag-num">25</span></a>
+  </div>
+</div>
+
+<!-- SEÇÃO 9: BLOCO 6 — SUPLEMENTAR -->
+<div class="section" id="b6">
+  <div class="section-title"><span class="sec-num">09</span>Bloco 6 — Configuração suplementar</div>
+  <div class="bloco-header"><span class="bloco-badge b6">BLOCO 6 · +2 HASTES</span></div>
+
+  <div class="prose">
+    <p>Se após a instalação primária o valor de Rg medido for superior a 40 Ω, é instalada a configuração suplementar: <strong>2 hastes adicionais nas arestas da malha</strong>, interligadas ao anel perimetral e com bentonita.</p>
+    <p>O efeito geométrico das hastes adicionais reduz a resistência total pela adição de paralelos — cada haste contribui com sua própria resistência de espalhamento. O fator de interação mútua entre hastes, capturado pelo termo <em>(√n − 1)²</em> da equação de Schwarz <a href="#ref-29" class="cite">[29]</a> (Eq. 5), quantifica a redução marginal de eficiência com mais hastes próximas.</p>
+    <p>Se após a configuração suplementar o Rg ainda for superior a 40 Ω, a intervenção deve ser cancelada e a equipe de engenharia acionada. Solos com ρ &gt; 500 Ω·m estão fora do envelope operacional adotado no TCC (Bloco 2).</p>
+  </div>
+
+  <div class="alert warning">
+    <span class="alert-icon">⚠️</span>
+    <div>
+      <strong>Limite operacional validado</strong>
+      <p>O limiar de 500 Ω·m vem do cálculo de Schwarz e do critério de tensão de toque/passo (IEEE 80-2013, Bloco 2). O efeito da bentonita foi validado em campo até ρ = 76 Ω·m (Bloco 3 — Bentonita). Para resistividades muito acima disso, consultar engenharia antes de prosseguir.</p>
+    </div>
+  </div>
+
+  <div class="normas">
+    <a href="#ref-1" class="norma-tag">IEEE 80-2013<span class="tag-num">1</span></a>
+    <span class="norma-tag">Ensaio de campo — Os autores (2026)</span>
+  </div>
+</div>
+
+<!-- SEÇÃO 10: REFERÊNCIAS -->
+<div class="section" id="referencias">
+  <div class="section-title"><span class="sec-num">10</span>Referências</div>
+
+  <div class="prose">
+    <p>Todas as normas, artigos científicos, livros e fontes técnicas citados ao longo deste manual estão listados abaixo, na ordem de primeira citação — a mesma numeração usada no TCC que fundamenta este projeto. Clique em qualquer citação <span class="cite" style="pointer-events:none;">[N]</span> no texto para saltar direto até a referência correspondente.</p>
+  </div>
+
+  <div class="ref-list">
+    <div class="ref-item" id="ref-1"><div class="ref-num">1.</div><div class="ref-text">INSTITUTE OF ELECTRICAL AND ELECTRONICS ENGINEERS. <strong>IEEE Std 80-2013</strong>: guide for safety in AC substation grounding. New York: IEEE, 2015.</div></div>
+    <div class="ref-item" id="ref-2"><div class="ref-num">2.</div><div class="ref-text">INTERNATIONAL ELECTROTECHNICAL COMMISSION. <strong>IEC 60479-1</strong>: effects of current on human beings and livestock — part 1: general aspects. Geneva: IEC, 2018.</div></div>
+    <div class="ref-item" id="ref-3"><div class="ref-num">3.</div><div class="ref-text">TOKEN ENGENHARIA. <strong>Tensão de passo e tensão de toque</strong>: fórmula, cálculo e medidas de proteção. 2020. Disponível em: <a href="https://tokenengenharia.com.br/tensao-de-passo-e-tensao-de-toque-formula-calculo-e-medidas-de-protecao/" target="_blank" rel="noopener">tokenengenharia.com.br</a>. Acesso em: 12 jun. 2026.</div></div>
+    <div class="ref-item" id="ref-4"><div class="ref-num">4.</div><div class="ref-text">MINISTÉRIO DO TRABALHO E EMPREGO. <strong>NR-10</strong>: segurança em instalações e serviços em eletricidade. Brasília: MTE, 2004.</div></div>
+    <div class="ref-item" id="ref-5"><div class="ref-num">5.</div><div class="ref-text">AGGREKO; POIT. <strong>Manual de operação e manutenção UGTM RT</strong>: unidade geradora e transformadora móvel. Versão 1.0. [S.l.]: Aggreko, [20--].</div></div>
+    <div class="ref-item" id="ref-6"><div class="ref-num">6.</div><div class="ref-text">CASTENSCHIOLD, R.; JOHNSON, G. S. Proper grounding of on-site electrical power systems. <strong>IEEE Industry Applications Magazine</strong>, v. 7, n. 2, p. 54-59, mar./abr. 2001.</div></div>
+    <div class="ref-item" id="ref-7"><div class="ref-num">7.</div><div class="ref-text">INSTITUTE OF ELECTRICAL AND ELECTRONICS ENGINEERS. <strong>IEEE Std 81-2012</strong>: guide for measuring earth resistivity, ground impedance, and earth surface potentials of a grounding system. New York: IEEE, 2012.</div></div>
+    <div class="ref-item" id="ref-8"><div class="ref-num">8.</div><div class="ref-text">KINDERMANN, Geraldo; CAMPAGNOLO, Jorge Mário. <strong>Aterramento elétrico</strong>. 3. ed. Porto Alegre: Sagra DC Luzzatto, 1995.</div></div>
+    <div class="ref-item" id="ref-9"><div class="ref-num">9.</div><div class="ref-text">ASSOCIAÇÃO BRASILEIRA DE NORMAS TÉCNICAS. <strong>NBR 7117</strong>: medição da resistividade e determinação da estratificação do solo. Rio de Janeiro: ABNT, 2020.</div></div>
+    <div class="ref-item" id="ref-10"><div class="ref-num">10.</div><div class="ref-text">MODENA, J.; SUETA, H. Medição da resistividade do solo. <strong>O Setor Elétrico</strong>, ed. 70, 2012.</div></div>
+    <div class="ref-item" id="ref-11"><div class="ref-num">11.</div><div class="ref-text">RW ENGENHARIA. <strong>Resistividade do solo</strong>: saiba tudo sobre ela! Belo Horizonte: RW Engenharia, 2021. Disponível em: <a href="https://rwengenharia.eng.br/resistividade-do-solo/" target="_blank" rel="noopener">rwengenharia.eng.br</a>. Acesso em: 12 jun. 2026.</div></div>
+    <div class="ref-item" id="ref-12"><div class="ref-num">12.</div><div class="ref-text">SINCHI, F. M. S. et al. Soil treatment to reduce grounding resistance by applying low-resistivity material (LRM) in different grounding systems configurations and in soils with different resistivities. <strong>Applied Sciences</strong>, v. 12, n. 9, p. 4788, 2022.</div></div>
+    <div class="ref-item" id="ref-13"><div class="ref-num">13.</div><div class="ref-text">INSTITUTE OF ELECTRICAL AND ELECTRONICS ENGINEERS. <strong>IEEE Std 142-2007</strong>: recommended practice for grounding of industrial and commercial power systems (Green Book). New York: IEEE, 2007.</div></div>
+    <div class="ref-item" id="ref-14"><div class="ref-num">14.</div><div class="ref-text">GLOVER, J. D.; SARMA, M. S.; OVERBYE, T. J. <strong>Power systems analysis and design</strong>. 5. ed. Stamford: Cengage Learning, 2012.</div></div>
+    <div class="ref-item" id="ref-15"><div class="ref-num">15.</div><div class="ref-text">STEVENSON, W. D. <strong>Elementos de análise de sistemas de potência</strong>. São Paulo: McGraw-Hill, 1986.</div></div>
+    <div class="ref-item" id="ref-16"><div class="ref-num">16.</div><div class="ref-text">INSTITUTE OF ELECTRICAL AND ELECTRONICS ENGINEERS. <strong>IEEE Std C37.101-2006</strong>: guide for generator ground protection. New York: IEEE, 2007.</div></div>
+    <div class="ref-item" id="ref-17"><div class="ref-num">17.</div><div class="ref-text">INSTITUTE OF ELECTRICAL AND ELECTRONICS ENGINEERS. <strong>IEEE C62.92.4-2014</strong>: guide for the application of neutral grounding in electrical utility systems, part IV: distribution. New York: IEEE, 2014.</div></div>
+    <div class="ref-item" id="ref-18"><div class="ref-num">18.</div><div class="ref-text">ASSOCIAÇÃO BRASILEIRA DE NORMAS TÉCNICAS. <strong>NBR 15751</strong>: sistemas de aterramento de subestações. Rio de Janeiro: ABNT, 2013.</div></div>
+    <div class="ref-item" id="ref-19"><div class="ref-num">19.</div><div class="ref-text">INSTITUTE OF ELECTRICAL AND ELECTRONICS ENGINEERS. <strong>IEEE Std 1268-2016</strong>: guide for safety in the installation of mobile substation equipment. New York: IEEE, 2016.</div></div>
+    <div class="ref-item" id="ref-20"><div class="ref-num">20.</div><div class="ref-text">INSTITUTE OF ELECTRICAL AND ELECTRONICS ENGINEERS. <strong>IEEE Std 1246-2020</strong>: guide for temporary protective grounding systems used in substations. New York: IEEE, 2021.</div></div>
+    <div class="ref-item" id="ref-21"><div class="ref-num">21.</div><div class="ref-text">ASSOCIAÇÃO BRASILEIRA DE NORMAS TÉCNICAS. <strong>NBR 13571</strong>: haste de aterramento de aço cobreada e acessórios. Rio de Janeiro: ABNT, 1996.</div></div>
+    <div class="ref-item" id="ref-22"><div class="ref-num">22.</div><div class="ref-text">ASSOCIAÇÃO BRASILEIRA DE NORMAS TÉCNICAS. <strong>NBR 14039</strong>: instalações elétricas de média tensão de 1,0 kV a 36,2 kV. Rio de Janeiro: ABNT, 2005.</div></div>
+    <div class="ref-item" id="ref-23"><div class="ref-num">23.</div><div class="ref-text">ASSOCIAÇÃO BRASILEIRA DE NORMAS TÉCNICAS. <strong>NBR 5410</strong>: instalações elétricas de baixa tensão. Rio de Janeiro: ABNT, 2004.</div></div>
+    <div class="ref-item" id="ref-24"><div class="ref-num">24.</div><div class="ref-text">MARTÍNEZ ÁNGELES, H. et al. Effect of humidity incorporation on the development of a ground enhancement material. <strong>Scientific Reports</strong>, v. 15, n. 22049, jul. 2025. Disponível em: <a href="https://doi.org/10.1038/s41598-025-05317-1" target="_blank" rel="noopener">doi.org/10.1038/s41598-025-05317-1</a>.</div></div>
+    <div class="ref-item" id="ref-25"><div class="ref-num">25.</div><div class="ref-text">MARI, Lorenzo. An Introduction to the Fall-of-Potential Method. <strong>EEPower</strong>, 20 ago. 2020. Disponível em: <a href="https://eepower.com/technical-articles/an-introduction-to-the-fall-of-potential-method/" target="_blank" rel="noopener">eepower.com</a>. Acesso em: 12 jun. 2026.</div></div>
+    <div class="ref-item" id="ref-26"><div class="ref-num">26.</div><div class="ref-text">SINCHI, F. M. S. et al. Soil treatment to reduce grounding resistance by applying low-resistivity material (LRM) and chemical ground electrode in different grounding systems configurations. In: <strong>IEEE INTERNATIONAL AUTUMN MEETING ON POWER, ELECTRONICS AND COMPUTING (ROPEC)</strong>, 2018, Ixtapa. Anais [...]. New York: IEEE, 2019. p. 1-6.</div></div>
+    <div class="ref-item" id="ref-27"><div class="ref-num">27.</div><div class="ref-text">ELEK SOFTWARE. <strong>Fundamentals of earthing design</strong>. Melbourne, 2020. Disponível em: <a href="https://elek.com/articles/fundamentals-of-earthing-design/" target="_blank" rel="noopener">elek.com</a>. Acesso em: 4 set. 2026.</div></div>
+    <div class="ref-item" id="ref-28"><div class="ref-num">28.</div><div class="ref-text">E-HAZARD. <strong>Grounding or bonding of portable electric generators, more than a ground rod, parte 2</strong>. Franklin, 2024. Disponível em: <a href="https://e-hazard.com/grounding-or-bonding-of-portable-electric-generators-more-than-a-ground-rod-pt-2/" target="_blank" rel="noopener">e-hazard.com</a>. Acesso em: 4 set. 2026.</div></div>
+    <div class="ref-item" id="ref-29"><div class="ref-num">29.</div><div class="ref-text">SCHWARZ, S. J. Analytical expressions for the resistance of grounding systems. <strong>Transactions of the American Institute of Electrical Engineers, Part III</strong>, v. 73, n. 2, p. 1011-1016, 1954.<span class="ref-tag">referência complementar — exclusiva deste manual</span></div></div>
+    <div class="ref-item" id="ref-30"><div class="ref-num">30.</div><div class="ref-text">VISACRO FILHO, Silvério. <strong>Aterramentos elétricos</strong>: conceitos básicos, técnicas de medição e instrumentação, filosofias de aterramento. 1. ed. São Paulo: Artliber, 2002. 160 p. ISBN 85-88098-12-1.<span class="ref-tag">referência complementar — exclusiva deste manual</span></div></div>
+    <div class="ref-item" id="ref-31"><div class="ref-num">31.</div><div class="ref-text">INTERNATIONAL ELECTROTECHNICAL COMMISSION. <strong>IEC 60255-1</strong>: measuring relays and protection equipment — part 1: common requirements. Geneva: IEC, 2022.<span class="ref-tag">referência complementar — exclusiva deste manual</span></div></div>
+  </div>
+
+  <div class="alert info" style="margin-top:1.25rem;">
+    <span class="alert-icon">ℹ️</span>
+    <div>
+      <strong>Sobre esta lista</strong>
+      <p>As referências 1 a 28 são exatamente as mesmas — e com os mesmos números — usadas no TCC (Projeto Físico Revisado) que originou este manual, para que os dois documentos permaneçam cruzáveis entre si. As referências 29 a 31 são complementares, citadas apenas neste manual interativo.</p>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- FOOTER -->
+<footer id="app-footer" style="display:none;">
+  <div class="footer-inner" style="max-width:680px;margin:0 auto;">
+    <div class="footer-title">Aterramento Provisório para UGTM · COPEL Distribuição</div>
+    <div class="footer-meta">Felipe Woo · Giuliano Luigi Montagnoli — PUCPR · Engenharia Elétrica · 2026/2 · PFC2 · Orientadora: Prof. Ma. Cinthia Schimith Silva Coelho</div>
+  </div>
+</footer>
+
+<script>
+/* ======================= ABERTURA / MODE SWITCH ======================= */
+let currentMode = 'pop';
+let appEntered = false;
+
+function enterMode(mode){
+  appEntered = true;
+  document.getElementById('landing').style.display = 'none';
+  document.getElementById('topbar').style.display = 'flex';
+  document.getElementById('app-footer').style.display = 'block';
+  setMode(mode);
+}
+
+function goHome(){
+  appEntered = false;
+  document.getElementById('landing').style.display = 'flex';
+  document.getElementById('topbar').style.display = 'none';
+  document.getElementById('app-footer').style.display = 'none';
+  document.getElementById('nav-pop').style.display = 'none';
+  document.getElementById('nav-manual').style.display = 'none';
+  document.getElementById('header-pop').style.display = 'none';
+  document.getElementById('header-manual').style.display = 'none';
+  document.getElementById('main-pop').style.display = 'none';
+  document.getElementById('main-manual').style.display = 'none';
+  document.title = 'Aterramento Provisório UGTM — POP e Manual Técnico';
+  window.scrollTo({top:0,behavior:'instant'});
+}
+
+function setMode(mode){
+  currentMode = mode;
+  document.querySelectorAll('.mode-btn').forEach(b=>b.classList.toggle('active', b.dataset.mode===mode));
+
+  document.getElementById('nav-pop').style.display = mode==='pop' ? 'flex' : 'none';
+  document.getElementById('nav-manual').style.display = mode==='manual' ? 'flex' : 'none';
+  document.getElementById('header-pop').style.display = mode==='pop' ? 'block' : 'none';
+  document.getElementById('header-manual').style.display = mode==='manual' ? 'block' : 'none';
+  document.getElementById('main-pop').style.display = mode==='pop' ? 'block' : 'none';
+  document.getElementById('main-manual').style.display = mode==='manual' ? 'block' : 'none';
+
+  document.getElementById('topbar-logo').textContent = mode==='pop' ? 'POP · COPEL-DIST-AT-001' : 'MANUAL TÉCNICO · COPEL-DIST-AT-002';
+  document.title = mode==='pop'
+    ? 'POP — Aterramento Provisório UGTM'
+    : 'Manual Técnico — Sistema de Aterramento UGTM';
+
+  window.scrollTo({top:0,behavior:'instant'});
+  if(mode==='manual') setTimeout(buildChart,50);
+}
+
+/* ======================= NAVEGAÇÃO / SCROLL SPY ======================= */
+function goTo(id){
+  document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+const sectionsPop = ['objetivo','epi','materiais','procedimento','solo','criterio','registro'];
+const sectionsManual = ['contexto','blocos','b1','b2','b3','b3b','b4','b5','b6','referencias'];
+
+window.addEventListener('scroll',()=>{
+  const sections = currentMode==='pop' ? sectionsPop : sectionsManual;
+  const navId = currentMode==='pop' ? 'nav-pop' : 'nav-manual';
+  const anchors = document.querySelectorAll('#'+navId+' .nav-anchor');
+  let current='';
+  sections.forEach(id=>{
+    const el=document.getElementById(id);
+    if(el && el.offsetParent!==null && window.scrollY>=el.offsetTop-120) current=id;
+  });
+  anchors.forEach((a,i)=>a.classList.toggle('active', sections[i]===current));
+});
+
+/* ======================= GRÁFICO BENTONITA (Manual) — SVG nativo, sem dependências ======================= */
+const tMed=[0,15,30,45,60,75,90];
+const rgMed=[132,78,52,32,23,21,15];
+
+function buildChart(){
+  const wrap = document.getElementById('chartBentonita');
+  if(!wrap) return;
+  const isDark=document.documentElement.classList.contains('dark')||
+    (!document.documentElement.classList.contains('light')&&matchMedia('(prefers-color-scheme:dark)').matches);
+  const gridC=isDark?'rgba(255,255,255,0.10)':'rgba(0,0,0,0.09)';
+  const tickC=isDark?'#9a9a92':'#636360';
+  const accent=isDark?'#4f8ef7':'#1a5fb0';
+  const red=isDark?'#f04040':'#b81c1c';
+  const orange=isDark?'#f5a623':'#e08e00';
+
+  const W=640,H=300;
+  const mL=48,mR=14,mT=14,mB=36;
+  const pW=W-mL-mR, pH=H-mT-mB;
+  const xMax=90, yMax=140;
+  const xs=t=>mL+(t/xMax)*pW;
+  const ys=v=>mT+(1-v/yMax)*pH;
+
+  const xTicks=[0,15,30,45,60,75,90];
+  const yTicks=[0,20,40,60,80,100,120,140];
+
+  let svg = `<svg viewBox="0 0 ${W} ${H}" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="font-family:var(--sans);">`;
+
+  // grid
+  yTicks.forEach(v=>{
+    svg += `<line x1="${mL}" y1="${ys(v)}" x2="${W-mR}" y2="${ys(v)}" stroke="${gridC}" stroke-width="1"/>`;
+    svg += `<text x="${mL-8}" y="${ys(v)+4}" text-anchor="end" font-size="11" fill="${tickC}">${v}</text>`;
+  });
+  xTicks.forEach(t=>{
+    svg += `<line x1="${xs(t)}" y1="${mT}" x2="${xs(t)}" y2="${H-mB}" stroke="${gridC}" stroke-width="1"/>`;
+    svg += `<text x="${xs(t)}" y="${H-mB+18}" text-anchor="middle" font-size="11" fill="${tickC}">${t}</text>`;
+  });
+
+  // axis titles
+  svg += `<text x="${mL+pW/2}" y="${H-4}" text-anchor="middle" font-size="12" fill="${tickC}">Tempo (min)</text>`;
+  svg += `<text x="14" y="${mT+pH/2}" text-anchor="middle" font-size="12" fill="${tickC}" transform="rotate(-90,14,${mT+pH/2})">Resistência Rg (Ω)</text>`;
+
+  // referência 40 Ω — linha tracejada (critério do conjunto completo, não desta haste isolada)
+  svg += `<line x1="${xs(0)}" y1="${ys(40)}" x2="${xs(xMax)}" y2="${ys(40)}" stroke="${red}" stroke-width="1.5" stroke-dasharray="6 4"/>`;
+  svg += `<text x="${W-mR}" y="${ys(40)-6}" text-anchor="end" font-size="11" fill="${red}" font-weight="600">Referência 40 Ω</text>`;
+
+  // linha Rg medido
+  const pathD = tMed.map((t,i)=>`${i===0?'M':'L'}${xs(t).toFixed(1)},${ys(rgMed[i]).toFixed(1)}`).join(' ');
+  svg += `<path d="${pathD}" fill="none" stroke="${accent}" stroke-width="2.25" stroke-linejoin="round" stroke-linecap="round"/>`;
+
+  // pontos
+  tMed.forEach((t,i)=>{
+    const near40 = Math.abs(rgMed[i]-40)<2;
+    const r = near40 ? 7 : 4.5;
+    const fill = near40 ? orange : accent;
+    svg += `<circle cx="${xs(t).toFixed(1)}" cy="${ys(rgMed[i]).toFixed(1)}" r="${r}" fill="${fill}" stroke="${isDark?'#1a1a17':'#ffffff'}" stroke-width="2"><title>t = ${t} min · Rg = ${rgMed[i].toFixed(2)} Ω</title></circle>`;
+  });
+
+  svg += `</svg>`;
+  wrap.innerHTML = svg;
+}
+
+/* ======================= TABELA DE SOLO INTERATIVA (POP) ======================= */
+function updateSolo(){
+  const val = parseFloat(document.getElementById('rho-val').value);
+  const rows = document.querySelectorAll('.soil-row');
+  const result = document.getElementById('solo-result');
+
+  rows.forEach(r=>r.classList.remove('highlighted'));
+  result.className='soil-result';
+  result.innerHTML='';
+
+  if(isNaN(val)||val<=0) return;
+
+  rows.forEach(r=>{
+    const min=parseFloat(r.dataset.min), max=parseFloat(r.dataset.max);
+    if(val>=min && val<=max){
+      r.classList.add('highlighted');
+      const badge = r.querySelector('.action-badge');
+      const time = r.querySelector('.time-num').textContent;
+      const isOk = badge.classList.contains('badge-green');
+      result.classList.add('show');
+      if(isOk){
+        result.classList.add('ok');
+        result.innerHTML=`<div style="font-weight:600;font-size:15px;margin-bottom:4px;">✅ Solo favorável — bentonita não necessária</div><div style="font-size:13px;">Instalar as hastes diretamente e medir Rg. Critério de aceite: Rg ≤ 40 Ω.</div>`;
+      } else {
+        result.classList.add('bentonita');
+        result.innerHTML=`<div style="font-weight:600;font-size:15px;margin-bottom:4px;">⚠️ Aplicar bentonita sódica — aguardar ${time}</div><div style="font-size:13px;">Aplicar nos 4 pontos de instalação das hastes com água. Anotar o horário de aplicação e aguardar ${time} antes de medir Rg. Tempo de referência validado em campo até ρ = 76 Ω·m — para solos muito mais resistivos, confirmar com a engenharia.</div>`;
+      }
+    }
+  });
+}
+
+/* ======================= REGISTRO DA OPERAÇÃO (POP) ======================= */
+function exportar(){
+  const data=document.getElementById('r-data').value||'—';
+  const hora=document.getElementById('r-hora').value||'—';
+  const local=document.getElementById('r-local').value||'—';
+  const rho=document.getElementById('r-rho').value||'—';
+  const rg=document.getElementById('r-rg').value||'—';
+  const config=document.getElementById('r-config');
+  const bentonita=document.getElementById('r-bentonita');
+  const resp=document.getElementById('r-resp').value||'—';
+  const obs=document.getElementById('r-obs').value||'—';
+  const rgNum=parseFloat(rg);
+  const status=!isNaN(rgNum)?(rgNum<=40?'✅ APROVADO':'⚠️ REPROVADO — configuração secundária acionada'):'—';
+
+  const texto=`══════════════════════════════════
+REGISTRO DE OPERAÇÃO — POP ATERRAMENTO UGTM
+COPEL-DIST-AT-001 · v1.1.0
+══════════════════════════════════
+Data:          ${data}
+Hora de início: ${hora}
+Local / UGTM:  ${local}
+
+ρ medido:      ${rho} Ω·m
+Rg medido:    ${rg} Ω
+Resultado:     ${status}
+
+Configuração:  ${config.options[config.selectedIndex]?.text||'—'}
+Bentonita:     ${bentonita.options[bentonita.selectedIndex]?.text||'—'}
+Responsável:   ${resp}
+Observações:   ${obs}
+══════════════════════════════════`;
+
+  const prev=document.getElementById('export-preview');
+  prev.textContent=texto;
+  prev.classList.add('show');
+  document.getElementById('btn-copiar').style.display='block';
+}
+
+function copiar(){
+  const txt=document.getElementById('export-preview').textContent;
+  navigator.clipboard.writeText(txt).then(()=>{
+    const btn=document.getElementById('btn-copiar');
+    btn.textContent='✅ Copiado!';
+    setTimeout(()=>btn.textContent='Copiar registro',2000);
+  });
+}
+
+function limpar(){
+  ['r-data','r-hora','r-local','r-rho','r-rg','r-resp','r-obs'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('r-config').selectedIndex=0;
+  document.getElementById('r-bentonita').selectedIndex=0;
+  document.getElementById('export-preview').classList.remove('show');
+  document.getElementById('btn-copiar').style.display='none';
+}
+
+// Preencher data e hora automaticamente
+const now=new Date();
+document.getElementById('r-data').value=now.toISOString().split('T')[0];
+document.getElementById('r-hora').value=now.toTimeString().slice(0,5);
+
+/* ======================= TEMA (em memória — sem localStorage) ======================= */
+function getSystemDark(){
+  return window.matchMedia('(prefers-color-scheme: dark)').matches;
+}
+
+function applyTheme(dark){
+  const root=document.documentElement;
+  if(dark){
+    root.classList.add('dark');
+    root.classList.remove('light');
+    document.getElementById('theme-icon').textContent='🌙';
+    document.getElementById('theme-label').textContent='Escuro';
+  } else {
+    root.classList.add('light');
+    root.classList.remove('dark');
+    document.getElementById('theme-icon').textContent='☀️';
+    document.getElementById('theme-label').textContent='Claro';
+  }
+  setTimeout(buildChart,50);
+}
+
+function toggleTheme(){
+  const isDark=document.documentElement.classList.contains('dark');
+  applyTheme(!isDark);
+}
+
+// Inicializar tema conforme preferência do sistema (não persiste entre sessões)
+applyTheme(getSystemDark());
+
+/* ======================= TABELAS RESPONSIVAS (rolagem horizontal no celular) ======================= */
+document.querySelectorAll('table.data-table, table.mat-table, table.soil-table').forEach(t=>{
+  if(t.parentElement && t.parentElement.classList.contains('table-scroll')) return;
+  const wrap = document.createElement('div');
+  wrap.className = 'table-scroll';
+  t.parentNode.insertBefore(wrap, t);
+  wrap.appendChild(t);
+});
+</script>
+</body>
+</html>

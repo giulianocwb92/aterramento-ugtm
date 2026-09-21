@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="theme-color" content="#1d5bbf">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="POP UGTM">
+<link rel="apple-touch-icon" href="../assets/icons/icon-180.png">
+<link rel="icon" href="../assets/icons/icon-192.png">
+<title>Bloco 4 — Proteção — Manual Técnico UGTM</title>
+<link rel="stylesheet" href="../shared/css/base.css">
+<link rel="stylesheet" href="../shared/css/layout.css">
+<link rel="stylesheet" href="../shared/css/components.css">
+<link rel="stylesheet" href="../shared/css/wizard.css">
+</head>
+<body>
+<div id="topbar-mount"></div>
+
+<div class="app-body">
+<div class="sidebar-col" id="sidebar-mount"></div>
+<div class="content-col">
+<div class="main" style="padding-top:1.75rem;">
+
+  <div class="section" id="b4">
+    <div class="section-title"><span class="sec-num">07</span>Bloco 4 — Sistema de proteção: SEPAM S40</div>
+    <div class="bloco-header"><span class="bloco-badge b4">BLOCO 4 · PROTEÇÃO 50N</span></div>
+
+    <div class="prose">
+      <p>O relé SEPAM S40 da Schneider Electric é o equipamento de proteção embarcado na UGTM <a href="09-referencias.html#ref-5" class="cite">[5]</a>. A função relevante para este projeto é a <strong>função 50N — sobrecorrente de neutro instantânea</strong>, que detecta correntes de falta fase-terra pelo transformador de corrente toroidal ou pela conexão Holmgreen, conforme a família de normas <a href="09-referencias.html#ref-31" class="cite">IEC 60255 [31]</a> para relés de proteção.</p>
+      <p>O SEPAM S40 foi parametrizado para atuação instantânea, com tempo de operação fixo de <strong>30 ms</strong> sempre que a corrente de falta supera o pickup — sem depender de uma curva de tempo-corrente inversa. Esse tempo fixo é o valor usado no cálculo da corrente máxima suportável pelo corpo humano, conforme a <a href="09-referencias.html#ref-1" class="cite">IEEE 80-2013 [1]</a> (Bloco 2, Seção 04).</p>
+    </div>
+
+    <div class="table-stack">
+      <div class="card">
+        <div class="card-title">Parâmetros da função 50N</div>
+        <table class="data-table" style="margin-top:8px;">
+          <tbody>
+            <tr><td style="color:var(--muted);">Relé</td><td class="mono">SEPAM S40</td></tr>
+            <tr><td style="color:var(--muted);">Função</td><td class="mono">50N</td></tr>
+            <tr><td style="color:var(--muted);">Pickup</td><td class="mono">6,28 A (30% In,AT)</td></tr>
+            <tr><td style="color:var(--muted);">Tempo de atuação</td><td class="mono">30 ms</td></tr>
+            <tr><td style="color:var(--muted);">Detecção</td><td class="mono">TC toroidal / Holmgreen</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-title">Com Rg = 40 Ω</div>
+        <table class="data-table" style="margin-top:8px;">
+          <tbody>
+            <tr><td style="color:var(--muted);">Corrente de falta</td><td class="mono">87,4 A</td></tr>
+            <tr><td style="color:var(--muted);">Múltiplo do pickup</td><td class="mono">13,9× (≈ 14×)</td></tr>
+            <tr><td style="color:var(--muted);">Atuação</td><td class="mono">Instantânea — 30 ms</td></tr>
+            <tr><td style="color:var(--muted);">Margem de segurança Rg</td><td class="mono">24× sobre 1,66 Ω</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="normas">
+      <a href="09-referencias.html#ref-5" class="norma-tag">SEPAM S40 — Schneider Electric<span class="tag-num">5</span></a>
+      <a href="09-referencias.html#ref-1" class="norma-tag">IEEE 80-2013<span class="tag-num">1</span></a>
+      <a href="09-referencias.html#ref-31" class="norma-tag">IEC 60255<span class="tag-num">31</span></a>
+    </div>
+  </div>
+
+  <div class="wizard-footer">
+    <a class="wizard-btn wizard-btn-prev" href="05-b3b-bentonita.html">← Bloco 3 — Bentonita</a>
+    <a class="wizard-btn wizard-btn-next" href="07-b5-medicao-rg.html">Próximo: Bloco 5 — Medição Rg →</a>
+  </div>
+</div>
+</div>
+</div>
+
+<script src="../shared/js/pwa.js"></script>
+<script>window.Ugtm.PWA.init('../');</script>
+<script src="../shared/js/state.js"></script>
+<script src="../shared/js/chrome.js"></script>
+<script src="../shared/js/theme.js"></script>
+<script>
+  window.Ugtm.Chrome.render({mode:'manual', activeId:'b4', basePath:'../'});
+</script>
+</body>
+</html>

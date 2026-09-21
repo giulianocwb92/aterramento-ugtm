@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="theme-color" content="#1d5bbf">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="POP UGTM">
+<link rel="apple-touch-icon" href="../assets/icons/icon-180.png">
+<link rel="icon" href="../assets/icons/icon-192.png">
+<title>Bloco 5 — Medição Rg — Manual Técnico UGTM</title>
+<link rel="stylesheet" href="../shared/css/base.css">
+<link rel="stylesheet" href="../shared/css/layout.css">
+<link rel="stylesheet" href="../shared/css/components.css">
+<link rel="stylesheet" href="../shared/css/wizard.css">
+</head>
+<body>
+<div id="topbar-mount"></div>
+
+<div class="app-body">
+<div class="sidebar-col" id="sidebar-mount"></div>
+<div class="content-col">
+<div class="main" style="padding-top:1.75rem;">
+
+  <div class="section" id="b5">
+    <div class="section-title"><span class="sec-num">08</span>Bloco 5 — Medição da resistência de aterramento</div>
+    <div class="bloco-header"><span class="bloco-badge b5">BLOCO 5 · FALL-OF-POTENTIAL</span></div>
+
+    <div class="prose">
+      <p>A resistência do conjunto instalado é medida pelo <strong>método de queda de potencial (fall-of-potential)</strong>, padronizado pela <a href="09-referencias.html#ref-7" class="cite">IEEE 81-2012 [7]</a> e pela <a href="09-referencias.html#ref-9" class="cite">ABNT NBR 7117:2020 [9]</a>, com fundamentação prática descrita por <a href="09-referencias.html#ref-25" class="cite">Mari (2020) [25]</a>.</p>
+      <p>Uma corrente de teste é injetada entre o eletrodo sob ensaio e um eletrodo auxiliar de corrente posicionado a pelo menos <strong>25 m do centro da malha</strong>. A tensão é medida por um terceiro eletrodo posicionado a <strong>62% dessa distância</strong> — ponto que minimiza a influência de ambos os eletrodos auxiliares sobre o resultado.</p>
+    </div>
+
+    <div class="alert info">
+      <span class="alert-icon">ℹ️</span>
+      <div>
+        <strong>Por que 62%?</strong>
+        <p>A posição 0,62·D minimiza o erro de medição causado pela sobreposição das zonas de influência do eletrodo sob ensaio e do eletrodo auxiliar de corrente. Abaixo desse ponto, o solo ainda está sob influência do eletrodo principal; acima, começa a influência do auxiliar.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Parâmetros de medição</div>
+      <table class="data-table" style="margin-top:8px;">
+        <tbody>
+          <tr><td style="color:var(--muted);">Método</td><td>Fall-of-potential (queda de potencial)</td></tr>
+          <tr><td style="color:var(--muted);">Eletrodo auxiliar de corrente</td><td class="mono">≥ 25 m do centro da malha</td></tr>
+          <tr><td style="color:var(--muted);">Eletrodo auxiliar de potencial</td><td class="mono">62% da distância</td></tr>
+          <tr><td style="color:var(--muted);">Instrumento</td><td>Terrômetro (função 3 terminais)</td></tr>
+          <tr><td style="color:var(--muted);">Critério de aceite</td><td class="mono">Rg ≤ 40 Ω</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="normas">
+      <a href="09-referencias.html#ref-7" class="norma-tag">IEEE 81-2012<span class="tag-num">7</span></a>
+      <a href="09-referencias.html#ref-9" class="norma-tag">ABNT NBR 7117:2020<span class="tag-num">9</span></a>
+      <a href="09-referencias.html#ref-25" class="norma-tag">Mari (2020)<span class="tag-num">25</span></a>
+    </div>
+  </div>
+
+  <div class="wizard-footer">
+    <a class="wizard-btn wizard-btn-prev" href="06-b4-protecao.html">← Bloco 4 — Proteção</a>
+    <a class="wizard-btn wizard-btn-next" href="08-b6-suplementar.html">Próximo: Bloco 6 — Suplementar →</a>
+  </div>
+</div>
+</div>
+</div>
+
+<script src="../shared/js/pwa.js"></script>
+<script>window.Ugtm.PWA.init('../');</script>
+<script src="../shared/js/state.js"></script>
+<script src="../shared/js/chrome.js"></script>
+<script src="../shared/js/theme.js"></script>
+<script>
+  window.Ugtm.Chrome.render({mode:'manual', activeId:'b5', basePath:'../'});
+</script>
+</body>
+</html>

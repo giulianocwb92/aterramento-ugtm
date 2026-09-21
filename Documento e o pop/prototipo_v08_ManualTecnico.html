@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Manual Técnico - Aterramento UGTM</title>
+</head>
+
+<body style="font-family: Arial, sans-serif; margin: 40px;">
+
+<h1>Fundamentação Técnica do Sistema de Aterramento Portátil para UGTM</h1>
+<p><em>Protótipo inicial — Manual Técnico — versão de estudo</em></p>
+
+<hr>
+
+<h2>1. Contexto e problema</h2>
+<p>
+As distribuidoras de energia utilizam Unidades Geradoras e Transformadoras Móveis (UGTM)
+de 13,8 kV para manter o fornecimento durante manutenções em linhas de distribuição. Nessa
+operação, a UGTM opera em modo ilhado, sem vínculo com a malha de aterramento permanente
+da rede. O manual da própria unidade determina apenas a instalação de no mínimo três hastes,
+sem critério de aceitação associado e sem considerar a resistividade do solo — lacuna que
+este projeto endereça.
+</p>
+<p>
+Em uma falta fase-terra, a corrente de defeito se dissipa radialmente no solo ao redor
+dos eletrodos. Quando a resistividade é elevada, o potencial na superfície cresce de forma
+abrupta ao redor do equipamento — fenômeno denominado Elevação de Potencial de Terra (GPR).
+A IEEE 80-2013 define GPR = If × Rg, onde If é a corrente de falta e Rg é a resistência
+de aterramento da malha instalada.
+</p>
+
+<h2>2. Configuração elétrica da UGTM</h2>
+<p>
+A UGTM é composta por gerador síncrono WEG de 500 kVA, 60 Hz, 220 V, acoplado a
+transformador seco WEG de 500 kVA com enrolamento em estrela aterrado no lado de 13,8 kV
+e triângulo no lado de 220 V, impedância percentual de 4,75%. O enrolamento em triângulo
+bloqueia a sequência zero do gerador. Em uma falta fase-terra no barramento de 13,8 kV,
+a corrente de sequência zero retorna ao neutro pelo sistema de aterramento e é detectada
+pelo relé SEPAM pela função 50N.
+</p>
+<p>As impedâncias do sistema referidas ao lado de alta tensão são:</p>
+<pre style="border: 1px solid #000; padding: 10px; width: 500px; white-space: pre-wrap;">
+Zbase,AT = 13800² / 500000     = 380,9 Ω
+ZT       = 4,75% × 380,9      =  18,1 Ω
+X"d,AT   = 14%   × 380,9      =  53,3 Ω
+X2,AT    = 12%   × 380,9      =  45,7 Ω
+
+Z1 = ZT + X"d,AT = 71,4 Ω
+Z2 = ZT + X2,AT  = 63,8 Ω
+Z0 = ZT + 3·Rg   = 18,1 + 3·Rg  [Ω]
+</pre>
+
+<h2>3. Visão geral dos blocos funcionais</h2>
+<table border="1" cellpadding="6" cellspacing="0">
+<tr><th>Bloco</th><th>Função</th></tr>
+<tr><td>1</td><td>Medição da resistividade do solo (método de Wenner)</td></tr>
+<tr><td>2</td><td>Cálculo do critério de aceite (Rg ≤ 40 Ω)</td></tr>
+<tr><td>3</td><td>Sistema físico de aterramento (hastes, cabos, bentonita)</td></tr>
+<tr><td>4</td><td>Sistema de proteção (relé SEPAM, função 50N)</td></tr>
+<tr><td>5</td><td>Medição da resistência instalada (fall-of-potential)</td></tr>
+<tr><td>6</td><td>Procedimento operacional que integra os blocos anteriores</td></tr>
+</table>
+
+<h2>4. Bloco 1 — Medição da resistividade do solo</h2>
+<p>
+A resistividade do solo é medida pelo método de Wenner (IEEE 81-2012, ABNT NBR 7117:2020).
+Quatro eletrodos são cravados em linha reta com espaçamento igual S. A resistividade
+aparente vale:
+</p>
+<pre style="border: 1px solid #000; padding: 10px; width: 500px; white-space: pre-wrap;">
+ρ = 2π · S · R    [Ω·m]
+</pre>
+<p>
+O espaçamento S define a profundidade de investigação. Recomenda-se S entre 1 m e 3 m,
+compatível com o comprimento das hastes de 2,4 m. O limiar operacional adotado é
+ρ = 500 Ω·m: acima desse valor, o procedimento determina a aplicação de bentonita sódica
+antes da cravação das hastes. Para esse valor de resistividade, o método de Schwarz estima
+Rg de aproximadamente 34,27 Ω para a geometria da malha real, valor inferior ao critério
+de 40 Ω, confirmando que a instalação atende ao requisito sem tratamento químico do solo
+até esse ponto. Acima de 500 Ω·m, o procedimento determina a aplicação de bentonita
+sódica antes da cravação das hastes.
+</p>
+
+<h2>5. Critério 1 — Sensibilidade da proteção (Bloco 2)</h2>
+<p>Corrente de falta fase-terra pelas componentes simétricas:</p>
+<pre style="border: 1px solid #000; padding: 10px; width: 500px; white-space: pre-wrap;">
+If = 3·Vfase / (Z1 + Z2 + Z0)
+   = 23901 / (153,3 + 3·Rg)   [A]
+</pre>
+<pre style="border: 1px solid #000; padding: 10px; width: 500px; white-space: pre-wrap;">
+Inom,AT  = 500000 / (√3 × 13800) = 20,9 A
+Ipickup  = 0,30 × 20,9           =  6,28 A
+Rmax,relé = (23901 / 6,28 − 153,3) / 3 ≈ 1217 Ω
+</pre>
+<p>Verificando com Rg = 40 Ω:</p>
+<pre style="border: 1px solid #000; padding: 10px; width: 500px; white-space: pre-wrap;">
+If|Rg=40Ω = 23901 / (153,3 + 120) = 87,4 A
+</pre>
+<p>
+Com Rg = 40 Ω, a corrente de falta é 87,4 A — 14 vezes o pickup — garantindo a atuação
+da proteção com margem de 30 vezes sobre o limite mínimo calculado.
+</p>
+
+<h2>6. Critério 2 — Segurança de pessoas (Bloco 2)</h2>
+<pre style="border: 1px solid #000; padding: 10px; width: 500px; white-space: pre-wrap;">
+Icorpo = 0,116 / √ts = 0,116 / √0,030 = 0,670 A
+</pre>
+<table border="1" cellpadding="6" cellspacing="0">
+<tr><th>Grandeza</th><th>Fórmula</th><th>Valor</th></tr>
+<tr><td>Tensão de toque máxima</td><td>(1000 + 1,5 · ρs · Cs) × Icorpo</td><td>1.172 V</td></tr>
+<tr><td>Tensão de passo máxima</td><td>(1000 + 6,0 · ρs · Cs) × Icorpo</td><td>2.679 V</td></tr>
+</table>
+<p>GPR com Rg = 40 Ω:</p>
+<pre style="border: 1px solid #000; padding: 10px; width: 500px; white-space: pre-wrap;">
+GPR = If × Rg = 87,4 × 40 = 3.497 V
+</pre>
+<p>
+A proteção é garantida pela equipotencialização da área de trabalho. O cabo de 50 mm²
+que interliga a carcaça da UGTM ao anel perimetral conecta mãos e pés do operador ao
+mesmo nó elétrico. Para 20 m de comprimento e corrente de falta de 87,4 A:
+</p>
+<pre style="border: 1px solid #000; padding: 10px; width: 500px; white-space: pre-wrap;">
+Rcabo = ρCu · L / A
+      = (1,72×10⁻⁸ × 20) / (50×10⁻⁶)
+      ≈ 6,9 mΩ
+Vcabo = If · Rcabo = 87,4 × 0,0069 ≈ 0,6 V
+</pre>
+<p>
+Esse valor de 0,6 V está abaixo do limiar de percepção elétrica (IEC 60479-1:2018),
+tornando o risco de choque desprezível dentro do perímetro do anel. O IEEE 1246-2020
+reconhece esse mecanismo de <i>bonding</i> como o requisito central de proteção em
+circuitos aterrados provisórios. Para operadores fora do anel, a proteção é garantida
+pela restrição de acesso à área, conforme a NR-10.
+</p>
+
+<h2>7. Sistema físico — Bloco 3</h2>
+<p>
+O sistema é composto por seis hastes de aço cobreado (2400 mm x 5/8", conforme ABNT
+NBR 13571), interligadas por cabos de cobre flexível (25 mm² entre hastes formando o
+anel perimetral, 50 mm² da malha ao barramento da carreta). A configuração primária
+posiciona quatro hastes nos vértices de um quadrado com lado igual ao perímetro da carreta
+acrescido de 1 m. Duas hastes suplementares são instaladas nos pontos médios das arestas
+dianteira e traseira quando necessário.
+</p>
+<p>
+Ensaios de campo demonstraram que hastes em paralelo sem anel atingem saturação a partir
+de 3 hastes, enquanto a configuração com anel perimetral mantém reduções relevantes com
+mais hastes instaladas. Os resultados em solo de ρ = 33,8 Ω·m foram:
+</p>
+<table border="1" cellpadding="6" cellspacing="0">
+<tr><th>Número de hastes</th><th>Paralelo (Ω)</th><th>Com anel perimetral (Ω)</th></tr>
+<tr><td>1</td><td>51,4</td><td>51,4</td></tr>
+<tr><td>2</td><td>37,7</td><td>37,7</td></tr>
+<tr><td>3</td><td>29,4</td><td>28,2</td></tr>
+<tr><td>4</td><td>29,0</td><td>23,3</td></tr>
+<tr><td>5</td><td>28,9</td><td>21,1</td></tr>
+</table>
+<p>Em solo de ρ = 500 Ω·m:</p>
+<table border="1" cellpadding="6" cellspacing="0">
+<tr><th>Número de hastes</th><th>Paralelo (Ω)</th><th>Com anel perimetral (Ω)</th></tr>
+<tr><td>1</td><td>293,0</td><td>293,0</td></tr>
+<tr><td>2</td><td>143,0</td><td>143,0</td></tr>
+<tr><td>3</td><td>93,5</td><td>78,5</td></tr>
+<tr><td>4</td><td>72,5</td><td>35,5</td></tr>
+<tr><td>5</td><td>58,5</td><td>25,5</td></tr>
+</table>
+
+<h2>8. Dimensionamento pelo método de Schwarz</h2>
+<p>
+As equações do método de Schwarz (IEEE 80-2013, seção 14.3) combinam as três parcelas:
+</p>
+<pre style="border: 1px solid #000; padding: 10px; width: 500px; overflow-x: auto; white-space: pre-wrap;">
+Rc = (ρ / π·Lc) · [ln(2·Lc / a')
+                    + k1·(Lc / √A) − k2]
+
+Rh = (ρ / 2π·n·LR) · [ln(4·LR / d) − 1
+                       + 2·k1·(LR / √A)·(√n − 1)²]
+
+Rm = (ρ / π·Lc) · [ln(2·Lc / LR)
+                    + k1·(Lc / √A) − k2 + 1]
+
+Rg = (Rc·Rh − Rm²) / (Rc + Rh − 2·Rm)
+</pre>
+<p>
+Para a malha retangular de 17 por 4 metros com 4 hastes de aço cobreado de 5/8" e
+2.400 mm nos vértices, o método de Schwarz foi aplicado com os coeficientes k1 igual
+a 1,24 e k2 igual a 5,11, correspondentes à razão comprimento por largura de 4,25 e
+profundidade de enterramento h igual a zero, adotada pela Curva A da Figura 24 da
+IEEE 80-2013 porque os cabos do anel perimetral são instalados na superfície do solo.
+Com ρ igual a 500 Ω·m, limiar operacional adotado no procedimento, o método estima
+Rg de aproximadamente 34,27 Ω, valor inferior ao critério de 40 Ω, confirmando que
+a malha atende ao requisito sem necessidade de bentonita até esse limite.
+</p>
+<p>
+Para verificar a validade da formulação, foi construído um protótipo com malha de
+4 por 1,5 metro e 4 hastes de 1,5 metro nos vértices, instalado em solo de
+ρ = 33,8 Ω·m. Os coeficientes k1 = 1,3033 e k2 = 5,90 foram obtidos pelas equações
+de Kercel para a razão L/W = 2,667 dessa malha, Curva A da Figura 24 da IEEE 80-2013.
+O método prevê Rg de aproximadamente 5,15 Ω; o valor medido em campo foi de 7,85 Ω,
+resultando em erro relativo de 52,5%, atribuído principalmente à heterogeneidade
+natural do solo no ponto de ensaio. O resultado reforça a importância de tratar o
+valor analítico como estimativa de referência para o dimensionamento, a ser confirmada
+pela medição de campo.
+</p>
+
+<h2>9. Eficácia da bentonita sódica</h2>
+<p>
+Ensaio de campo com haste isolada de 1,5 m em solo de ρ = 76 Ω·m, com bentonita
+sódica hidratada aplicada em diâmetro de 30 cm ao redor da haste:
+</p>
+<table border="1" cellpadding="6" cellspacing="0">
+<tr><th>Tempo (min)</th><th>Rg (Ω)</th></tr>
+<tr><td>0</td><td>132</td></tr>
+<tr><td>15</td><td>78</td></tr>
+<tr><td>30</td><td>52</td></tr>
+<tr><td>45</td><td>32</td></tr>
+<tr><td>60</td><td>23</td></tr>
+<tr><td>75</td><td>21</td></tr>
+<tr><td>90</td><td>15</td></tr>
+</table>
+<p>
+Redução de 132 Ω para 15 Ω em 90 minutos — 88,6% de redução. Na configuração com
+anel perimetral (4 hastes de 0,6 m em malha de 3 × 1,5 m, mesmo solo):
+</p>
+<table border="1" cellpadding="6" cellspacing="0">
+<tr><th>Condição</th><th>Rg (Ω)</th></tr>
+<tr><td>Sem bentonita</td><td>15,89</td></tr>
+<tr><td>Com bentonita (60 min)</td><td>7,53</td></tr>
+</table>
+<p>
+Os dois efeitos — interligação por anel e tratamento com bentonita — são complementares,
+confirmando a bentonita sódica como tratamento eficaz mesmo quando associada a uma
+malha já otimizada geometricamente.
+</p>
+
+<h2>10. Medição da resistência instalada — Bloco 5</h2>
+<p>
+A resistência Rg é medida pelo método de queda de potencial em três pontos
+(fall-of-potential), padronizado pela IEEE 81-2012 e ABNT NBR 7117:2020. O eletrodo
+auxiliar de corrente é posicionado a pelo menos 25 m do centro da malha; o eletrodo
+de tensão é posicionado a 62% dessa distância — ponto que minimiza a influência de
+ambos os eletrodos auxiliares. O valor medido é comparado diretamente ao critério
+Rg ≤ 40 Ω.
+</p>
+
+<h2>11. Referências (parcial)</h2>
+<ol>
+<li>INSTITUTE OF ELECTRICAL AND ELECTRONICS ENGINEERS. IEEE Std 80-2013: guide for safety in AC substation grounding. New York: IEEE, 2015.</li>
+<li>INTERNATIONAL ELECTROTECHNICAL COMMISSION. IEC 60479-1: effects of current on human beings and livestock. Geneva: IEC, 2018.</li>
+<li>INSTITUTE OF ELECTRICAL AND ELECTRONICS ENGINEERS. IEEE Std 81-2012: guide for measuring earth resistivity. New York: IEEE, 2012.</li>
+<li>ASSOCIAÇÃO BRASILEIRA DE NORMAS TÉCNICAS. NBR 7117: medição da resistividade e determinação da estratificação do solo. Rio de Janeiro: ABNT, 2020.</li>
+<li>INSTITUTE OF ELECTRICAL AND ELECTRONICS ENGINEERS. IEEE Std 1246-2020: guide for temporary protective grounding systems used in substations. New York: IEEE, 2021.</li>
+<li>MINISTÉRIO DO TRABALHO E EMPREGO. NR-10: segurança em instalações e serviços em eletricidade. Brasília: MTE, 2004.</li>
+<li>ASSOCIAÇÃO BRASILEIRA DE NORMAS TÉCNICAS. NBR 13571: haste de aterramento de aço cobreada e acessórios. Rio de Janeiro: ABNT, 1996.</li>
+<li>INSTITUTE OF ELECTRICAL AND ELECTRONICS ENGINEERS. IEEE Std 142-2007: recommended practice for grounding of industrial and commercial power systems. New York: IEEE, 2007.</li>
+<li>INSTITUTE OF ELECTRICAL AND ELECTRONICS ENGINEERS. IEEE Std 1268-2016: guide for safety in the installation of mobile substation equipment. New York: IEEE, 2016.</li>
+</ol>
+<p><small>(lista de referências incompleta nesta versão)</small></p>
+
+<h2>12. Observação</h2>
+<p>
+Esta é a versão inicial de estudo do Manual Técnico. A versão final inclui todas as
+equações numeradas com legenda, o dimensionamento geométrico completo, os resultados
+integrais dos ensaios de campo e a lista completa de referências com citação cruzada.
+</p>
+
+<hr>
+<p><small>Protótipo de estudo — Felipe Woo e Giuliano Luigi Montagnoli — PUCPR Engenharia Elétrica</small></p>
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+:root{
+  --bg:#f4f2ed;
+  --surface:#ffffff;
+  --surface2:#eceae4;
+  --border:rgba(0,0,0,0.09);
+  --border-strong:rgba(0,0,0,0.16);
+  --text:#181815;
+  --muted:#636360;
+  --hint:#a0a09a;
+  --accent:#1d5bbf;
+  --accent-bg:#eaf0fc;
+  --accent-text:#1a4d9f;
+  --green:#1a7a4a;
+  --green-bg:#e5f5ed;
+  --green-text:#145c38;
+  --orange:#b84800;
+  --orange-bg:#fdf0e5;
+  --orange-text:#8f3800;
+  --red:#b81c1c;
+  --red-bg:#fce8e8;
+  --red-text:#8a1414;
+  --yellow:#8a6500;
+  --yellow-bg:#fdf6e3;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  --mono:ui-monospace,'SF Mono','Cascadia Mono','Roboto Mono','Droid Sans Mono','Courier New',monospace;
+  --radius:10px;
+}
+
+@media(prefers-color-scheme:dark){
+  :root:not(.light){
+    --bg:#131310;
+    --surface:#1c1c19;
+    --surface2:#242420;
+    --border:rgba(255,255,255,0.09);
+    --border-strong:rgba(255,255,255,0.16);
+    --text:#e5e3dc;
+    --muted:#888880;
+    --hint:#555550;
+    --accent:#4f8ef7;
+    --accent-bg:rgba(79,142,247,0.12);
+    --accent-text:#7aaeff;
+    --green:#2ec48e;
+    --green-bg:rgba(46,196,142,0.12);
+    --green-text:#5dd6a8;
+    --orange:#f5a623;
+    --orange-bg:rgba(245,166,35,0.12);
+    --orange-text:#f7bd55;
+    --red:#f04040;
+    --red-bg:rgba(240,64,64,0.12);
+    --red-text:#f07070;
+    --yellow:#e6b800;
+    --yellow-bg:rgba(230,184,0,0.12);
+  }
+}
+
+:root.dark{
+  --bg:#131310;
+  --surface:#1c1c19;
+  --surface2:#242420;
+  --border:rgba(255,255,255,0.09);
+  --border-strong:rgba(255,255,255,0.16);
+  --text:#e5e3dc;
+  --muted:#888880;
+  --hint:#555550;
+  --accent:#4f8ef7;
+  --accent-bg:rgba(79,142,247,0.12);
+  --accent-text:#7aaeff;
+  --green:#2ec48e;
+  --green-bg:rgba(46,196,142,0.12);
+  --green-text:#5dd6a8;
+  --orange:#f5a623;
+  --orange-bg:rgba(245,166,35,0.12);
+  --orange-text:#f7bd55;
+  --red:#f04040;
+  --red-bg:rgba(240,64,64,0.12);
+  --red-text:#f07070;
+  --yellow:#e6b800;
+  --yellow-bg:rgba(230,184,0,0.12);
+}
+
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.65;}
+
+/* PROSE */
+.prose{font-size:14px;line-height:1.75;color:var(--text);}
+.prose p{margin-bottom:0.85rem;}
+.prose strong{font-weight:600;}
+.prose em{font-family:var(--mono);font-size:13px;background:var(--surface2);padding:1px 5px;border-radius:4px;font-style:normal;}
+
+/* ===== CITAÇÕES INLINE ===== */
+.cite{
+  font-family:var(--mono);
+  font-size:12px;
+  font-weight:600;
+  color:var(--accent-text);
+  text-decoration:none;
+  cursor:pointer;
+  padding:0 1px;
+  border-radius:3px;
+}
+.cite:hover{background:var(--accent-bg);text-decoration:underline;}

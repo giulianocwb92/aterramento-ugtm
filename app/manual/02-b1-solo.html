@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="theme-color" content="#1d5bbf">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="POP UGTM">
+<link rel="apple-touch-icon" href="../assets/icons/icon-180.png">
+<link rel="icon" href="../assets/icons/icon-192.png">
+<title>Bloco 1 — Solo — Manual Técnico UGTM</title>
+<link rel="stylesheet" href="../shared/css/base.css">
+<link rel="stylesheet" href="../shared/css/layout.css">
+<link rel="stylesheet" href="../shared/css/components.css">
+<link rel="stylesheet" href="../shared/css/wizard.css">
+</head>
+<body>
+<div id="topbar-mount"></div>
+
+<div class="app-body">
+<div class="sidebar-col" id="sidebar-mount"></div>
+<div class="content-col">
+<div class="main" style="padding-top:1.75rem;">
+
+  <div class="section" id="b1">
+    <div class="section-title"><span class="sec-num">03</span>Bloco 1 — Medição da resistividade do solo</div>
+    <div class="bloco-header"><span class="bloco-badge b1">BLOCO 1 · WENNER</span></div>
+
+    <div class="prose">
+      <p>Antes de qualquer instalação é necessário medir a resistividade do solo no local de operação. Esse parâmetro governa diretamente a resistência de espalhamento dos eletrodos — solos com resistividades distintas podem produzir resistências que diferem em uma ordem de grandeza para uma mesma geometria de hastes <a href="09-referencias.html#ref-8" class="cite">[8]</a>.</p>
+      <p>O método adotado é o <strong>método de Wenner</strong>, padronizado pela <a href="09-referencias.html#ref-7" class="cite">IEEE 81-2012 [7]</a> e pela <a href="09-referencias.html#ref-9" class="cite">ABNT NBR 7117:2020 [9]</a>. Quatro eletrodos são cravados em linha reta com espaçamento igual <em>a</em>. Uma corrente de teste I é injetada pelos eletrodos externos e a queda de tensão V é medida pelos dois internos.</p>
+    </div>
+
+    <div class="eq-wrap">
+      <div class="eq">ρ = 2π · a · R</div>
+      <div style="text-align:left;display:inline-block;">
+        <div class="eq-vars">
+          onde <span>R = V/I</span> é a resistência lida pelo instrumento<br>
+          <span>a</span> = espaçamento entre eletrodos consecutivos (m)<br>
+          <span>ρ</span> = resistividade aparente do solo (Ω·m)
+        </div>
+      </div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (1)</div>
+    </div>
+
+    <div class="prose">
+      <p>O espaçamento <em>a</em> define a profundidade de investigação, correspondendo à resistividade média do solo até uma profundidade aproximadamente igual a <em>a</em>. Para este projeto, recomendam-se espaçamentos entre <strong>1 m e 3 m</strong>, compatíveis com o comprimento das hastes de 2,4 m.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Resistividades medidas em campo</div>
+      <table class="data-table">
+        <thead><tr><th>Condição</th><th>ρ (Ω·m)</th><th>Classificação</th></tr></thead>
+        <tbody>
+          <tr><td>Caracterização geométrica (Seção 6.1) — paralelo vs. anel</td><td class="mono">33,8</td><td>Baixa resistividade</td></tr>
+          <tr><td>Ensaios de bentonita (Seções 6.3 e 6.4)</td><td class="mono">76,0</td><td>Resistividade moderada</td></tr>
+        </tbody>
+      </table>
+      <div style="font-size:12px;color:var(--muted);margin-top:6px;">ρ = 500 Ω·m não é um valor medido em campo — é o cenário de pior caso adotado no Bloco 2 para as tensões de toque e passo, e o limiar operacional para decidir a aplicação de bentonita (ver Bloco 2 e Bloco 3).</div>
+    </div>
+
+    <div class="normas">
+      <a href="09-referencias.html#ref-7" class="norma-tag">IEEE 81-2012<span class="tag-num">7</span></a>
+      <a href="09-referencias.html#ref-9" class="norma-tag">ABNT NBR 7117:2020<span class="tag-num">9</span></a>
+      <a href="09-referencias.html#ref-8" class="norma-tag">Kindermann &amp; Campagnolo (1995)<span class="tag-num">8</span></a>
+    </div>
+  </div>
+
+  <div class="wizard-footer">
+    <a class="wizard-btn wizard-btn-prev" href="01-blocos.html">← Diagrama de blocos</a>
+    <a class="wizard-btn wizard-btn-next" href="03-b2-criterio.html">Próximo: Bloco 2 — Critério →</a>
+  </div>
+</div>
+</div>
+</div>
+
+<script src="../shared/js/pwa.js"></script>
+<script>window.Ugtm.PWA.init('../');</script>
+<script src="../shared/js/state.js"></script>
+<script src="../shared/js/chrome.js"></script>
+<script src="../shared/js/theme.js"></script>
+<script>
+  window.Ugtm.Chrome.render({mode:'manual', activeId:'b1', basePath:'../'});
+</script>
+</body>
+</html>

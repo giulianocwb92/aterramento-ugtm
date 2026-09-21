@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1d5bbf">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="POP UGTM">
+<link rel="apple-touch-icon" href="assets/icons/icon-180.png">
+<link rel="icon" href="assets/icons/icon-192.png">
+<title>Aterramento Provisório UGTM — POP e Manual Técnico</title>
+<link rel="stylesheet" href="shared/css/base.css">
+<link rel="stylesheet" href="shared/css/layout.css">
+<link rel="stylesheet" href="shared/css/components.css">
+<link rel="stylesheet" href="shared/css/wizard.css">
+</head>
+<body>
+
+<div id="resume-mount"></div>
+
+<div class="landing">
+  <div class="landing-sidebar">
+    <a class="landing-btn landing-btn-pop" href="pop/00-visao-geral.html">
+      <span class="landing-btn-icon">👷</span>
+      <span>
+        <span class="landing-btn-title">POP</span><br>
+        <span class="landing-btn-sub">Procedimento operacional passo a passo, com checklist que trava até você confirmar cada etapa, calculadora de solo e registro da operação.</span>
+      </span>
+    </a>
+    <a class="landing-btn landing-btn-manual" href="apresentacao.html?mode=manual">
+      <span class="landing-btn-icon">🎓</span>
+      <span>
+        <span class="landing-btn-title">Manual Técnico</span><br>
+        <span class="landing-btn-sub">Fundamentação técnica, normas, cálculos e referências de cada bloco do sistema — navegação livre.</span>
+      </span>
+    </a>
+  </div>
+  <div class="landing-content">
+    <div class="landing-logo">UGTM · COPEL-DIST-AT-001/002</div>
+    <h1>Aterramento Provisório de UGTM</h1>
+    <p>Escolha como você quer acessar o conteúdo, ao lado.</p>
+    <div class="landing-footer">Você pode alternar entre os dois modos a qualquer momento pelo topo da página.</div>
+  </div>
+</div>
+
+<script src="shared/js/pwa.js"></script>
+<script>window.Ugtm.PWA.init('');</script>
+<script src="shared/js/state.js"></script>
+<script src="shared/js/chrome.js"></script>
+<script>
+(function(){
+  var state = window.Ugtm.State.all();
+  var hasProgress = window.Ugtm.State.hasAnyProgress();
+  if(hasProgress){
+    var mount = document.getElementById('resume-mount');
+    var furthest = window.Ugtm.State.getFurthestPage();
+    var page = window.Ugtm.Chrome.POP_PAGES[Math.min(furthest, window.Ugtm.Chrome.POP_PAGES.length-1)];
+    mount.innerHTML = '<div class="resume-banner" style="margin:1rem 1.25rem 0;">'
+      + '⏱️ <span>Você tem uma operação do POP em andamento (última atualização: '
+      + new Date(state.meta.updatedAt).toLocaleString('pt-BR') + ').</span>'
+      + '<a class="btn-resume" href="'+page.file+'">Continuar de onde parei</a>'
+      + '<button class="btn-dismiss" id="dismiss-resume">Começar do zero</button>'
+      + '</div>';
+    document.getElementById('dismiss-resume').addEventListener('click', function(){
+      window.Ugtm.State.reset();
+      mount.innerHTML = '';
+    });
+  }
+})();
+</script>
+</body>
+</html>

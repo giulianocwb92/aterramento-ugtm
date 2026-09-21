@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="../../manifest.webmanifest">
+<meta name="theme-color" content="#1d5bbf">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="POP UGTM">
+<link rel="apple-touch-icon" href="../../assets/icons/icon-180.png">
+<link rel="icon" href="../../assets/icons/icon-192.png">
+<title>Medir solo — Procedimento — POP Aterramento UGTM</title>
+<link rel="stylesheet" href="../../shared/css/base.css">
+<link rel="stylesheet" href="../../shared/css/layout.css">
+<link rel="stylesheet" href="../../shared/css/components.css">
+<link rel="stylesheet" href="../../shared/css/wizard.css">
+</head>
+<body>
+<div id="topbar-mount"></div>
+<div id="progress-mount"></div>
+
+<div class="app-body">
+<div class="sidebar-col" id="sidebar-mount"></div>
+<div class="content-col">
+<div class="main" style="padding-top:1.75rem;">
+
+  <div class="section">
+    <div class="section-title">Medir e registrar a resistividade do solo (ρ)</div>
+    <div class="prose"><p>Utilize o terrômetro no <strong>método de Wenner</strong>, com espaçamento de 2,4 m entre eletrodos, e informe o valor medido abaixo.</p></div>
+
+    <div class="rho-input-wrap">
+      <label for="rho-val">Resistividade medida:</label>
+      <input class="rho-input" type="number" id="rho-val" placeholder="76" min="0" max="99999">
+      <span class="rho-unit">Ω·m</span>
+    </div>
+
+    <table class="soil-table">
+      <thead><tr><th>Resistividade (Ω·m)</th><th>Ação</th><th>Tempo de espera</th></tr></thead>
+      <tbody id="solo-tbody">
+        <tr class="soil-row" data-min="0" data-max="500">
+          <td><span class="rho-range">≤ 500</span></td>
+          <td><span class="action-badge badge-green">Sem bentonita</span></td>
+          <td><span class="time-num">—</span></td>
+        </tr>
+        <tr class="soil-row" data-min="501" data-max="999999">
+          <td><span class="rho-range">&gt; 500</span></td>
+          <td><span class="action-badge badge-orange">Aplicar bentonita</span></td>
+          <td><span class="time-num">≈ 60 min</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="soil-result" id="solo-result"></div>
+    <p style="font-size:12px;color:var(--muted);margin-top:8px;">Limiar operacional adotado no TCC: ρ ≤ 500 Ω·m dispensa bentonita. O tempo de espera de referência vem do ensaio de campo com anel perimetral e bentonita, medido em ρ = 76 Ω·m. Para resistividades muito acima de 500 Ω·m, não há dado de campo — acionar a engenharia antes de prosseguir.</p>
+
+    <div id="gate-banner-mount" style="margin-top:1rem;"></div>
+    <div id="rho-checklist-mount"></div>
+  </div>
+
+  <div id="wizard-footer-mount"></div>
+</div>
+</div>
+</div>
+
+<script src="../../shared/js/pwa.js"></script>
+<script>window.Ugtm.PWA.init('../../');</script>
+<script src="../../shared/js/state.js"></script>
+<script src="../../shared/js/chrome.js"></script>
+<script src="../../shared/js/theme.js"></script>
+<script src="../../shared/js/wizard.js"></script>
+<script src="../../shared/js/hub.js"></script>
+<script src="../../shared/js/checklist.js"></script>
+<script src="../../shared/js/soil-calc.js"></script>
+<script>
+  window.Ugtm.Hub.guardItem('solo','../');
+  window.Ugtm.Chrome.render({mode:'pop', activeId:'procedimento', basePath:'../../'});
+  window.Ugtm.Hub.renderProgress('progress-mount','solo');
+  window.Ugtm.Soil.init();
+
+  var RHO_ITEM = [{key:'medido', label:'Resistividade (ρ) medida e registrada acima', critical:false}];
+
+  function syncRhoCheck(){
+    var v = window.Ugtm.State.getRho();
+    var current = window.Ugtm.State.getChecklistItem('solo.medido');
+    if(v!=null && !current.checked){ window.Ugtm.State.setChecked('solo.medido', true); }
+    if(v==null && current.checked){ window.Ugtm.State.setChecked('solo.medido', false); }
+  }
+  function canAdvance(){
+    syncRhoCheck();
+    return window.Ugtm.Wizard.evaluateChecklist([{key:'solo.medido', label:RHO_ITEM[0].label, critical:false}]);
+  }
+
+  document.getElementById('rho-val').addEventListener('input', function(){
+    syncRhoCheck();
+    checklistCtrl.refresh();
+    window.Ugtm.Wizard.renderGateBanner('gate-banner-mount', canAdvance());
+  });
+
+  var checklistCtrl = window.Ugtm.Checklist.render('rho-checklist-mount', 'solo', RHO_ITEM, function(){
+    window.Ugtm.Wizard.renderGateBanner('gate-banner-mount', canAdvance());
+  });
+
+  window.Ugtm.Hub.renderItemFooter('wizard-footer-mount', {itemId:'solo', basePath:'../', canAdvance:canAdvance, bannerMount:'gate-banner-mount'});
+</script>
+</body>
+</html>

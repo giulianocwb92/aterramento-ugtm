@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="../../manifest.webmanifest">
+<meta name="theme-color" content="#1d5bbf">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="POP UGTM">
+<link rel="apple-touch-icon" href="../../assets/icons/icon-180.png">
+<link rel="icon" href="../../assets/icons/icon-192.png">
+<title>Configuração secundária — Procedimento — POP Aterramento UGTM</title>
+<link rel="stylesheet" href="../../shared/css/base.css">
+<link rel="stylesheet" href="../../shared/css/layout.css">
+<link rel="stylesheet" href="../../shared/css/components.css">
+<link rel="stylesheet" href="../../shared/css/wizard.css">
+</head>
+<body>
+<div id="topbar-mount"></div>
+<div id="progress-mount"></div>
+
+<div class="app-body">
+<div class="sidebar-col" id="sidebar-mount"></div>
+<div class="content-col">
+<div class="main" style="padding-top:1.75rem;">
+
+  <div class="section">
+    <div class="section-title">Configuração secundária</div>
+    <div class="step conditional">
+      <div class="step-num">➕</div>
+      <div class="step-body">
+        <div class="step-desc">Somente se Rg &gt; 40 Ω. Instalar 2 hastes adicionais nas arestas da malha. Reconectar os cabos de interligação incluindo as novas hastes, e medir Rg novamente.</div>
+        <span class="step-tag tag-cond">somente se Rg &gt; 40 Ω</span>
+      </div>
+    </div>
+
+    <div class="rho-input-wrap">
+      <label for="rg2-val">Rg medido (após configuração secundária):</label>
+      <input class="rho-input" type="number" id="rg2-val" step="0.1" placeholder="8.5" min="0" max="99999">
+      <span class="rho-unit">Ω</span>
+    </div>
+
+    <div id="rg2-result-mount"></div>
+    <div id="gate-banner-mount" style="margin-top:1rem;"></div>
+  </div>
+
+  <div id="wizard-footer-mount"></div>
+</div>
+</div>
+</div>
+
+<script src="../../shared/js/pwa.js"></script>
+<script>window.Ugtm.PWA.init('../../');</script>
+<script src="../../shared/js/state.js"></script>
+<script src="../../shared/js/chrome.js"></script>
+<script src="../../shared/js/theme.js"></script>
+<script src="../../shared/js/wizard.js"></script>
+<script src="../../shared/js/hub.js"></script>
+<script>
+  var ITEM_ID = 'config-secundaria';
+  window.Ugtm.Hub.guardItem(ITEM_ID,'../');
+  window.Ugtm.Chrome.render({mode:'pop', activeId:'procedimento', basePath:'../../'});
+  window.Ugtm.Hub.renderProgress('progress-mount',ITEM_ID);
+
+  var input = document.getElementById('rg2-val');
+  var saved = window.Ugtm.State.getRgSecundario();
+  if(saved!=null) input.value = saved;
+
+  function renderResult(){
+    var v = parseFloat(input.value);
+    var mount = document.getElementById('rg2-result-mount');
+    if(isNaN(v)){ mount.innerHTML=''; return; }
+    var ok = v<=40;
+    mount.innerHTML = '<div class="alert '+(ok?'success':'danger')+'" style="margin-top:1rem;">'
+      + '<span class="alert-icon">'+(ok?'✅':'⛔')+'</span><div><strong>'+(ok?'Aprovado — Rg ≤ 40 Ω':'Ainda reprovado — intervenção deve ser cancelada')+'</strong></div></div>';
+  }
+  renderResult();
+
+  input.addEventListener('input', function(){
+    var v = parseFloat(input.value);
+    window.Ugtm.State.setRgSecundario(isNaN(v)?null:v);
+    renderResult();
+    window.Ugtm.Wizard.renderGateBanner('gate-banner-mount', canAdvance());
+  });
+
+  function canAdvance(){
+    return window.Ugtm.State.getRgSecundario()!=null ? {ok:true} : {ok:false, softPending:[{label:'Informe o valor de Rg medido após a configuração secundária'}]};
+  }
+  window.Ugtm.Wizard.renderGateBanner('gate-banner-mount', canAdvance());
+
+  window.Ugtm.Hub.renderItemFooter('wizard-footer-mount', {itemId:ITEM_ID, basePath:'../', canAdvance:canAdvance, bannerMount:'gate-banner-mount'});
+</script>
+</body>
+</html>

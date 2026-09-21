@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="theme-color" content="#1d5bbf">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="POP UGTM">
+<link rel="apple-touch-icon" href="../assets/icons/icon-180.png">
+<link rel="icon" href="../assets/icons/icon-192.png">
+<title>Diagrama de blocos — Manual Técnico UGTM</title>
+<link rel="stylesheet" href="../shared/css/base.css">
+<link rel="stylesheet" href="../shared/css/layout.css">
+<link rel="stylesheet" href="../shared/css/components.css">
+<link rel="stylesheet" href="../shared/css/wizard.css">
+</head>
+<body>
+<div id="topbar-mount"></div>
+
+<div class="app-body">
+<div class="sidebar-col" id="sidebar-mount"></div>
+<div class="content-col">
+<div class="main" style="padding-top:1.75rem;">
+
+  <div class="section" id="blocos">
+    <div class="section-title"><span class="sec-num">02</span>Diagrama de blocos do sistema</div>
+
+    <div class="prose"><p>O sistema é composto por 6 blocos funcionais. O diagrama abaixo mostra como eles dependem uns dos outros — clique em qualquer bloco para navegar até sua fundamentação técnica.</p></div>
+
+    <div class="diagram-wrap">
+    <svg viewBox="0 0 1200 1080" width="100%" style="display:block;" role="img">
+      <title>Diagrama de blocos do sistema de aterramento portátil para UGTM</title>
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="#8b93a1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+        <marker id="arrowDash" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="#a7aeb9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+        <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
+          <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#1a1f2b" flood-opacity="0.18"/>
+        </filter>
+        <filter id="chipShadow" x="-50%" y="-50%" width="200%" height="200%">
+          <feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#1a1f2b" flood-opacity="0.20"/>
+        </filter>
+        <linearGradient id="gradBlue" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1b6f8c"/><stop offset="100%" stop-color="#125269"/></linearGradient>
+        <linearGradient id="gradPurple" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#5647a3"/><stop offset="100%" stop-color="#3d3480"/></linearGradient>
+        <linearGradient id="gradRust" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#af4b2e"/><stop offset="100%" stop-color="#8c3a22"/></linearGradient>
+        <linearGradient id="gradAmber" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c4870f"/><stop offset="100%" stop-color="#a06c09"/></linearGradient>
+        <linearGradient id="gradGreen" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1f8f5a"/><stop offset="100%" stop-color="#146b43"/></linearGradient>
+        <linearGradient id="gradSlate" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#5c6472"/><stop offset="100%" stop-color="#454c58"/></linearGradient>
+      </defs>
+
+      <rect x="0" y="0" width="1200" height="1080" fill="#fbfaf8"/>
+
+      <g class="diagram-node" onclick="location.href='06-b4-protecao.html'">
+        <rect x="160" y="40" width="330" height="92" rx="16" fill="url(#gradRust)" filter="url(#softShadow)"/>
+        <rect x="160" y="40" width="330" height="92" rx="16" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>
+        <text x="325" y="79" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff" letter-spacing="0.2">Bloco 4</text>
+        <text x="325" y="107" text-anchor="middle" font-size="15.5" fill="#f6ddd3">Relé, pickup em 30 ms</text>
+      </g>
+
+      <g class="diagram-node" onclick="location.href='03-b2-criterio.html'">
+        <rect x="700" y="40" width="330" height="92" rx="16" fill="url(#gradSlate)" filter="url(#softShadow)"/>
+        <rect x="700" y="40" width="330" height="92" rx="16" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>
+        <text x="865" y="79" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff" letter-spacing="0.2">IEEE 80-2013</text>
+        <text x="865" y="107" text-anchor="middle" font-size="15.5" fill="#e6e8ec">Limite de segurança</text>
+      </g>
+
+      <g class="diagram-node" onclick="location.href='03-b2-criterio.html'">
+        <rect x="430" y="222" width="330" height="92" rx="16" fill="url(#gradPurple)" filter="url(#softShadow)"/>
+        <rect x="430" y="222" width="330" height="92" rx="16" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>
+        <text x="595" y="261" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff">Bloco 2, Critério</text>
+        <text x="595" y="289" text-anchor="middle" font-size="15.5" fill="#ded8f5">Rg ≤ 40 Ω</text>
+      </g>
+
+      <g class="diagram-node" onclick="location.href='02-b1-solo.html'">
+        <rect x="90" y="418" width="300" height="92" rx="16" fill="url(#gradBlue)" filter="url(#softShadow)"/>
+        <rect x="90" y="418" width="300" height="92" rx="16" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>
+        <text x="240" y="457" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff">Bloco 1, Solo</text>
+        <text x="240" y="485" text-anchor="middle" font-size="15.5" fill="#d3e9f2">Mede ρ (Wenner)</text>
+      </g>
+
+      <g class="diagram-node" onclick="location.href='04-b3-sistema-fisico.html'">
+        <rect x="430" y="524" width="330" height="92" rx="16" fill="url(#gradRust)" filter="url(#softShadow)"/>
+        <rect x="430" y="524" width="330" height="92" rx="16" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>
+        <text x="595" y="563" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff">Bloco 3, Físico</text>
+        <text x="595" y="591" text-anchor="middle" font-size="15.5" fill="#f6ddd3">Hastes e bentonita</text>
+      </g>
+
+      <g class="diagram-node" onclick="location.href='07-b5-medicao-rg.html'">
+        <rect x="430" y="704" width="330" height="92" rx="16" fill="url(#gradAmber)" filter="url(#softShadow)"/>
+        <rect x="430" y="704" width="330" height="92" rx="16" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>
+        <text x="595" y="743" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff">Bloco 5, Mede Rg</text>
+        <text x="595" y="771" text-anchor="middle" font-size="15.5" fill="#fbecd0">Queda de potencial</text>
+      </g>
+
+      <g class="diagram-node" onclick="location.href='08-b6-suplementar.html'">
+        <rect x="430" y="884" width="330" height="92" rx="16" fill="url(#gradGreen)" filter="url(#softShadow)"/>
+        <rect x="430" y="884" width="330" height="92" rx="16" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>
+        <text x="595" y="923" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff">Bloco 6</text>
+        <text x="595" y="951" text-anchor="middle" font-size="15.5" fill="#cdeee0">Procedimento operacional</text>
+      </g>
+
+      <path d="M420 132 C420 168 515 166 553 220" fill="none" stroke="#8b93a1" stroke-width="2" marker-end="url(#arrow)"/>
+      <path d="M770 132 C770 168 672 166 647 220" fill="none" stroke="#8b93a1" stroke-width="2" marker-end="url(#arrow)"/>
+      <line x1="595" y1="314" x2="595" y2="520" stroke="#8b93a1" stroke-width="2" marker-end="url(#arrow)"/>
+      <path d="M320 510 C320 548 415 552 452 524" fill="none" stroke="#8b93a1" stroke-width="2" marker-end="url(#arrow)"/>
+      <line x1="595" y1="616" x2="595" y2="700" stroke="#8b93a1" stroke-width="2" marker-end="url(#arrow)"/>
+      <path d="M762 726 C 886 726 886 590 762 561" fill="none" stroke="#a7aeb9" stroke-width="2" stroke-dasharray="1 7" stroke-linecap="round" marker-end="url(#arrowDash)"/>
+      <text x="897" y="649" text-anchor="middle" font-size="15.5" fill="#7a828e" font-style="italic">se Rg &gt; 40 Ω</text>
+      <line x1="595" y1="796" x2="595" y2="880" stroke="#8b93a1" stroke-width="2.25" marker-end="url(#arrow)"/>
+      <text x="702" y="843" text-anchor="middle" font-size="15.5" fill="#7a828e" font-style="italic">se Rg ≤ 40 Ω</text>
+
+      <line x1="90" y1="1008" x2="1110" y2="1008" stroke="#e4e1da" stroke-width="1"/>
+      <g>
+        <rect x="90" y="1030" width="20" height="20" rx="5" fill="url(#gradBlue)" filter="url(#chipShadow)"/>
+        <text x="120" y="1045" font-size="15.5" fill="#4a4f58">Medição</text>
+        <rect x="228" y="1030" width="20" height="20" rx="5" fill="url(#gradPurple)" filter="url(#chipShadow)"/>
+        <text x="258" y="1045" font-size="15.5" fill="#4a4f58">Cálculo do critério</text>
+        <rect x="430" y="1030" width="20" height="20" rx="5" fill="url(#gradRust)" filter="url(#chipShadow)"/>
+        <text x="460" y="1045" font-size="15.5" fill="#4a4f58">Sistema físico / proteção</text>
+        <rect x="680" y="1030" width="20" height="20" rx="5" fill="url(#gradAmber)" filter="url(#chipShadow)"/>
+        <text x="710" y="1045" font-size="15.5" fill="#4a4f58">Medição de resultado</text>
+        <rect x="918" y="1030" width="20" height="20" rx="5" fill="url(#gradGreen)" filter="url(#chipShadow)"/>
+        <text x="948" y="1045" font-size="15.5" fill="#4a4f58">Procedimento final</text>
+      </g>
+    </svg>
+    </div>
+  </div>
+
+  <div class="wizard-footer">
+    <a class="wizard-btn wizard-btn-prev" href="00-contexto.html">← Contexto</a>
+    <a class="wizard-btn wizard-btn-next" href="02-b1-solo.html">Próximo: Bloco 1 — Solo →</a>
+  </div>
+</div>
+</div>
+</div>
+
+<script src="../shared/js/pwa.js"></script>
+<script>window.Ugtm.PWA.init('../');</script>
+<script src="../shared/js/state.js"></script>
+<script src="../shared/js/chrome.js"></script>
+<script src="../shared/js/theme.js"></script>
+<script>
+  window.Ugtm.Chrome.render({mode:'manual', activeId:'blocos', basePath:'../'});
+</script>
+</body>
+</html>

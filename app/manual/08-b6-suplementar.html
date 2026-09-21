@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="theme-color" content="#1d5bbf">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="POP UGTM">
+<link rel="apple-touch-icon" href="../assets/icons/icon-180.png">
+<link rel="icon" href="../assets/icons/icon-192.png">
+<title>Bloco 6 — Suplementar — Manual Técnico UGTM</title>
+<link rel="stylesheet" href="../shared/css/base.css">
+<link rel="stylesheet" href="../shared/css/layout.css">
+<link rel="stylesheet" href="../shared/css/components.css">
+<link rel="stylesheet" href="../shared/css/wizard.css">
+</head>
+<body>
+<div id="topbar-mount"></div>
+
+<div class="app-body">
+<div class="sidebar-col" id="sidebar-mount"></div>
+<div class="content-col">
+<div class="main" style="padding-top:1.75rem;">
+
+  <div class="section" id="b6">
+    <div class="section-title"><span class="sec-num">09</span>Bloco 6 — Configuração suplementar</div>
+    <div class="bloco-header"><span class="bloco-badge b6">BLOCO 6 · +2 HASTES</span></div>
+
+    <div class="prose">
+      <p>Se após a instalação primária o valor de Rg medido for superior a 40 Ω, é instalada a configuração suplementar: <strong>2 hastes adicionais nas arestas da malha</strong>, interligadas ao anel perimetral e com bentonita.</p>
+      <p>O efeito geométrico das hastes adicionais reduz a resistência total pela adição de paralelos — cada haste contribui com sua própria resistência de espalhamento. O fator de interação mútua entre hastes, capturado pelo termo <em>(√n − 1)²</em> da equação de Schwarz <a href="09-referencias.html#ref-29" class="cite">[29]</a> (Eq. 5), quantifica a redução marginal de eficiência com mais hastes próximas.</p>
+      <p>Se após a configuração suplementar o Rg ainda for superior a 40 Ω, a intervenção deve ser cancelada e a equipe de engenharia acionada. Solos com ρ &gt; 500 Ω·m estão fora do envelope operacional adotado no TCC (Bloco 2).</p>
+    </div>
+
+    <div class="alert warning">
+      <span class="alert-icon">⚠️</span>
+      <div>
+        <strong>Limite operacional validado</strong>
+        <p>O limiar de 500 Ω·m vem do cálculo de Schwarz e do critério de tensão de toque/passo (IEEE 80-2013, Bloco 2). O efeito da bentonita foi validado em campo até ρ = 76 Ω·m (Bloco 3 — Bentonita). Para resistividades muito acima disso, consultar engenharia antes de prosseguir.</p>
+      </div>
+    </div>
+
+    <div class="normas">
+      <a href="09-referencias.html#ref-1" class="norma-tag">IEEE 80-2013<span class="tag-num">1</span></a>
+      <span class="norma-tag">Ensaio de campo — Os autores (2026)</span>
+    </div>
+  </div>
+
+  <div class="wizard-footer">
+    <a class="wizard-btn wizard-btn-prev" href="07-b5-medicao-rg.html">← Bloco 5 — Medição Rg</a>
+    <a class="wizard-btn wizard-btn-next" href="09-referencias.html">Próximo: Referências →</a>
+  </div>
+</div>
+</div>
+</div>
+
+<script src="../shared/js/pwa.js"></script>
+<script>window.Ugtm.PWA.init('../');</script>
+<script src="../shared/js/state.js"></script>
+<script src="../shared/js/chrome.js"></script>
+<script src="../shared/js/theme.js"></script>
+<script>
+  window.Ugtm.Chrome.render({mode:'manual', activeId:'b6', basePath:'../'});
+</script>
+</body>
+</html>

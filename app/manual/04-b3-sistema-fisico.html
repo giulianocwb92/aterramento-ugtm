@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="theme-color" content="#1d5bbf">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="POP UGTM">
+<link rel="apple-touch-icon" href="../assets/icons/icon-180.png">
+<link rel="icon" href="../assets/icons/icon-192.png">
+<title>Bloco 3 — Sistema físico — Manual Técnico UGTM</title>
+<link rel="stylesheet" href="../shared/css/base.css">
+<link rel="stylesheet" href="../shared/css/layout.css">
+<link rel="stylesheet" href="../shared/css/components.css">
+<link rel="stylesheet" href="../shared/css/wizard.css">
+</head>
+<body>
+<div id="topbar-mount"></div>
+
+<div class="app-body">
+<div class="sidebar-col" id="sidebar-mount"></div>
+<div class="content-col">
+<div class="main" style="padding-top:1.75rem;">
+
+  <div class="section" id="b3">
+    <div class="section-title"><span class="sec-num">05</span>Bloco 3 — Sistema físico de aterramento</div>
+    <div class="bloco-header"><span class="bloco-badge b3">BLOCO 3 · SCHWARZ</span></div>
+
+    <div class="prose">
+      <p>O sistema físico é composto por três elementos que atuam em conjunto: os eletrodos verticais (hastes), o sistema de interligação (cabos) e o tratamento químico do solo (bentonita). A resistência total é calculada pelo <strong>método de Schwarz</strong> <a href="09-referencias.html#ref-29" class="cite">[29]</a>, sistematizado no livro de <a href="09-referencias.html#ref-30" class="cite">Visacro Filho [30]</a>, que combina a contribuição dos cabos e das hastes com suas resistências mútuas.</p>
+    </div>
+
+    <div class="malha-wrap">
+      <div style="font-size:12px;font-weight:500;color:var(--muted);margin-bottom:10px;font-family:var(--mono);text-transform:uppercase;letter-spacing:0.05em;">Vista em planta — configuração primária</div>
+      <svg width="100%" viewBox="0 0 500 160" style="font-family:'Inter',sans-serif;">
+        <rect x="60" y="30" width="380" height="100" rx="6" fill="#1a5fb010" stroke="#1a5fb0" stroke-width="1" stroke-dasharray="6 3"/>
+        <text x="250" y="80" text-anchor="middle" font-size="12" fill="#1a5fb0" font-weight="500">UGTM — 17 m × 4 m</text>
+
+        <rect x="40" y="18" width="420" height="124" rx="4" fill="none" stroke="#854F0B" stroke-width="1.5"/>
+        <text x="250" y="10" text-anchor="middle" font-size="10" fill="#854F0B">Cabo 25 mm² — anel perimetral (42 m)</text>
+
+        <circle cx="40" cy="18" r="7" fill="#1a7a4a" stroke="#fff" stroke-width="1.5"/>
+        <circle cx="460" cy="18" r="7" fill="#1a7a4a" stroke="#fff" stroke-width="1.5"/>
+        <circle cx="40" cy="142" r="7" fill="#1a7a4a" stroke="#fff" stroke-width="1.5"/>
+        <circle cx="460" cy="142" r="7" fill="#1a7a4a" stroke="#fff" stroke-width="1.5"/>
+
+        <text x="40" y="5" text-anchor="middle" font-size="9" fill="#1a7a4a" font-weight="500">H1</text>
+        <text x="460" y="5" text-anchor="middle" font-size="9" fill="#1a7a4a" font-weight="500">H2</text>
+        <text x="40" y="158" text-anchor="middle" font-size="9" fill="#1a7a4a" font-weight="500">H3</text>
+        <text x="460" y="158" text-anchor="middle" font-size="9" fill="#1a7a4a" font-weight="500">H4</text>
+
+        <line x1="40" y1="155" x2="460" y2="155" stroke="#888" stroke-width="0.8"/>
+        <text x="250" y="168" text-anchor="middle" font-size="10" fill="#888">17 m</text>
+        <line x1="476" y1="18" x2="476" y2="142" stroke="#888" stroke-width="0.8"/>
+        <text x="492" y="84" text-anchor="middle" font-size="10" fill="#888" transform="rotate(90,492,84)">4 m</text>
+
+        <line x1="40" y1="80" x2="60" y2="80" stroke="#1a5fb0" stroke-width="2" stroke-dasharray="3 2"/>
+        <text x="15" y="78" font-size="9" fill="#1a5fb0">50 mm²</text>
+      </svg>
+      <div style="font-size:11px;color:var(--muted);margin-top:8px;">Hastes: aço cobreado 5/8" × 2.400 mm · Área da malha: 68 m² · Perímetro: 42 m</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Configuração dos eletrodos — hastes em paralelo vs. anel perimetral</div>
+      <div class="prose">
+        <p>A escolha por interligar as hastes com um cabo formando um anel perimetral, em vez de instalá-las isoladamente em paralelo, foi validada empiricamente por ensaios de campo com 1 a 5 hastes (Seção 6.1 do TCC), medindo a resistência de aterramento pelo método de queda de potencial a cada haste adicionada.</p>
+      </div>
+      <div class="table-stack">
+        <div>
+          <div style="font-size:12px;font-weight:500;color:var(--muted);margin-bottom:6px;">Solo favorável — ρ = 33,8 Ω·m</div>
+          <table class="data-table">
+            <thead><tr><th>Nº hastes</th><th>Paralelo (Ω)</th><th>Anel perimetral (Ω)</th></tr></thead>
+            <tbody>
+              <tr><td class="mono">1</td><td class="mono">51,4</td><td class="mono">51,4</td></tr>
+              <tr><td class="mono">2</td><td class="mono">37,7</td><td class="mono">37,7</td></tr>
+              <tr><td class="mono">3</td><td class="mono">29,4</td><td class="mono">28,2</td></tr>
+              <tr><td class="mono">4</td><td class="mono">29,0</td><td class="mono">23,3</td></tr>
+              <tr><td class="mono">5</td><td class="mono">28,9</td><td class="mono">21,1</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:500;color:var(--muted);margin-bottom:6px;">Solo adverso — ρ = 500 Ω·m</div>
+          <table class="data-table">
+            <thead><tr><th>Nº hastes</th><th>Paralelo (Ω)</th><th>Anel perimetral (Ω)</th></tr></thead>
+            <tbody>
+              <tr><td class="mono">1</td><td class="mono">293,0</td><td class="mono">293,0</td></tr>
+              <tr><td class="mono">2</td><td class="mono">143,0</td><td class="mono">143,0</td></tr>
+              <tr><td class="mono">3</td><td class="mono">93,5</td><td class="mono">78,5</td></tr>
+              <tr><td class="mono">4</td><td class="mono">72,5</td><td class="mono">35,5</td></tr>
+              <tr><td class="mono">5</td><td class="mono">58,5</td><td class="mono">25,5</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="alert info">
+        <span class="alert-icon">ℹ️</span>
+        <div>
+          <strong>Saturação a partir de 3 hastes em paralelo</strong>
+          <p>Sem interligação por anel, cada haste adicional contribui cada vez menos para reduzir Rg — as zonas de influência das hastes vizinhas se sobrepõem. A configuração com anel perimetral evita essa saturação, mantendo reduções relevantes mesmo com mais hastes. A configuração final do kit usa 6 hastes (4 primárias + 2 suplementares) — número maior que o ensaiado diretamente (5), então o comportamento com 6 hastes é uma extrapolação da tendência observada, não uma medição direta.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Método de Schwarz — 4 equações</div>
+
+      <div class="eq-wrap" style="margin-top:10px;">
+        <div style="font-size:12px;color:var(--muted);font-family:var(--mono);margin-bottom:6px;text-align:left;">Eq. (4) — Resistência da malha de cabos</div>
+        <div class="eq" style="font-size:16px;">Rc = (ρ / π·Lc) · [ln(2·Lc/h) + k₁·(Lc/√A) − k₂]</div>
+      </div>
+
+      <div class="eq-wrap">
+        <div style="font-size:12px;color:var(--muted);font-family:var(--mono);margin-bottom:6px;text-align:left;">Eq. (5) — Resistência das hastes verticais</div>
+        <div class="eq" style="font-size:16px;">Rh = (ρ / 2π·n·L) · [ln(4L/d) − 1 + (2k₁·L/√A)·(√n − 1)²]</div>
+      </div>
+
+      <div class="eq-wrap">
+        <div style="font-size:12px;color:var(--muted);font-family:var(--mono);margin-bottom:6px;text-align:left;">Eq. (6) — Resistência mútua malha–hastes</div>
+        <div class="eq" style="font-size:16px;">Rm = (ρ / π·Lc) · [ln(2·Lc/L) + k₁·(Lc/√A) − k₂ + 1]</div>
+      </div>
+
+      <div class="eq-wrap">
+        <div style="font-size:12px;color:var(--muted);font-family:var(--mono);margin-bottom:6px;text-align:left;">Eq. (7) — Resistência total combinada</div>
+        <div class="eq" style="font-size:16px;">Rg = (Rc · Rh) / (Rc + Rh − 2·Rm)</div>
+      </div>
+
+      <div class="eq-vars" style="display:block;margin-top:12px;padding:10px 14px;background:var(--surface2);border-radius:8px;">
+        <span>ρ</span> = resistividade do solo (Ω·m) &nbsp;·&nbsp;
+        <span>Lc</span> = comprimento total dos cabos = 42 m &nbsp;·&nbsp;
+        <span>h</span> ≈ 0 (cabos apoiados na superfície do solo)<br>
+        <span>A</span> = área da malha = 68 m² &nbsp;·&nbsp;
+        <span>n</span> = número de hastes = 4 &nbsp;·&nbsp;
+        <span>L</span> = comprimento das hastes = 2,40 m &nbsp;·&nbsp;
+        <span>d</span> = diâmetro das hastes = 0,01588 m (5/8")<br>
+        <span>k₁ = 1,24</span> e <span>k₂ = 5,11</span> — coeficientes geométricos da Curva A da Figura 24 da <a href="09-referencias.html#ref-1" class="cite">IEEE 80-2013 [1]</a> para a/b = 4,25 (cabos na superfície)
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Resultados calculados — Schwarz</div>
+      <table class="data-table">
+        <thead><tr><th>Configuração</th><th>ρ (Ω·m)</th><th>Rg calculado (Ω)</th><th>Rg medido (Ω)</th><th>Nota</th></tr></thead>
+        <tbody>
+          <tr><td>Malha real — 17×4 m, 4 hastes 2,40 m</td><td class="mono">500</td><td class="mono">34,27</td><td class="mono">—</td><td style="color:var(--green-text);font-weight:500;">✓ Atende (limiar operacional adotado)</td></tr>
+          <tr><td>Protótipo em escala reduzida — 4×1,5 m, 4 hastes 1,50 m</td><td class="mono">33,8</td><td class="mono">5,15</td><td class="mono">7,85</td><td>Validação de campo (Seção 6.2)</td></tr>
+        </tbody>
+      </table>
+      <div style="font-size:12px;color:var(--muted);margin-top:6px;">O TCC não deriva uma resistividade crítica pelo método de Schwarz — o limiar operacional de aplicação de bentonita é ρ ≤ 500 Ω·m, adotado no Bloco 2 a partir do critério de tensão de toque/passo. A diferença entre o Rg previsto e o medido no protótipo é atribuída à heterogeneidade do solo no ponto de ensaio (Seção 6.2).</div>
+    </div>
+
+    <div class="normas">
+      <a href="09-referencias.html#ref-1" class="norma-tag">IEEE 80-2013 Tab. 54<span class="tag-num">1</span></a>
+      <a href="09-referencias.html#ref-29" class="norma-tag">Schwarz (1954)<span class="tag-num">29</span></a>
+      <a href="09-referencias.html#ref-30" class="norma-tag">Visacro Filho (2002)<span class="tag-num">30</span></a>
+      <a href="09-referencias.html#ref-22" class="norma-tag">ABNT NBR 14039<span class="tag-num">22</span></a>
+    </div>
+  </div>
+
+  <div class="wizard-footer">
+    <a class="wizard-btn wizard-btn-prev" href="03-b2-criterio.html">← Bloco 2 — Critério</a>
+    <a class="wizard-btn wizard-btn-next" href="05-b3b-bentonita.html">Próximo: Bloco 3 — Bentonita →</a>
+  </div>
+</div>
+</div>
+</div>
+
+<script src="../shared/js/pwa.js"></script>
+<script>window.Ugtm.PWA.init('../');</script>
+<script src="../shared/js/state.js"></script>
+<script src="../shared/js/chrome.js"></script>
+<script src="../shared/js/theme.js"></script>
+<script>
+  window.Ugtm.Chrome.render({mode:'manual', activeId:'b3', basePath:'../'});
+</script>
+</body>
+</html>

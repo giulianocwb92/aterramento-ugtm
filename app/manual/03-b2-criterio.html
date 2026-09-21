@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="theme-color" content="#1d5bbf">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="POP UGTM">
+<link rel="apple-touch-icon" href="../assets/icons/icon-180.png">
+<link rel="icon" href="../assets/icons/icon-192.png">
+<title>Bloco 2 — Critério — Manual Técnico UGTM</title>
+<link rel="stylesheet" href="../shared/css/base.css">
+<link rel="stylesheet" href="../shared/css/layout.css">
+<link rel="stylesheet" href="../shared/css/components.css">
+<link rel="stylesheet" href="../shared/css/wizard.css">
+</head>
+<body>
+<div id="topbar-mount"></div>
+
+<div class="app-body">
+<div class="sidebar-col" id="sidebar-mount"></div>
+<div class="content-col">
+<div class="main" style="padding-top:1.75rem;">
+
+  <div class="section" id="b2">
+    <div class="section-title"><span class="sec-num">04</span>Bloco 2 — Critério de aceite: 40 Ω</div>
+    <div class="bloco-header"><span class="bloco-badge b2">CRITÉRIO 1 · SENSIBILIDADE DA PROTEÇÃO</span></div>
+
+    <div class="prose">
+      <p>O critério de aceite Rg ≤ 40 Ω não é arbitrário — é derivado diretamente dos parâmetros do sistema de proteção embarcado na UGTM. O relé SEPAM S40 opera com a função <strong>50N (sobrecorrente de neutro instantânea)</strong>, com pickup ajustado em 30% da corrente nominal do lado de alta tensão e tempo de atuação configurado em 30 ms.</p>
+    </div>
+
+    <div class="eq-wrap">
+      <div class="eq">I<sub style="font-size:14px;">pickup</sub> = 0,30 × I<sub style="font-size:14px;">nominal,AT</sub> = 6,28 A</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (2)</div>
+    </div>
+
+    <div class="prose">
+      <p>Para que a proteção atue de forma garantida, a corrente de falta fase-terra deve ser superior ao pickup. Com Rg = 40 Ω, a corrente de falta resultante é:</p>
+    </div>
+
+    <div class="eq-wrap">
+      <div class="eq">I<sub style="font-size:14px;">falta</sub> = V<sub style="font-size:14px;">fase</sub> / Rg = 87,4 A</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (3)</div>
+    </div>
+
+    <div class="result-card">
+      <div class="result-val">14×</div>
+      <div>
+        <div class="result-info-title">Margem sobre o pickup da função 50N</div>
+        <div class="result-info-sub">87,4 A de falta ÷ 6,28 A de pickup = 13,9×<br>Garante a atuação instantânea da função 50N em 30 ms.</div>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>Com Rg = 40 Ω a corrente de falta representa <strong>14 vezes o pickup</strong>, garantindo a atuação instantânea da função 50N do SEPAM S40 em 30 ms. Qualquer valor acima de 40 Ω reduz a corrente de falta abaixo do limiar de operação segura.</p>
+    </div>
+
+    <div class="bloco-header" style="margin-top:1.75rem;"><span class="bloco-badge b2">CRITÉRIO 2 · SEGURANÇA DE PESSOAS</span></div>
+
+    <div class="prose">
+      <p>O segundo critério verifica se as tensões de toque e de passo a que os operadores estão expostos durante uma falta permanecem abaixo dos limites fisiológicos estabelecidos pela <a href="09-referencias.html#ref-1" class="cite">IEEE 80-2013 [1]</a> e fundamentados na <a href="09-referencias.html#ref-2" class="cite">IEC 60479-1:2018 [2]</a>. Para uma pessoa de 70 kg, a corrente máxima tolerável pelo corpo, com o tempo de atuação de 30 ms do relé, é:</p>
+    </div>
+
+    <div class="eq-wrap">
+      <div class="eq">I<sub style="font-size:14px;">corpo</sub> = 0,116 / √t<sub style="font-size:14px;">s</sub> = 0,116 / √0,030 = 0,670 A</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (15–16)</div>
+    </div>
+
+    <div class="prose">
+      <p>As tensões de toque e de passo máximas admissíveis incorporam a resistência do corpo humano (1000 Ω) e a resistência da camada superficial do solo, caracterizada pela resistividade ρₛ e pelo fator de redução Cₛ:</p>
+    </div>
+
+    <div class="eq-wrap">
+      <div class="eq">E<sub style="font-size:14px;">toque,máx</sub> = (1000 + 1,5 · ρₛ · Cₛ) × 0,670</div>
+      <div class="eq" style="margin-top:10px;">E<sub style="font-size:14px;">passo,máx</sub> = (1000 + 6 · ρₛ · Cₛ) × 0,670</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (17)</div>
+    </div>
+
+    <div class="prose">
+      <p>O coeficiente 6 no limite de passo, em vez de 1,5 para o toque, reflete que a corrente percorre o caminho pé a pé sem atravessar o coração diretamente, admitindo uma exposição quatro vezes maior para o mesmo risco fisiológico <a href="09-referencias.html#ref-2" class="cite">[2]</a>. Adotando <strong>ρₛ = 500 Ω·m</strong> como cenário de pior caso e Cₛ = 1 (sem tratamento da camada superficial), os limites numéricos de aceite para este projeto são:</p>
+    </div>
+
+    <div class="two-col-grid">
+      <div class="result-card">
+        <div class="result-val" style="font-size:26px;">1.172 V</div>
+        <div>
+          <div class="result-info-title">Tensão de toque máxima</div>
+          <div class="result-info-sub">(1000 + 1,5 × 500) × 0,670</div>
+        </div>
+      </div>
+      <div class="result-card">
+        <div class="result-val" style="font-size:26px;">2.679 V</div>
+        <div>
+          <div class="result-info-title">Tensão de passo máxima</div>
+          <div class="result-info-sub">(1000 + 6 × 500) × 0,670</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert warning">
+      <span class="alert-icon">⚠️</span>
+      <div>
+        <strong>Resistividade máxima do solo: 500 Ω·m</strong>
+        <p>Solos com resistividade acima de 500 Ω·m estão fora do envelope de operação do conjunto sem análise adicional — os limites de tensão de toque e de passo calculados acima deixam de estar garantidos e a engenharia responsável deve ser consultada.</p>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>Para um operador equipotencializado com o anel perimetral do conjunto, a tensão de toque efetiva é aproximadamente zero, independentemente do valor do GPR. Para operadores fora do anel, as tensões efetivas de malha (Eₘ) e de passo (Eₛ) são calculadas pelo método de Schwarz — ver Bloco 3 — e devem permanecer dentro dos limites de 1.172 V e 2.679 V calculados acima.</p>
+      <p>Os dois critérios — sensibilidade da proteção e segurança de pessoas — convergem para o mesmo parâmetro operacional. A IEEE 1246-2020 e a IEEE 1268-2016, que tratam especificamente de sistemas de aterramento provisório em subestações móveis, convergem para a mesma abordagem: o critério de aceite deve garantir a atuação da proteção e a equipotencialização da área de trabalho (<a href="09-referencias.html#ref-20" class="cite">20</a>, <a href="09-referencias.html#ref-19" class="cite">19</a>).</p>
+    </div>
+
+    <div class="normas">
+      <a href="09-referencias.html#ref-20" class="norma-tag">IEEE 1246-2020<span class="tag-num">20</span></a>
+      <a href="09-referencias.html#ref-19" class="norma-tag">IEEE 1268-2016<span class="tag-num">19</span></a>
+      <a href="09-referencias.html#ref-1" class="norma-tag">IEEE 80-2013<span class="tag-num">1</span></a>
+      <a href="09-referencias.html#ref-2" class="norma-tag">IEC 60479-1:2018<span class="tag-num">2</span></a>
+      <a href="09-referencias.html#ref-5" class="norma-tag">SEPAM S40 — Schneider Electric<span class="tag-num">5</span></a>
+    </div>
+  </div>
+
+  <div class="wizard-footer">
+    <a class="wizard-btn wizard-btn-prev" href="02-b1-solo.html">← Bloco 1 — Solo</a>
+    <a class="wizard-btn wizard-btn-next" href="04-b3-sistema-fisico.html">Próximo: Bloco 3 — Sistema físico →</a>
+  </div>
+</div>
+</div>
+</div>
+
+<script src="../shared/js/pwa.js"></script>
+<script>window.Ugtm.PWA.init('../');</script>
+<script src="../shared/js/state.js"></script>
+<script src="../shared/js/chrome.js"></script>
+<script src="../shared/js/theme.js"></script>
+<script>
+  window.Ugtm.Chrome.render({mode:'manual', activeId:'b2', basePath:'../'});
+</script>
+</body>
+</html>

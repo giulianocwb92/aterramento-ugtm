@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="../../manifest.webmanifest">
+<meta name="theme-color" content="#1d5bbf">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="POP UGTM">
+<link rel="apple-touch-icon" href="../../assets/icons/icon-180.png">
+<link rel="icon" href="../../assets/icons/icon-192.png">
+<title>Medir Rg — Procedimento — POP Aterramento UGTM</title>
+<link rel="stylesheet" href="../../shared/css/base.css">
+<link rel="stylesheet" href="../../shared/css/layout.css">
+<link rel="stylesheet" href="../../shared/css/components.css">
+<link rel="stylesheet" href="../../shared/css/wizard.css">
+</head>
+<body>
+<div id="topbar-mount"></div>
+<div id="progress-mount"></div>
+
+<div class="app-body">
+<div class="sidebar-col" id="sidebar-mount"></div>
+<div class="content-col">
+<div class="main" style="padding-top:1.75rem;">
+
+  <div class="section">
+    <div class="section-title">Medir a resistência de aterramento (Rg)</div>
+    <div class="prose"><p>Com o terrômetro, meça Rg pelo <strong>método da queda de potencial (fall-of-potential)</strong>: eletrodo auxiliar de corrente a ≥ 25 m do centro da malha, eletrodo de potencial a 62% dessa distância.</p></div>
+
+    <div class="rho-input-wrap">
+      <label for="rg-val">Rg medido:</label>
+      <input class="rho-input" type="number" id="rg-val" step="0.1" placeholder="8.5" min="0" max="99999">
+      <span class="rho-unit">Ω</span>
+    </div>
+
+    <div id="rg-result-mount"></div>
+
+    <div id="gate-banner-mount" style="margin-top:1rem;"></div>
+  </div>
+
+  <div id="wizard-footer-mount"></div>
+</div>
+</div>
+</div>
+
+<script src="../../shared/js/pwa.js"></script>
+<script>window.Ugtm.PWA.init('../../');</script>
+<script src="../../shared/js/state.js"></script>
+<script src="../../shared/js/chrome.js"></script>
+<script src="../../shared/js/theme.js"></script>
+<script src="../../shared/js/wizard.js"></script>
+<script src="../../shared/js/hub.js"></script>
+<script>
+  var ITEM_ID = 'medir-rg';
+  window.Ugtm.Hub.guardItem(ITEM_ID,'../');
+  window.Ugtm.Chrome.render({mode:'pop', activeId:'procedimento', basePath:'../../'});
+  window.Ugtm.Hub.renderProgress('progress-mount',ITEM_ID);
+
+  var input = document.getElementById('rg-val');
+  var savedRg = window.Ugtm.State.getRg();
+  if(savedRg!=null) input.value = savedRg;
+
+  function renderResult(){
+    var v = parseFloat(input.value);
+    var mount = document.getElementById('rg-result-mount');
+    if(isNaN(v)){ mount.innerHTML=''; return; }
+    var ok = v<=40;
+    mount.innerHTML = '<div class="alert '+(ok?'success':'warning')+'" style="margin-top:1rem;">'
+      + '<span class="alert-icon">'+(ok?'✅':'⚠️')+'</span><div><strong>'+(ok?'Aprovado — Rg ≤ 40 Ω':'Reprovado — Rg > 40 Ω, será necessária configuração secundária')+'</strong></div></div>';
+  }
+  renderResult();
+
+  input.addEventListener('input', function(){
+    var v = parseFloat(input.value);
+    window.Ugtm.State.setRg(isNaN(v)?null:v);
+    renderResult();
+    window.Ugtm.Wizard.renderGateBanner('gate-banner-mount', canAdvance());
+  });
+
+  function canAdvance(){
+    return window.Ugtm.State.getRg()!=null ? {ok:true} : {ok:false, softPending:[{label:'Informe o valor de Rg medido'}]};
+  }
+  window.Ugtm.Wizard.renderGateBanner('gate-banner-mount', canAdvance());
+
+  window.Ugtm.Hub.renderItemFooter('wizard-footer-mount', {itemId:ITEM_ID, basePath:'../', canAdvance:canAdvance, bannerMount:'gate-banner-mount'});
+</script>
+</body>
+</html>

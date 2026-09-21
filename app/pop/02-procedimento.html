@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="theme-color" content="#1d5bbf">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="POP UGTM">
+<link rel="apple-touch-icon" href="../assets/icons/icon-180.png">
+<link rel="icon" href="../assets/icons/icon-192.png">
+<title>Procedimento — POP Aterramento UGTM</title>
+<link rel="stylesheet" href="../shared/css/base.css">
+<link rel="stylesheet" href="../shared/css/layout.css">
+<link rel="stylesheet" href="../shared/css/components.css">
+<link rel="stylesheet" href="../shared/css/wizard.css">
+</head>
+<body>
+<div id="topbar-mount"></div>
+<div id="progress-mount"></div>
+
+<div class="app-body">
+<div class="sidebar-col" id="sidebar-mount"></div>
+<div class="content-col">
+<div class="main" style="padding-top:1.75rem;">
+
+  <div class="section" id="procedimento">
+    <div class="hub-header">
+      <div class="section-title" style="border-bottom:none;margin-bottom:0;"><span class="sec-num">03</span>Procedimento de instalação</div>
+      <div class="view-switch">
+        <button class="view-switch-btn" id="btn-view-lista">📋 Procedimento</button>
+        <button class="view-switch-btn" id="btn-view-fluxo">🔀 Fluxograma</button>
+      </div>
+    </div>
+
+    <div class="alert warning" style="margin-bottom:10px;">
+      <span class="alert-icon">⚠️</span>
+      <div>
+        <strong>Complete cada item na ordem</strong>
+        <p>Itens com formulário (EPI, Materiais, Solo, Rg, Configuração secundária) abrem uma página própria — os demais são só marcar "Concluí este passo" aqui mesmo. O próximo item só libera depois que o atual for resolvido. Itens em cinza com 🔒 ainda não estão liberados.</p>
+      </div>
+    </div>
+
+    <div id="gate-banner-mount"></div>
+
+    <div id="view-lista">
+      <div class="hub-list" id="hub-list-mount"></div>
+    </div>
+
+    <div id="view-fluxo" style="display:none;">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;">
+        <div id="flow-mount"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="wizard-footer-mount"></div>
+</div>
+</div>
+</div>
+
+<script src="../shared/js/pwa.js"></script>
+<script>window.Ugtm.PWA.init('../');</script>
+<script src="../shared/js/state.js"></script>
+<script src="../shared/js/chrome.js"></script>
+<script src="../shared/js/theme.js"></script>
+<script src="../shared/js/wizard.js"></script>
+<script src="../shared/js/hub.js"></script>
+<script src="../shared/js/flowchart.js"></script>
+<script src="../shared/js/timer.js"></script>
+<script>
+  window.Ugtm.Wizard.guard('procedimento','../');
+  window.Ugtm.Chrome.render({mode:'pop', activeId:'procedimento', basePath:'../'});
+  window.Ugtm.Wizard.renderProgress('progress-mount','procedimento');
+  window.Ugtm.Flowchart.render('flow-mount');
+
+  // mapeia cada item do hub pro nó correspondente no fluxograma
+  const FLOW_MAP = {
+    epi:'epi', materiais:'epi', solo:'medir-rho', bentonita:'bentonita',
+    hastes:'instalar-hastes', cabos:'instalar-hastes', neutro:'instalar-hastes',
+    'espera-bentonita':'bentonita', 'medir-rg':'medir-rg', criterio:'decisao-rg',
+    'config-secundaria':'config-secundaria', cancelar:'cancelar'
+  };
+
+  function inlineExtra(item){
+    let extra = '';
+    if(item.cond==='bentonita' && window.Ugtm.Hub.applicability(item)==='manual'){
+      extra += '<div class="alert warning" style="margin:8px 0;"><span class="alert-icon">⚠️</span><div><strong>ρ não registrado</strong><p>Confirme manualmente se ρ &gt; 500 Ω·m antes de decidir.</p></div></div>';
+    }
+    if(item.danger){
+      extra += '<div class="alert danger" style="margin:8px 0;"><span class="alert-icon">⛔</span><div><strong>Não energize a UGTM</strong><p>Acione a equipe de engenharia antes de prosseguir.</p></div></div>';
+    }
+    if(item.showRgResult){
+      const rg = window.Ugtm.State.getRg();
+      if(rg!=null){
+        const ok = rg<=40;
+        extra += '<div class="alert '+(ok?'success':'warning')+'" style="margin:8px 0;"><span class="alert-icon">'+(ok?'✅':'⚠️')+'</span><div><strong>Rg medido = '+rg+' Ω — '+(ok?'Aprovado':'Reprovado')+'</strong></div></div>';
+      }
+    }
+    if(item.timer){
+      extra += '<div id="timer-mount-'+item.id+'"></div>';
+    }
+    return extra;
+  }
+
+  function renderHubList(){
+    window.Ugtm.Hub.autoAdvanceSkips();
+    const furthest = window.Ugtm.State.getHubFurthest();
+    const mount = document.getElementById('hub-list-mount');
+
+    let activeFlow = null, doneFlows = [];
+
+    mount.innerHTML = window.Ugtm.Hub.ITEMS.map(function(item, i){
+      const app = window.Ugtm.Hub.applicability(item);
+      const skip = app==='skip';
+      const done = i < furthest && !skip;
+      const current = i === furthest && !skip;
+      const locked = i > furthest;
+
+      if(skip) doneFlows.push(FLOW_MAP[item.id]);
+      if(done) doneFlows.push(FLOW_MAP[item.id]);
+      if(current) activeFlow = FLOW_MAP[item.id];
+
+      const cls = ['hub-item'];
+      let status = '';
+      if(skip){ cls.push('skip'); status='Não aplicável nas condições atuais'; }
+      else if(done){ cls.push('done'); status='✓ Concluído'; }
+      else if(current){ cls.push('current'); status = item.kind==='page' ? '→ Próximo' : ''; }
+      else if(locked){ cls.push('locked'); status='🔒 Bloqueado'; }
+
+      const critTag = item.critical ? '<span class="hub-item-critical">obrigatório</span>' : '';
+      const numLabel = skip ? '—' : (done ? '✓' : (i+1));
+
+      // item corrente do tipo 'page' → linha clicável, abre a página própria
+      if(current && item.kind==='page'){
+        cls.push('clickable');
+        const inner = '<div class="hub-item-num">'+numLabel+'</div>'
+          + '<div class="hub-item-body"><div class="hub-item-title">'+item.title+'</div><div class="hub-item-status">'+status+'</div></div>'
+          + critTag;
+        return '<a class="'+cls.join(' ')+'" href="'+item.file+'">'+inner+'</a>';
+      }
+
+      // item corrente do tipo 'inline' → expande com descrição + checkbox, resolve na hora
+      if(current && item.kind==='inline'){
+        const inner = '<div class="hub-item-num">'+numLabel+'</div>'
+          + '<div class="hub-item-body">'
+          +   '<div class="hub-item-title">'+item.title+'</div>'
+          +   '<div class="hub-item-desc">'+(item.desc||'')+'</div>'
+          +   inlineExtra(item)
+          +   '<label class="step-check" style="margin-top:8px;"><input type="checkbox" data-inline-check="'+item.id+'"> Concluí este passo</label>'
+          + '</div>'
+          + critTag;
+        return '<div class="'+cls.join(' ')+'" id="hub-item-'+item.id+'">'+inner+'</div>';
+      }
+
+      // demais estados: linha compacta (não editável)
+      const inner = '<div class="hub-item-num">'+numLabel+'</div>'
+        + '<div class="hub-item-body"><div class="hub-item-title">'+item.title+'</div><div class="hub-item-status">'+status+'</div></div>'
+        + critTag;
+      return '<div class="'+cls.join(' ')+'">'+inner+'</div>';
+    }).join('');
+
+    // liga os widgets/checkbox do item inline atual (se houver)
+    window.Ugtm.Hub.ITEMS.forEach(function(item, i){
+      if(i!==furthest) return;
+      if(item.kind!=='inline') return;
+      if(item.timer) window.Ugtm.Timer.render('timer-mount-'+item.id, item.timer);
+      const chk = document.querySelector('[data-inline-check="'+item.id+'"]');
+      if(!chk) return;
+      chk.addEventListener('change', function(){
+        if(!chk.checked) return;
+        window.Ugtm.State.setStepDone(item.id, true);
+        const row = document.getElementById('hub-item-'+item.id);
+        if(row) row.classList.add('done');
+        setTimeout(function(){
+          window.Ugtm.State.unlockHubUpTo(i+1);
+          renderHubList();
+          window.Ugtm.Wizard.renderGateBanner('gate-banner-mount', canAdvance());
+        }, 350);
+      });
+    });
+
+    window.Ugtm.Flowchart.highlight(activeFlow, doneFlows);
+  }
+
+  function canAdvance(){
+    if(window.Ugtm.Hub.isComplete()) return {ok:true};
+    return {ok:false, softPending:[{label:'Ainda há itens pendentes no procedimento acima'}]};
+  }
+
+  renderHubList();
+
+  window.Ugtm.Wizard.renderFooter('wizard-footer-mount', {
+    pageId:'procedimento', basePath:'../',
+    canAdvance:canAdvance,
+    bannerMount:'gate-banner-mount'
+  });
+
+  // ---- alternância Fluxograma / Procedimento ----
+  function setView(view){
+    document.getElementById('view-lista').style.display = view==='lista' ? 'block' : 'none';
+    document.getElementById('view-fluxo').style.display = view==='fluxo' ? 'block' : 'none';
+    document.getElementById('btn-view-lista').classList.toggle('active', view==='lista');
+    document.getElementById('btn-view-fluxo').classList.toggle('active', view==='fluxo');
+  }
+  document.getElementById('btn-view-lista').addEventListener('click', function(){ setView('lista'); });
+  document.getElementById('btn-view-fluxo').addEventListener('click', function(){ setView('fluxo'); });
+  setView('lista');
+</script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1d5bbf">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="POP UGTM">
+<link rel="apple-touch-icon" href="assets/icons/icon-180.png">
+<link rel="icon" href="assets/icons/icon-192.png">
+<title>Apresentação — Aterramento Provisório UGTM</title>
+<link rel="stylesheet" href="shared/css/base.css">
+<link rel="stylesheet" href="shared/css/layout.css">
+<link rel="stylesheet" href="shared/css/components.css">
+<link rel="stylesheet" href="shared/css/wizard.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <a class="home-btn" href="index.html" title="Voltar à abertura">🏠</a>
+    <span class="topbar-logo">APRESENTAÇÃO · COPEL-DIST-AT-001/002</span>
+  </div>
+</div>
+
+<div class="doc-header">
+  <div class="doc-header-inner">
+    <div class="doc-eyebrow">
+      <span class="doc-type">VISÃO GERAL</span>
+      <span class="doc-code">COPEL-DIST-AT-001</span>
+    </div>
+    <h1>Aterramento provisório de Unidade Geradora e Transformadora Móvel</h1>
+    <p>Antes de entrar no checklist passo a passo ou na fundamentação técnica, veja o panorama do procedimento e o fluxo de decisão completo.</p>
+    <div class="doc-meta">
+      <div class="meta-item"><div class="meta-label">Prazo mínimo</div><div class="meta-val">−100 min</div></div>
+      <div class="meta-item"><div class="meta-label">Critério</div><div class="meta-val">Rg ≤ 40 Ω</div></div>
+      <div class="meta-item"><div class="meta-label">Relé</div><div class="meta-val">SEPAM S40 · 50N</div></div>
+      <div class="meta-item"><div class="meta-label">Malha</div><div class="meta-val">17 m × 4 m</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="alert danger">
+    <span class="alert-icon">⛔</span>
+    <div>
+      <strong>Início obrigatório com 100 minutos de antecedência</strong>
+      <p>O procedimento deve ser iniciado no mínimo 100 minutos antes do horário previsto para o desligamento da rede. Não iniciar após esse prazo sem autorização da engenharia.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="sec-num">01</span>Objetivo e aplicação</div>
+    <div class="info-row">
+      <div class="info-card">
+        <div class="info-card-label">Objetivo</div>
+        <div class="info-card-text">Garantir aterramento provisório eficaz da UGTM durante operações de campo, atingindo Rg ≤ 40 Ω para proteção de equipamentos e pessoas.</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">Aplicação</div>
+        <div class="info-card-text">UGTMs equipadas com relé SEPAM S40, função 50N. Aplicável a solos com resistividade de até 500 Ω·m — cenário de pior caso adotado para as tensões de toque e passo (IEEE 80-2013).</div>
+      </div>
+    </div>
+    <div class="section-title" style="margin-top:1.25rem;"><span class="sec-num">02</span>Referências normativas</div>
+    <div class="normas">
+      <span class="norma-tag">NR-10</span>
+      <span class="norma-tag">ABNT NBR 5410</span>
+      <span class="norma-tag">ABNT NBR 14039</span>
+      <span class="norma-tag">IEEE 80-2013</span>
+      <span class="norma-tag">SEPAM S40 — Schneider Electric</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="sec-num">03</span>Fluxograma de decisão</div>
+    <div class="alert warning" style="margin-bottom:10px;">
+      <span class="alert-icon">⚠️</span>
+      <div>
+        <strong>Legenda das bordas coloridas</strong>
+        <p>Laranja = passo crítico de segurança &nbsp;·&nbsp; Verde = verificação obrigatória &nbsp;·&nbsp; Amarelo = passo condicional</p>
+      </div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;" id="flow-mount"></div>
+    <p style="font-size:12px;color:var(--muted);margin-top:8px;">No POP, este mesmo fluxograma acompanha o operador e destaca automaticamente em qual etapa a instalação está.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="sec-num">04</span>Como este app funciona</div>
+    <div class="prose">
+      <p><strong>Modo POP</strong> — sequência de páginas que só destrava a próxima depois que você confirma o que a etapa atual pede. Itens de segurança (EPI, isolamento de área) bloqueiam de forma dura — não têm como pular, só voltar e confirmar. Itens de material, se faltarem, pedem uma justificativa por escrito antes de liberar o avanço — tudo fica registrado numa trilha de auditoria que sai junto no registro final.</p>
+      <p><strong>Modo Manual Técnico</strong> — navegação livre entre os blocos, com calculadoras, gráficos e a fundamentação normativa e científica de cada etapa do POP.</p>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:1.5rem;" id="cta-mount"></div>
+
+</div>
+
+<script src="shared/js/pwa.js"></script>
+<script>window.Ugtm.PWA.init('');</script>
+<script src="shared/js/state.js"></script>
+<script src="shared/js/theme.js"></script>
+<script src="shared/js/flowchart.js"></script>
+<script>
+  window.Ugtm.Flowchart.render('flow-mount');
+  window.Ugtm.Theme.init();
+
+  var params = new URLSearchParams(location.search);
+  var mode = params.get('mode')==='manual' ? 'manual' : 'pop';
+  var ctaMount = document.getElementById('cta-mount');
+  var popHref = 'pop/00-visao-geral.html';
+  var manualHref = 'manual/00-contexto.html';
+  var primaryHref = mode==='pop' ? popHref : manualHref;
+  var primaryLabel = mode==='pop' ? 'Continuar para o POP →' : 'Continuar para o Manual Técnico →';
+  var secondaryHref = mode==='pop' ? manualHref : popHref;
+  var secondaryLabel = mode==='pop' ? 'Ver o Manual Técnico em vez disso' : 'Ver o POP em vez disso';
+  ctaMount.innerHTML =
+    '<a class="wizard-btn wizard-btn-next" style="flex:1;justify-content:center;" href="'+primaryHref+'">'+primaryLabel+'</a>'
+    + '<a class="wizard-btn" style="flex:1;justify-content:center;" href="'+secondaryHref+'">'+secondaryLabel+'</a>';
+</script>
+</body>
+</html>

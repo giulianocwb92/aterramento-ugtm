@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="../../manifest.webmanifest">
+<meta name="theme-color" content="#1d5bbf">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="POP UGTM">
+<link rel="apple-touch-icon" href="../../assets/icons/icon-180.png">
+<link rel="icon" href="../../assets/icons/icon-192.png">
+<title>Materiais — Procedimento — POP Aterramento UGTM</title>
+<link rel="stylesheet" href="../../shared/css/base.css">
+<link rel="stylesheet" href="../../shared/css/layout.css">
+<link rel="stylesheet" href="../../shared/css/components.css">
+<link rel="stylesheet" href="../../shared/css/wizard.css">
+</head>
+<body>
+<div id="topbar-mount"></div>
+<div id="progress-mount"></div>
+
+<div class="app-body">
+<div class="sidebar-col" id="sidebar-mount"></div>
+<div class="content-col">
+<div class="main" style="padding-top:1.75rem;">
+
+  <div class="section">
+    <div class="section-title">Materiais necessários</div>
+    <table class="mat-table">
+      <thead><tr><th>Qtd</th><th>Item</th><th>Especificação</th></tr></thead>
+      <tbody>
+        <tr><td><span class="qty">4</span></td><td>Haste de aterramento</td><td><span class="spec-tag">5/8" × 2.400 mm — aço cobreado</span></td></tr>
+        <tr><td><span class="qty">1</span></td><td>Cabo de neutro</td><td><span class="spec-tag">50 mm² — 5 m</span></td></tr>
+        <tr><td><span class="qty">42 m</span></td><td>Cabo de interligação</td><td><span class="spec-tag">25 mm²</span></td></tr>
+        <tr><td><span class="qty">4 doses</span></td><td>Bentonita sódica</td><td><span class="spec-tag">Pré-dosada por ponto</span></td></tr>
+        <tr><td><span class="qty">1</span></td><td>Terrômetro</td><td><span class="spec-tag">Método queda de potencial</span></td></tr>
+        <tr><td><span class="qty">1</span></td><td>Marreto / martelete</td><td><span class="spec-tag">Para cravação das hastes</span></td></tr>
+        <tr><td><span class="qty">1</span></td><td>Ferramental adequado para a instalação</td><td><span class="spec-tag">Alicate de compressão, chaves e ferramentas para as conexões</span></td></tr>
+        <tr><td><span class="qty">≥ 6 m</span></td><td>Fita de sinalização</td><td><span class="spec-tag">Isolamento do perímetro — raio mín. 1,38 m</span></td></tr>
+        <tr><td><span class="qty">4</span></td><td>Cones de sinalização</td><td><span class="spec-tag">Delimitação da zona controlada</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="alert warning" style="margin-top:1rem;">
+      <span class="alert-icon">⚠️</span>
+      <div><strong>Confira cada item antes de seguir</strong><p>Se algum material não estiver disponível, é possível justificar e seguir mesmo assim — a justificativa fica registrada no relatório final.</p></div>
+    </div>
+
+    <div id="gate-banner-mount"></div>
+    <div id="mat-checklist-mount" style="margin-top:1rem;"></div>
+  </div>
+
+  <div id="wizard-footer-mount"></div>
+</div>
+</div>
+</div>
+
+<script src="../../shared/js/pwa.js"></script>
+<script>window.Ugtm.PWA.init('../../');</script>
+<script src="../../shared/js/state.js"></script>
+<script src="../../shared/js/chrome.js"></script>
+<script src="../../shared/js/theme.js"></script>
+<script src="../../shared/js/wizard.js"></script>
+<script src="../../shared/js/hub.js"></script>
+<script src="../../shared/js/checklist.js"></script>
+<script>
+  window.Ugtm.Hub.guardItem('materiais','../');
+  window.Ugtm.Chrome.render({mode:'pop', activeId:'procedimento', basePath:'../../'});
+  window.Ugtm.Hub.renderProgress('progress-mount','materiais');
+
+  var MAT_ITEMS = [
+    {key:'hastes',       label:'4 hastes de aterramento — 5/8" × 2.400 mm', critical:false},
+    {key:'neutro',       label:'1 cabo de neutro — 50 mm², 5 m', critical:false},
+    {key:'interligacao', label:'42 m de cabo de interligação — 25 mm²', critical:false},
+    {key:'bentonita',    label:'4 doses de bentonita sódica pré-dosada', critical:false},
+    {key:'terrometro',   label:'1 terrômetro (método queda de potencial)', critical:false},
+    {key:'marreta',      label:'Marreta / martelete para cravação', critical:false},
+    {key:'ferramental',  label:'Ferramental para as conexões', critical:false},
+    {key:'fita',         label:'≥ 6 m de fita de sinalização', critical:false},
+    {key:'cones',        label:'4 cones de sinalização', critical:false}
+  ];
+
+  function canAdvance(){ return window.Ugtm.Wizard.evaluateChecklist(MAT_ITEMS.map(function(i){return {key:'materiais.'+i.key, label:i.label, critical:i.critical};})); }
+
+  window.Ugtm.Checklist.render('mat-checklist-mount', 'materiais', MAT_ITEMS, function(){
+    window.Ugtm.Wizard.renderGateBanner('gate-banner-mount', canAdvance());
+  });
+
+  window.Ugtm.Hub.renderItemFooter('wizard-footer-mount', {itemId:'materiais', basePath:'../', canAdvance:canAdvance, bannerMount:'gate-banner-mount'});
+</script>
+</body>
+</html>

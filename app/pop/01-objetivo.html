@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="theme-color" content="#1d5bbf">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="POP UGTM">
+<link rel="apple-touch-icon" href="../assets/icons/icon-180.png">
+<link rel="icon" href="../assets/icons/icon-192.png">
+<title>Objetivo — POP Aterramento UGTM</title>
+<link rel="stylesheet" href="../shared/css/base.css">
+<link rel="stylesheet" href="../shared/css/layout.css">
+<link rel="stylesheet" href="../shared/css/components.css">
+<link rel="stylesheet" href="../shared/css/wizard.css">
+</head>
+<body>
+<div id="topbar-mount"></div>
+<div id="progress-mount"></div>
+
+<div class="doc-header">
+  <div class="doc-header-inner">
+    <div class="doc-eyebrow">
+      <span class="doc-type">POP</span>
+      <span class="doc-code">COPEL-DIST-AT-001</span>
+    </div>
+    <h1>Aterramento provisório de Unidade Geradora e Transformadora Móvel</h1>
+    <p>Instalação do kit portátil de 4 hastes com critério de aceite Rg ≤ 40 Ω conforme função 50N do relé SEPAM S40.</p>
+    <div class="doc-meta">
+      <div class="meta-item"><div class="meta-label">Versão</div><div class="meta-val">2.0.0</div></div>
+      <div class="meta-item"><div class="meta-label">Emissão</div><div class="meta-val">2026</div></div>
+      <div class="meta-item"><div class="meta-label">Prazo mínimo</div><div class="meta-val">−100 min</div></div>
+      <div class="meta-item"><div class="meta-label">Critério</div><div class="meta-val">Rg ≤ 40 Ω</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="app-body">
+<div class="sidebar-col" id="sidebar-mount"></div>
+<div class="content-col">
+<div class="main">
+
+  <div class="alert danger">
+    <span class="alert-icon">⛔</span>
+    <div>
+      <strong>Início obrigatório com 100 minutos de antecedência</strong>
+      <p>O procedimento deve ser iniciado no mínimo 100 minutos antes do horário previsto para o desligamento da rede. Não iniciar após esse prazo sem autorização da engenharia.</p>
+    </div>
+  </div>
+
+  <div class="section" id="objetivo">
+    <div class="section-title"><span class="sec-num">01</span>Objetivo e aplicação</div>
+    <div class="info-row">
+      <div class="info-card">
+        <div class="info-card-label">Objetivo</div>
+        <div class="info-card-text">Garantir aterramento provisório eficaz da UGTM durante operações de campo, atingindo Rg ≤ 40 Ω para proteção de equipamentos e pessoas.</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">Aplicação</div>
+        <div class="info-card-text">UGTMs equipadas com relé SEPAM S40, função 50N. Aplicável a solos com resistividade de até 500 Ω·m — cenário de pior caso adotado para as tensões de toque e passo (IEEE 80-2013, ver Bloco 2 do Manual Técnico).</div>
+      </div>
+    </div>
+    <div class="section-title" style="margin-top:1.25rem;"><span class="sec-num">02</span>Referências normativas</div>
+    <div class="normas">
+      <span class="norma-tag">NR-10</span>
+      <span class="norma-tag">ABNT NBR 5410</span>
+      <span class="norma-tag">ABNT NBR 14039</span>
+      <span class="norma-tag">IEEE 80-2013</span>
+      <span class="norma-tag">SEPAM S40 — Schneider Electric</span>
+    </div>
+  </div>
+
+  <div id="wizard-footer-mount"></div>
+</div>
+</div>
+</div>
+
+<script src="../shared/js/pwa.js"></script>
+<script>window.Ugtm.PWA.init('../');</script>
+<script src="../shared/js/state.js"></script>
+<script src="../shared/js/chrome.js"></script>
+<script src="../shared/js/theme.js"></script>
+<script src="../shared/js/wizard.js"></script>
+<script>
+  window.Ugtm.Wizard.guard('objetivo','../');
+  window.Ugtm.Chrome.render({mode:'pop', activeId:'objetivo', basePath:'../'});
+  window.Ugtm.Wizard.renderProgress('progress-mount','objetivo');
+  window.Ugtm.Wizard.renderFooter('wizard-footer-mount', {pageId:'objetivo', basePath:'../', canAdvance:function(){return {ok:true};}});
+</script>
+</body>
+</html>

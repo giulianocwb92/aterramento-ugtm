@@ -1,0 +1,46 @@
+name: Publicar app no GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "app/**"
+      - ".github/workflows/deploy.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Gravar versão do cache offline (hash do commit)
+        run: |
+          SHA_SHORT=$(git rev-parse --short HEAD)
+          sed -i "s/__BUILD_ID__/${SHA_SHORT}/" app/sw.js
+          grep CACHE_VERSION app/sw.js
+
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Empacotar pasta app/
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: app
+
+      - name: Publicar no GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

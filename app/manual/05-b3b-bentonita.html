@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="theme-color" content="#1d5bbf">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="POP UGTM">
+<link rel="apple-touch-icon" href="../assets/icons/icon-180.png">
+<link rel="icon" href="../assets/icons/icon-192.png">
+<title>Bloco 3 — Bentonita — Manual Técnico UGTM</title>
+<link rel="stylesheet" href="../shared/css/base.css">
+<link rel="stylesheet" href="../shared/css/layout.css">
+<link rel="stylesheet" href="../shared/css/components.css">
+<link rel="stylesheet" href="../shared/css/wizard.css">
+</head>
+<body>
+<div id="topbar-mount"></div>
+
+<div class="app-body">
+<div class="sidebar-col" id="sidebar-mount"></div>
+<div class="content-col">
+<div class="main" style="padding-top:1.75rem;">
+
+  <div class="section" id="b3b">
+    <div class="section-title"><span class="sec-num">06</span>Bloco 3 — Bentonita sódica</div>
+    <div class="bloco-header"><span class="bloco-badge b3">BLOCO 3 · BENTONITA</span></div>
+
+    <div class="prose">
+      <p>Para solos com ρ &gt; 500 Ω·m — limiar operacional adotado no TCC (Bloco 2) — a geometria da malha não é suficiente para atingir o critério de 40 Ω com segurança. Nesses casos, aplica-se <strong>bentonita sódica</strong> ao redor de cada haste. A bentonita é um argilomineral com alta capacidade de absorção hídrica — ao hidratar, expande e reduz significativamente a resistividade do solo ao redor dos eletrodos, podendo incorporar até cinco vezes o próprio peso em água <a href="09-referencias.html#ref-24" class="cite">[24]</a>.</p>
+    </div>
+
+    <div class="chart-wrap">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Rg × tempo — haste isolada com bentonita sódica hidratada (Tabela 5)</div>
+          <div class="chart-meta">ρ = 76 Ω·m · haste 1,50 m · bentonita aplicada em diâmetro de 30 cm ao redor da haste</div>
+        </div>
+        <div class="legend-row">
+          <span class="legend-item"><span style="width:10px;height:10px;border-radius:50%;background:#1a5fb0;display:inline-block;"></span>Rg medido (Ω)</span>
+          <span class="legend-item"><span style="width:20px;height:2px;border-top:2px dashed #b81c1c;display:inline-block;"></span>Referência: critério do conjunto (40 Ω)</span>
+        </div>
+      </div>
+      <div style="position:relative;height:280px;">
+        <div id="chartBentonita"></div>
+      </div>
+      <div class="alert success" style="margin-top:1rem;">
+        <span class="alert-icon">✅</span>
+        <div><strong>Redução de 88,6% em 90 minutos</strong><p>Rg caiu de 132 Ω para 15 Ω (fator de 8,8×), sem sinal claro de estabilização ao final do ensaio. Ensaio de campo com haste isolada — Seção 6.3 do TCC. Este valor não é diretamente comparável ao critério de 40 Ω do conjunto completo (é uma única haste, não a malha de 4–6 hastes).</p></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:1rem;">
+      <div class="card-title">Bentonita combinada com anel perimetral (Tabela 6)</div>
+      <div class="prose">
+        <p>Um segundo ensaio combinou as duas soluções adotadas no projeto — interligação por anel perimetral e tratamento com bentonita — usando 4 hastes de 1,5 m interligadas por um anel de 3 × 1,5 m, no mesmo solo do ensaio anterior (ρ = 76 Ω·m).</p>
+      </div>
+      <div class="two-col-grid">
+        <div class="result-card">
+          <div class="result-val" style="font-size:28px;">15,89 Ω</div>
+          <div><div class="result-info-title">Sem bentonita</div></div>
+        </div>
+        <div class="result-card">
+          <div class="result-val" style="font-size:28px;">7,53 Ω</div>
+          <div><div class="result-info-title">Com bentonita (60 min)</div></div>
+        </div>
+      </div>
+      <div class="prose">
+        <p>Os dois efeitos — anel perimetral e bentonita sódica — são complementares: essa configuração combinada apresentou a maior redução de resistência entre todos os ensaios do TCC, confirmando a bentonita como tratamento eficaz mesmo sobre uma malha já otimizada geometricamente.</p>
+      </div>
+    </div>
+
+    <div class="normas">
+      <a href="09-referencias.html#ref-24" class="norma-tag">Martínez Ángeles et al. (2025)<span class="tag-num">24</span></a>
+      <a href="09-referencias.html#ref-1" class="norma-tag">IEEE 80-2013<span class="tag-num">1</span></a>
+      <span class="norma-tag">Ensaio de campo — Os autores (2026)</span>
+    </div>
+  </div>
+
+  <div class="wizard-footer">
+    <a class="wizard-btn wizard-btn-prev" href="04-b3-sistema-fisico.html">← Bloco 3 — Sistema físico</a>
+    <a class="wizard-btn wizard-btn-next" href="06-b4-protecao.html">Próximo: Bloco 4 — Proteção →</a>
+  </div>
+</div>
+</div>
+</div>
+
+<script src="../shared/js/pwa.js"></script>
+<script>window.Ugtm.PWA.init('../');</script>
+<script src="../shared/js/state.js"></script>
+<script src="../shared/js/chrome.js"></script>
+<script src="../shared/js/theme.js"></script>
+<script src="../shared/js/bentonita-chart.js"></script>
+<script>
+  window.Ugtm.Chrome.render({mode:'manual', activeId:'b3b', basePath:'../'});
+  window.Ugtm.BentonitaChart.render('chartBentonita');
+  window.Ugtm.Theme.onChange(function(){ window.Ugtm.BentonitaChart.render('chartBentonita'); });
+</script>
+</body>
+</html>
