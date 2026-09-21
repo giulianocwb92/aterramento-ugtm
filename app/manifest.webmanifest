@@ -2,7 +2,7 @@
   "name": "Aterramento Provisório UGTM — POP e Manual Técnico",
   "short_name": "POP UGTM",
   "description": "Procedimento operacional padrão e manual técnico para aterramento provisório de UGTM — COPEL Distribuição.",
-  "id": "/index.html",
+  "id": "./index.html",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
