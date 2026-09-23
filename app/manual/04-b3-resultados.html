@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="theme-color" content="#1d5bbf">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="POP UGTM">
+<link rel="apple-touch-icon" href="../assets/icons/icon-180.png">
+<link rel="icon" href="../assets/icons/icon-192.png">
+<title>Bloco 3 — Resultados — Manual Técnico UGTM</title>
+<link rel="stylesheet" href="../shared/css/base.css">
+<link rel="stylesheet" href="../shared/css/layout.css">
+<link rel="stylesheet" href="../shared/css/components.css">
+<link rel="stylesheet" href="../shared/css/wizard.css">
+</head>
+<body>
+<div id="topbar-mount"></div>
+
+<div class="app-body">
+<div class="sidebar-col" id="sidebar-mount"></div>
+<div class="content-col">
+<div class="main" style="padding-top:1.75rem;">
+
+  <div class="section" id="b3-resultados">
+    <div class="section-title"><span class="sec-num">05</span>Bloco 3 — Sistema físico de aterramento</div>
+    <div class="bloco-header"><span class="bloco-badge b3">BLOCO 3 · 4/4 · RESULTADOS</span></div>
+
+    <div class="card">
+      <div class="card-title">Resultados calculados — Schwarz</div>
+      <table class="data-table">
+        <thead><tr><th>Configuração</th><th>ρ (Ω·m)</th><th>Rg calculado (Ω)</th><th>Rg medido (Ω)</th><th>Nota</th></tr></thead>
+        <tbody>
+          <tr><td>Malha real — 17×4 m, 4 hastes 2,40 m</td><td class="mono">500</td><td class="mono">34,27</td><td class="mono">—</td><td style="color:var(--green-text);font-weight:500;">✓ Atende (limiar operacional adotado)</td></tr>
+          <tr><td>Protótipo em escala reduzida — 4×1,5 m, 4 hastes 1,50 m</td><td class="mono">33,8</td><td class="mono">5,15</td><td class="mono">7,85</td><td>Validação de campo (Seção 6.2)</td></tr>
+        </tbody>
+      </table>
+      <div style="font-size:12px;color:var(--muted);margin-top:6px;">O TCC não deriva uma resistividade crítica pelo método de Schwarz — o limiar operacional de aplicação de bentonita é ρ ≤ 500 Ω·m, adotado no Bloco 2 a partir do critério de tensão de toque/passo. A diferença entre o Rg previsto e o medido no protótipo é atribuída à heterogeneidade do solo no ponto de ensaio (Seção 6.2).</div>
+    </div>
+
+    <div class="normas">
+      <a href="09-referencias.html#ref-1" class="norma-tag">IEEE 80-2013 Tab. 54<span class="tag-num">1</span></a>
+      <a href="09-referencias.html#ref-29" class="norma-tag">Schwarz (1954)<span class="tag-num">29</span></a>
+      <a href="09-referencias.html#ref-30" class="norma-tag">Visacro Filho (2002)<span class="tag-num">30</span></a>
+      <a href="09-referencias.html#ref-22" class="norma-tag">ABNT NBR 14039<span class="tag-num">22</span></a>
+    </div>
+  </div>
+
+  <div class="wizard-footer">
+    <a class="wizard-btn wizard-btn-prev" href="04-b3-equacoes-schwarz.html">← Equações de Schwarz</a>
+    <a class="wizard-btn wizard-btn-next" href="05-b3b-bentonita.html">Próximo: Bloco 3 — Bentonita →</a>
+  </div>
+</div>
+</div>
+</div>
+
+<script src="../shared/js/pwa.js"></script>
+<script>window.Ugtm.PWA.init('../');</script>
+<script src="../shared/js/state.js"></script>
+<script src="../shared/js/chrome.js"></script>
+<script src="../shared/js/theme.js"></script>
+<script>
+  window.Ugtm.Chrome.render({mode:'manual', activeId:'b3-resultados', basePath:'../'});
+</script>
+</body>
+</html>

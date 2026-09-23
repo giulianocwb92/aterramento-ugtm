@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="theme-color" content="#1d5bbf">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="POP UGTM">
+<link rel="apple-touch-icon" href="../assets/icons/icon-180.png">
+<link rel="icon" href="../assets/icons/icon-192.png">
+<title>Bloco 3 — Equações de Schwarz — Manual Técnico UGTM</title>
+<link rel="stylesheet" href="../shared/css/base.css">
+<link rel="stylesheet" href="../shared/css/layout.css">
+<link rel="stylesheet" href="../shared/css/components.css">
+<link rel="stylesheet" href="../shared/css/wizard.css">
+</head>
+<body>
+<div id="topbar-mount"></div>
+
+<div class="app-body">
+<div class="sidebar-col" id="sidebar-mount"></div>
+<div class="content-col">
+<div class="main" style="padding-top:1.75rem;">
+
+  <div class="section" id="b3-schwarz">
+    <div class="section-title"><span class="sec-num">05</span>Bloco 3 — Sistema físico de aterramento</div>
+    <div class="bloco-header"><span class="bloco-badge b3">BLOCO 3 · 3/4 · MÉTODO DE SCHWARZ</span></div>
+
+    <div class="prose">
+      <p>As quatro equações abaixo combinam a contribuição do anel de cabos, das hastes verticais e da resistência mútua entre os dois, chegando à resistência de aterramento total do conjunto.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Resistência da malha de cabos</div>
+      <div class="equation-wrap">
+        <div class="equation">
+          <span class="v">R</span><sub>c</sub>
+          <span>=</span>
+          <span class="eq-frac"><span class="eq-frac-num v">ρ</span><span class="eq-frac-den"><span class="v">π</span>·<span class="v">L</span><sub>c</sub></span></span>
+          <span>·[ln(</span>
+          <span class="eq-frac"><span class="eq-frac-num">2·<span class="v">L</span><sub>c</sub></span><span class="eq-frac-den v">h</span></span>
+          <span>)&nbsp;+&nbsp;<span class="v">k</span><sub>1</sub>·</span>
+          <span class="eq-frac"><span class="eq-frac-num v">L</span><span class="eq-frac-den"><span class="eq-sqrt"><span class="eq-sqrt-inner v">A</span></span></span></span>
+          <span>−&nbsp;<span class="v">k</span><sub>2</sub>]</span>
+        </div>
+        <div class="equation-num">Eq. (4)</div>
+        <div class="eq-legend">
+          <div class="eq-legend-label">Onde</div>
+          <div class="eq-legend-row"><span class="eq-legend-sym">ρ</span><span class="eq-legend-desc">resistividade do solo (Ω·m)</span></div>
+          <div class="eq-legend-row"><span class="eq-legend-sym">L<sub>c</sub></span><span class="eq-legend-desc">comprimento total dos cabos = 42 m</span></div>
+          <div class="eq-legend-row"><span class="eq-legend-sym">h</span><span class="eq-legend-desc">profundidade dos cabos ≈ 0 (apoiados na superfície)</span></div>
+          <div class="eq-legend-row"><span class="eq-legend-sym">A</span><span class="eq-legend-desc">área da malha = 68 m²</span></div>
+          <div class="eq-legend-row"><span class="eq-legend-sym">k<sub>1</sub>, k<sub>2</sub></span><span class="eq-legend-desc">coeficientes geométricos — ver nota abaixo</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Resistência das hastes verticais</div>
+      <div class="equation-wrap">
+        <div class="equation">
+          <span class="v">R</span><sub>h</sub>
+          <span>=</span>
+          <span class="eq-frac"><span class="eq-frac-num v">ρ</span><span class="eq-frac-den">2<span class="v">π</span>·<span class="v">n</span>·<span class="v">L</span></span></span>
+          <span>·[ln(</span>
+          <span class="eq-frac"><span class="eq-frac-num">4<span class="v">L</span></span><span class="eq-frac-den v">d</span></span>
+          <span>)&nbsp;−&nbsp;1&nbsp;+&nbsp;</span>
+          <span class="eq-frac"><span class="eq-frac-num">2<span class="v">k</span><sub>1</sub>·<span class="v">L</span></span><span class="eq-frac-den"><span class="eq-sqrt"><span class="eq-sqrt-inner v">A</span></span></span></span>
+          <span>·(<span class="eq-sqrt"><span class="eq-sqrt-inner v">n</span></span>&nbsp;−&nbsp;1)<sup>2</sup>]</span>
+        </div>
+        <div class="equation-num">Eq. (5)</div>
+        <div class="eq-legend">
+          <div class="eq-legend-label">Onde (além dos termos já definidos acima)</div>
+          <div class="eq-legend-row"><span class="eq-legend-sym">n</span><span class="eq-legend-desc">número de hastes = 4</span></div>
+          <div class="eq-legend-row"><span class="eq-legend-sym">L</span><span class="eq-legend-desc">comprimento das hastes = 2,40 m</span></div>
+          <div class="eq-legend-row"><span class="eq-legend-sym">d</span><span class="eq-legend-desc">diâmetro das hastes = 0,01588 m (5/8")</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Resistência mútua malha–hastes</div>
+      <div class="equation-wrap">
+        <div class="equation">
+          <span class="v">R</span><sub>m</sub>
+          <span>=</span>
+          <span class="eq-frac"><span class="eq-frac-num v">ρ</span><span class="eq-frac-den"><span class="v">π</span>·<span class="v">L</span><sub>c</sub></span></span>
+          <span>·[ln(</span>
+          <span class="eq-frac"><span class="eq-frac-num">2·<span class="v">L</span><sub>c</sub></span><span class="eq-frac-den v">L</span></span>
+          <span>)&nbsp;+&nbsp;<span class="v">k</span><sub>1</sub>·</span>
+          <span class="eq-frac"><span class="eq-frac-num v">L</span><sub>c</sub><span class="eq-frac-den"><span class="eq-sqrt"><span class="eq-sqrt-inner v">A</span></span></span></span>
+          <span>−&nbsp;<span class="v">k</span><sub>2</sub>&nbsp;+&nbsp;1]</span>
+        </div>
+        <div class="equation-num">Eq. (6)</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Resistência total combinada</div>
+      <div class="equation-wrap">
+        <div class="equation">
+          <span class="v">R</span><sub>g</sub>
+          <span>=</span>
+          <span class="eq-frac">
+            <span class="eq-frac-num"><span class="v">R</span><sub>c</sub>·<span class="v">R</span><sub>h</sub></span>
+            <span class="eq-frac-den"><span class="v">R</span><sub>c</sub>&nbsp;+&nbsp;<span class="v">R</span><sub>h</sub>&nbsp;−&nbsp;2·<span class="v">R</span><sub>m</sub></span>
+          </span>
+        </div>
+        <div class="equation-num">Eq. (7)</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="prose">
+        <p style="font-size:13px;color:var(--muted);"><span class="eq-legend-sym" style="font-size:13px;">k₁ = 1,24</span> e <span class="eq-legend-sym" style="font-size:13px;">k₂ = 5,11</span> — coeficientes geométricos da Curva A da Figura 24 da <a href="09-referencias.html#ref-1" class="cite">IEEE 80-2013 [1]</a> para a/b = 4,25 (cabos na superfície).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="wizard-footer">
+    <a class="wizard-btn wizard-btn-prev" href="04-b3-comparacao-hastes.html">← Paralelo vs. anel perimetral</a>
+    <a class="wizard-btn wizard-btn-next" href="04-b3-resultados.html">Próximo: Resultados calculados →</a>
+  </div>
+</div>
+</div>
+</div>
+
+<script src="../shared/js/pwa.js"></script>
+<script>window.Ugtm.PWA.init('../');</script>
+<script src="../shared/js/state.js"></script>
+<script src="../shared/js/chrome.js"></script>
+<script src="../shared/js/theme.js"></script>
+<script>
+  window.Ugtm.Chrome.render({mode:'manual', activeId:'b3-schwarz', basePath:'../'});
+</script>
+</body>
+</html>

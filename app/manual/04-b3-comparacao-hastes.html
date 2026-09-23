@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="theme-color" content="#1d5bbf">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="POP UGTM">
+<link rel="apple-touch-icon" href="../assets/icons/icon-180.png">
+<link rel="icon" href="../assets/icons/icon-192.png">
+<title>Bloco 3 — Paralelo vs. anel — Manual Técnico UGTM</title>
+<link rel="stylesheet" href="../shared/css/base.css">
+<link rel="stylesheet" href="../shared/css/layout.css">
+<link rel="stylesheet" href="../shared/css/components.css">
+<link rel="stylesheet" href="../shared/css/wizard.css">
+</head>
+<body>
+<div id="topbar-mount"></div>
+
+<div class="app-body">
+<div class="sidebar-col" id="sidebar-mount"></div>
+<div class="content-col">
+<div class="main" style="padding-top:1.75rem;">
+
+  <div class="section" id="b3-comparacao">
+    <div class="section-title"><span class="sec-num">05</span>Bloco 3 — Sistema físico de aterramento</div>
+    <div class="bloco-header"><span class="bloco-badge b3">BLOCO 3 · 2/4 · GEOMETRIA DOS ELETRODOS</span></div>
+
+    <div class="card">
+      <div class="card-title">Configuração dos eletrodos — hastes em paralelo vs. anel perimetral</div>
+      <div class="prose">
+        <p>A escolha por interligar as hastes com um cabo formando um anel perimetral, em vez de instalá-las isoladamente em paralelo, foi validada empiricamente por ensaios de campo com 1 a 5 hastes (Seção 6.1 do TCC), medindo a resistência de aterramento pelo método de queda de potencial a cada haste adicionada.</p>
+      </div>
+      <div class="table-stack">
+        <div>
+          <div style="font-size:12px;font-weight:500;color:var(--muted);margin-bottom:6px;">Solo favorável — ρ = 33,8 Ω·m</div>
+          <table class="data-table">
+            <thead><tr><th>Nº hastes</th><th>Paralelo (Ω)</th><th>Anel perimetral (Ω)</th></tr></thead>
+            <tbody>
+              <tr><td class="mono">1</td><td class="mono">51,4</td><td class="mono">51,4</td></tr>
+              <tr><td class="mono">2</td><td class="mono">37,7</td><td class="mono">37,7</td></tr>
+              <tr><td class="mono">3</td><td class="mono">29,4</td><td class="mono">28,2</td></tr>
+              <tr><td class="mono">4</td><td class="mono">29,0</td><td class="mono">23,3</td></tr>
+              <tr><td class="mono">5</td><td class="mono">28,9</td><td class="mono">21,1</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:500;color:var(--muted);margin-bottom:6px;">Solo adverso — ρ = 500 Ω·m</div>
+          <table class="data-table">
+            <thead><tr><th>Nº hastes</th><th>Paralelo (Ω)</th><th>Anel perimetral (Ω)</th></tr></thead>
+            <tbody>
+              <tr><td class="mono">1</td><td class="mono">293,0</td><td class="mono">293,0</td></tr>
+              <tr><td class="mono">2</td><td class="mono">143,0</td><td class="mono">143,0</td></tr>
+              <tr><td class="mono">3</td><td class="mono">93,5</td><td class="mono">78,5</td></tr>
+              <tr><td class="mono">4</td><td class="mono">72,5</td><td class="mono">35,5</td></tr>
+              <tr><td class="mono">5</td><td class="mono">58,5</td><td class="mono">25,5</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="alert info">
+        <span class="alert-icon">ℹ️</span>
+        <div>
+          <strong>Saturação a partir de 3 hastes em paralelo</strong>
+          <p>Sem interligação por anel, cada haste adicional contribui cada vez menos para reduzir Rg — as zonas de influência das hastes vizinhas se sobrepõem. A configuração com anel perimetral evita essa saturação, mantendo reduções relevantes mesmo com mais hastes. A configuração final do kit usa 6 hastes (4 primárias + 2 suplementares) — número maior que o ensaiado diretamente (5), então o comportamento com 6 hastes é uma extrapolação da tendência observada, não uma medição direta.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wizard-footer">
+    <a class="wizard-btn wizard-btn-prev" href="04-b3-visao-geral.html">← Visão geral</a>
+    <a class="wizard-btn wizard-btn-next" href="04-b3-equacoes-schwarz.html">Próximo: Equações de Schwarz →</a>
+  </div>
+</div>
+</div>
+</div>
+
+<script src="../shared/js/pwa.js"></script>
+<script>window.Ugtm.PWA.init('../');</script>
+<script src="../shared/js/state.js"></script>
+<script src="../shared/js/chrome.js"></script>
+<script src="../shared/js/theme.js"></script>
+<script>
+  window.Ugtm.Chrome.render({mode:'manual', activeId:'b3-comparacao', basePath:'../'});
+</script>
+</body>
+</html>

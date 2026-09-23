@@ -359,12 +359,44 @@
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem 1.5rem;margin-bottom:1rem;}
 .card-title{font-size:14px;font-weight:600;margin-bottom:8px;color:var(--text);}
 
-/* EQUAÇÃO */
+/* EQUAÇÃO (formato antigo — mono, uma linha; ainda em uso nos blocos 1/2/4) */
 .eq-wrap{background:var(--surface2);border-radius:var(--radius);padding:1.25rem 1.5rem;margin:1rem 0;text-align:center;}
 .eq{font-family:var(--mono);font-size:20px;font-weight:500;color:var(--text);margin-bottom:10px;}
 .eq-vars{text-align:left;display:inline-block;font-size:13px;color:var(--muted);line-height:1.9;}
 .eq-vars span{font-family:var(--mono);font-weight:500;color:var(--text);}
 .eq-num{font-family:var(--mono);font-size:11px;color:var(--hint);float:right;margin-top:-28px;}
+
+/* ===== EQUAÇÃO MATEMÁTICA (formato novo) =====
+   Fração empilhada, radical com vínculo, sobre/subscrito nativos, variáveis em
+   itálico de fonte matemática — tudo em CSS puro, sem biblioteca externa.
+   .equation usa flex-wrap: se não couber na largura da tela, os termos quebram
+   pra uma nova linha centralizada em vez de criar barra de rolagem horizontal;
+   o font-size também encolhe sozinho em telas estreitas via clamp(). */
+.equation-wrap{background:var(--surface2);border-radius:var(--radius);padding:1.25rem 1.25rem;margin:1rem 0;max-width:100%;}
+.equation{
+  display:flex;flex-wrap:wrap;justify-content:center;align-items:center;
+  column-gap:0.32em;row-gap:0.6em;
+  font-family:var(--font-math);font-size:clamp(0.92rem,0.72rem + 1vw,1.25rem);
+  color:var(--text);text-align:center;
+}
+.equation .v{font-style:italic;}
+.equation sub,.equation sup{font-size:0.68em;}
+.equation-num{font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:10px;}
+
+.eq-frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 0.05em;line-height:1.25;}
+.eq-frac-num{padding:0 0.2em 2px;border-bottom:1.4px solid currentColor;}
+.eq-frac-den{padding:2px 0.2em 0;}
+
+.eq-sqrt{display:inline-flex;align-items:flex-start;margin:0 0.05em;}
+.eq-sqrt::before{content:"√";font-size:1.2em;line-height:1;transform:scaleY(1.25);display:inline-block;margin-right:-0.06em;}
+.eq-sqrt-inner{border-top:1.4px solid currentColor;padding:1px 0.15em 0;}
+
+/* legenda "onde:" — grid símbolo/descrição em vez de texto corrido */
+.eq-legend{margin-top:14px;padding-top:12px;border-top:1px solid var(--border);text-align:left;}
+.eq-legend-label{font-size:11px;font-family:var(--mono);text-transform:uppercase;letter-spacing:0.05em;color:var(--muted);margin-bottom:8px;}
+.eq-legend-row{display:grid;grid-template-columns:auto 1fr;column-gap:10px;font-size:13px;line-height:1.55;padding:3px 0;}
+.eq-legend-sym{font-family:var(--font-math);font-style:italic;font-weight:500;color:var(--text);white-space:nowrap;}
+.eq-legend-desc{color:var(--muted);}
 
 /* TABELA */
 .data-table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;font-size:13px;margin-bottom:1rem;}
