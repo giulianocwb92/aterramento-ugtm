@@ -1914,7 +1914,7 @@ footer{
       <span>n</span> = número de hastes = 4 &nbsp;·&nbsp;
       <span>L</span> = comprimento das hastes = 2,40 m &nbsp;·&nbsp;
       <span>d</span> = diâmetro das hastes = 0,01588 m (5/8")<br>
-      <span>k₁ = 1,24</span> e <span>k₂ = 5,11</span> — coeficientes geométricos da Curva A da Figura 24 da <a href="#ref-1" class="cite">IEEE 80-2013 [1]</a> para a/b = 4,25 (cabos na superfície)
+      <span>k₁ = 1,24</span> e <span>k₂ = 6,14</span> — coeficientes geométricos da Curva A da Figura 24 da <a href="#ref-1" class="cite">IEEE 80-2013 [1]</a> para x = comprimento/largura = 17/4 = 4,25 (cabos na superfície), com k₁ = −0,04·x + 1,41 e k₂ = 0,15·x + 5,50<br>Como h = 0, o termo logarítmico da Eq. (20) usa o raio do condutor de 25 mm², cerca de 2,8 mm, no lugar de h.
     </div>
   </div>
 
@@ -1923,11 +1923,11 @@ footer{
     <table class="data-table">
       <thead><tr><th>Configuração</th><th>ρ (Ω·m)</th><th>Rg calculado (Ω)</th><th>Rg medido (Ω)</th><th>Nota</th></tr></thead>
       <tbody>
-        <tr><td>Malha real — 17×4 m, 4 hastes 2,40 m</td><td class="mono">500</td><td class="mono">34,27</td><td class="mono">—</td><td style="color:var(--green-text);font-weight:500;">✓ Atende (limiar operacional adotado)</td></tr>
-        <tr><td>Protótipo em escala reduzida — 4×1,5 m, 4 hastes 1,50 m</td><td class="mono">33,8</td><td class="mono">5,15</td><td class="mono">7,85</td><td>Validação de campo (Seção 6.2)</td></tr>
+        <tr><td>Malha real — 17×4 m, 4 hastes 2,40 m</td><td class="mono">500</td><td class="mono">31,04</td><td class="mono">—</td><td style="color:var(--green-text);font-weight:500;">✓ Atende (limiar operacional adotado)</td></tr>
+        <tr><td>Protótipo em escala reduzida — 4×1,5 m, 4 hastes 1,50 m</td><td class="mono">33,8</td><td class="mono">5,15</td><td class="mono">7,85</td><td>Validação de campo (Seção 6.2). Para o protótipo, x = 4/1,5 = 2,67 e a mesma curva dá k₁ = 1,30 e k₂ = 5,90.</td></tr>
       </tbody>
     </table>
-    <div style="font-size:12px;color:var(--muted);margin-top:6px;">O TCC não deriva uma resistividade crítica pelo método de Schwarz. O limiar operacional de 500 Ω·m é o parâmetro de referência adotado em projeto <a href="#ref-27" class="cite">[27]</a>, e para esse solo o método estima Rg ≈ 34,27 Ω, abaixo do critério de 40 Ω. O efeito da bentonita foi validado em campo até ρ = 76 Ω·m. A diferença entre o Rg previsto e o medido no protótipo é atribuída à heterogeneidade do solo no ponto de ensaio (Seção 6.2).</div>
+    <div style="font-size:12px;color:var(--muted);margin-top:6px;">O TCC não deriva uma resistividade crítica pelo método de Schwarz. O limiar operacional de 500 Ω·m é o parâmetro de referência adotado em projeto <a href="#ref-27" class="cite">[27]</a>, e para esse solo o método estima Rg ≈ 31,04 Ω, abaixo do critério de 40 Ω. O efeito da bentonita foi validado em campo até ρ = 76 Ω·m. A diferença entre o Rg previsto e o medido no protótipo é atribuída à heterogeneidade do solo no ponto de ensaio (Seção 6.2).</div>
   </div>
 
   <div class="normas">
@@ -2090,7 +2090,7 @@ footer{
     <span class="alert-icon">⚠️</span>
     <div>
       <strong>Limite operacional validado</strong>
-      <p>O limiar de 500 Ω·m é o parâmetro de referência adotado em projeto <a href="#ref-27" class="cite">[27]</a>. Para esse solo, o método de Schwarz estima Rg ≈ 34,27 Ω, abaixo do critério de 40 Ω (Bloco 3, Resultados). O efeito da bentonita foi validado em campo até ρ = 76 Ω·m (Bloco 3, Bentonita). Para resistividades muito acima disso, consultar engenharia antes de prosseguir.</p>
+      <p>O limiar de 500 Ω·m é o parâmetro de referência adotado em projeto <a href="#ref-27" class="cite">[27]</a>. Para esse solo, o método de Schwarz estima Rg ≈ 31,04 Ω, abaixo do critério de 40 Ω (Bloco 3, Resultados). O efeito da bentonita foi validado em campo até ρ = 76 Ω·m (Bloco 3, Bentonita). Para resistividades muito acima disso, consultar engenharia antes de prosseguir.</p>
     </div>
   </div>
 

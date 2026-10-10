@@ -50,7 +50,7 @@
           <div class="eq-legend-label">Onde</div>
           <div class="eq-legend-row"><span class="eq-legend-sym">ρ</span><span class="eq-legend-desc">resistividade do solo (Ω·m)</span></div>
           <div class="eq-legend-row"><span class="eq-legend-sym">L<sub>c</sub></span><span class="eq-legend-desc">comprimento total dos cabos = 42 m</span></div>
-          <div class="eq-legend-row"><span class="eq-legend-sym">h</span><span class="eq-legend-desc">profundidade dos cabos ≈ 0 (apoiados na superfície)</span></div>
+          <div class="eq-legend-row"><span class="eq-legend-sym">h</span><span class="eq-legend-desc">profundidade dos cabos ≈ 0 (apoiados na superfície). No cálculo, usa o raio do condutor de 25 mm², cerca de 2,8 mm</span></div>
           <div class="eq-legend-row"><span class="eq-legend-sym">A</span><span class="eq-legend-desc">área da malha = 68 m²</span></div>
           <div class="eq-legend-row"><span class="eq-legend-sym">k<sub>1</sub>, k<sub>2</sub></span><span class="eq-legend-desc">coeficientes geométricos — ver nota abaixo</span></div>
         </div>
@@ -114,7 +114,8 @@
 
     <div class="card">
       <div class="prose">
-        <p style="font-size:13px;color:var(--muted);"><span class="eq-legend-sym" style="font-size:13px;">k₁ = 1,24</span> e <span class="eq-legend-sym" style="font-size:13px;">k₂ = 5,11</span> — coeficientes geométricos da Curva A da Figura 24 da <a href="09-referencias.html#ref-1" class="cite">IEEE 80-2013 [1]</a> para a/b = 4,25 (cabos na superfície).</p>
+        <p style="font-size:13px;color:var(--muted);"><span class="eq-legend-sym" style="font-size:13px;">k₁ = 1,24</span> e <span class="eq-legend-sym" style="font-size:13px;">k₂ = 6,14</span> — coeficientes geométricos da Curva A da Figura 24 da <a href="09-referencias.html#ref-1" class="cite">IEEE 80-2013 [1]</a> para x = comprimento/largura = 17/4 = 4,25 (cabos na superfície), com k₁ = −0,04·x + 1,41 e k₂ = 0,15·x + 5,50.</p>
+        <p style="font-size:13px;color:var(--muted);">Como h = 0, o termo logarítmico da Eq. (20) usa o raio do condutor de 25 mm², cerca de 2,8 mm, no lugar de h.</p>
       </div>
     </div>
   </div>
