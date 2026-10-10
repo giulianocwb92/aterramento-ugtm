@@ -59,7 +59,7 @@
           </div>
         </div>
         <div class="topbar-right">
-          <span class="topbar-version">v2.0.0 · 2026</span>
+          <span class="topbar-version">v2.1.0 · 2026</span>
           <button id="theme-btn" style="background:var(--surface2);border:1px solid var(--border-strong);border-radius:8px;padding:4px 12px;font-size:13px;font-weight:500;color:var(--text);cursor:pointer;font-family:var(--sans);display:flex;align-items:center;gap:6px;">
             <span id="theme-icon">☀️</span><span id="theme-label">Claro</span>
           </button>

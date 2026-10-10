@@ -32,18 +32,83 @@
       <p>O critério de aceite Rg ≤ 40 Ω não é arbitrário — é derivado diretamente dos parâmetros do sistema de proteção embarcado na UGTM. O relé SEPAM S40 opera com a função <strong>50N (sobrecorrente de neutro instantânea)</strong>, com pickup ajustado em 30% da corrente nominal do lado de alta tensão e tempo de atuação configurado em 30 ms.</p>
     </div>
 
+    <div class="prose">
+      <p>A UGTM é composta por um gerador síncrono WEG de 500 kVA, 60 Hz, 220 V, acoplado a um transformador seco WEG de 500 kVA com enrolamento em estrela aterrado no lado de 13,8 kV e triângulo no lado de 220 V, com impedância percentual de 4,75% <a href="09-referencias.html#ref-5" class="cite">[5]</a>. O cálculo parte da impedância de base referida ao lado de alta tensão, dada pelos parâmetros reais do conjunto gerador e transformador, e das impedâncias do sistema referidas ao lado de AT.</p>
+    </div>
+
     <div class="eq-wrap">
-      <div class="eq">I<sub style="font-size:14px;">pickup</sub> = 0,30 × I<sub style="font-size:14px;">nominal,AT</sub> = 6,28 A</div>
-      <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (2)</div>
+      <div class="eq" style="font-size:16px;">Z<sub style="font-size:12px;">base,AT</sub> = V<sub style="font-size:12px;">AT</sub>² / S = 13800² / 500000 = 380,9 Ω</div>
+      <div class="eq" style="font-size:16px;">Z<sub style="font-size:12px;">T</sub> = 4,75% × 380,9 = 18,1 Ω</div>
+      <div class="eq" style="font-size:16px;">X″<sub style="font-size:12px;">d,AT</sub> = 14% × 380,9 = 53,3 Ω</div>
+      <div class="eq" style="font-size:16px;">X<sub style="font-size:12px;">2,AT</sub> = 12% × 380,9 = 45,7 Ω</div>
+      <div style="text-align:left;display:inline-block;">
+        <div class="eq-vars">
+          onde <span>V<sub>AT</sub></span> = tensão nominal do lado de alta tensão (V)<br>
+          <span>S</span> = potência aparente nominal (VA)<br>
+          <span>Z<sub>T</sub></span> = impedância do transformador referida ao lado de AT (Ω)<br>
+          <span>X″<sub>d,AT</sub></span> = reatância subtransitória de eixo direto do gerador referida ao lado de AT (Ω)<br>
+          <span>X<sub>2,AT</sub></span> = reatância de sequência negativa do gerador referida ao lado de AT (Ω)
+        </div>
+      </div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (2) a (5)</div>
     </div>
 
     <div class="prose">
-      <p>Para que a proteção atue de forma garantida, a corrente de falta fase-terra deve ser superior ao pickup. Com Rg = 40 Ω, a corrente de falta resultante é:</p>
+      <p>Para uma falta fase terra franca no barramento de 13,8 kV, o método de componentes simétricas de Fortescue fornece a corrente de falta em função das impedâncias de sequência positiva, negativa e zero <a href="09-referencias.html#ref-14" class="cite">[14]</a>.</p>
     </div>
 
     <div class="eq-wrap">
-      <div class="eq">I<sub style="font-size:14px;">falta</sub> = V<sub style="font-size:14px;">fase</sub> / Rg = 87,4 A</div>
-      <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (3)</div>
+      <div class="eq">I<sub style="font-size:14px;">f</sub> = 3·V<sub style="font-size:14px;">fase</sub> / (Z<sub style="font-size:14px;">1</sub> + Z<sub style="font-size:14px;">2</sub> + Z<sub style="font-size:14px;">0</sub>)</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (6)</div>
+    </div>
+
+    <div class="prose">
+      <p>As impedâncias de sequência positiva e negativa somam as contribuições do transformador e do gerador. Como o enrolamento em triângulo do lado de 220 V bloqueia a sequência zero, a impedância Z₀ contém apenas a reatância de dispersão do transformador e a resistência de aterramento Rg, que aparece multiplicada por três no circuito de sequência zero <a href="09-referencias.html#ref-15" class="cite">[15]</a>.</p>
+    </div>
+
+    <div class="eq-wrap">
+      <div class="eq" style="font-size:16px;">Z<sub style="font-size:12px;">1</sub> = Z<sub style="font-size:12px;">T</sub> + X″<sub style="font-size:12px;">d,AT</sub> = 18,1 + 53,3 = 71,4 Ω</div>
+      <div class="eq" style="font-size:16px;">Z<sub style="font-size:12px;">2</sub> = Z<sub style="font-size:12px;">T</sub> + X<sub style="font-size:12px;">2,AT</sub> = 18,1 + 45,7 = 63,8 Ω</div>
+      <div class="eq" style="font-size:16px;">Z<sub style="font-size:12px;">0</sub> = Z<sub style="font-size:12px;">T,0</sub> + 3·Rg = 18,1 + 3·Rg Ω</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (7) a (9)</div>
+    </div>
+
+    <div class="prose">
+      <p>Substituindo, com V<sub>fase</sub> = 13800/√3 = 7967 V e a soma Z₁ + Z₂ + Z₀ = 153,3 + 3·Rg, a corrente de falta fica em função apenas da resistência de aterramento.</p>
+    </div>
+
+    <div class="eq-wrap">
+      <div class="eq">I<sub style="font-size:14px;">f</sub> = 23901 / (153,3 + 3·Rg) A</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (10)</div>
+    </div>
+
+    <div class="prose">
+      <p>A corrente nominal do lado de alta tensão e o pickup da função 50N, ajustado em 30% dessa corrente, valem</p>
+    </div>
+
+    <div class="eq-wrap">
+      <div class="eq" style="font-size:16px;">I<sub style="font-size:12px;">nom,AT</sub> = 500000 / (√3 × 13800) = 20,9 A</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (11)</div>
+      <div class="eq" style="font-size:16px;margin-top:10px;">I<sub style="font-size:12px;">pickup</sub> = 0,30 × 20,9 = 6,28 A (primário)</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (12)</div>
+    </div>
+
+    <div class="prose">
+      <p>Impondo I<sub>f</sub> = I<sub>pickup</sub> e isolando Rg, resulta o valor máximo de resistência de aterramento que ainda garante a atuação do relé <a href="09-referencias.html#ref-16" class="cite">[16]</a>.</p>
+    </div>
+
+    <div class="eq-wrap">
+      <div class="eq">R<sub style="font-size:14px;">máx,relé</sub> = (23901/6,28 − 153,3) / 3 ≈ 1217 Ω</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (13)</div>
+    </div>
+
+    <div class="prose">
+      <p>Para verificação direta com Rg = 40 Ω, a corrente de falta é</p>
+    </div>
+
+    <div class="eq-wrap">
+      <div class="eq">I<sub style="font-size:14px;">f</sub>(Rg = 40 Ω) = 23901 / (153,3 + 120) = 87,4 A</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (14)</div>
     </div>
 
     <div class="result-card">
@@ -55,7 +120,7 @@
     </div>
 
     <div class="prose">
-      <p>Com Rg = 40 Ω a corrente de falta representa <strong>14 vezes o pickup</strong>, garantindo a atuação instantânea da função 50N do SEPAM S40 em 30 ms. Qualquer valor acima de 40 Ω reduz a corrente de falta abaixo do limiar de operação segura.</p>
+      <p>Com Rg = 40 Ω a corrente de falta é 87,4 A, o que representa <strong>14 vezes o pickup</strong> do 50N. Comparando os limites, o critério de 40 Ω satisfaz a condição de sensibilidade com uma margem de R<sub>máx,relé</sub>/40 ≈ <strong>30 vezes</strong>, o que demonstra que a proteção opera de forma confiável em qualquer condição de solo para a qual o conjunto for dimensionado <a href="09-referencias.html#ref-16" class="cite">[16]</a> <a href="09-referencias.html#ref-17" class="cite">[17]</a>.</p>
     </div>
 
     <div class="bloco-header" style="margin-top:1.75rem;"><span class="bloco-badge b2">CRITÉRIO 2 · SEGURANÇA DE PESSOAS</span></div>
@@ -66,7 +131,7 @@
 
     <div class="eq-wrap">
       <div class="eq">I<sub style="font-size:14px;">corpo</sub> = 0,116 / √t<sub style="font-size:14px;">s</sub> = 0,116 / √0,030 = 0,670 A</div>
-      <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (15–16)</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (15) e (16)</div>
     </div>
 
     <div class="prose">
@@ -99,17 +164,33 @@
         </div>
       </div>
     </div>
+    <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (18)</div>
+
+    <div class="prose">
+      <p>O valor de ρₛ = 500 Ω·m é comumente utilizado em projetos de engenharia de aterramento como parâmetro de referência para solo de resistividade alta, na ausência de dados de campo específicos para o local de instalação <a href="09-referencias.html#ref-27" class="cite">[27]</a>. Solos com resistividade ainda mais elevada podem ser encontrados na prática, mas adotar um valor superior tornaria os parâmetros de segurança inviáveis para a configuração deste projeto.</p>
+    </div>
 
     <div class="alert warning">
       <span class="alert-icon">⚠️</span>
       <div>
-        <strong>Resistividade máxima do solo: 500 Ω·m</strong>
-        <p>Solos com resistividade acima de 500 Ω·m estão fora do envelope de operação do conjunto sem análise adicional — os limites de tensão de toque e de passo calculados acima deixam de estar garantidos e a engenharia responsável deve ser consultada.</p>
+        <strong>Resistividade de referência de projeto: 500 Ω·m</strong>
+        <p>O valor de 500 Ω·m é o parâmetro de referência adotado em projeto para solo de resistividade alta <a href="09-referencias.html#ref-27" class="cite">[27]</a>, e não um valor medido em campo. Para solos com resistividade acima desse valor, a engenharia responsável deve ser consultada antes de prosseguir.</p>
       </div>
     </div>
 
     <div class="prose">
-      <p>Para um operador equipotencializado com o anel perimetral do conjunto, a tensão de toque efetiva é aproximadamente zero, independentemente do valor do GPR. Para operadores fora do anel, as tensões efetivas de malha (Eₘ) e de passo (Eₛ) são calculadas pelo método de Schwarz — ver Bloco 3 — e devem permanecer dentro dos limites de 1.172 V e 2.679 V calculados acima.</p>
+      <p>A elevação de potencial de terra com Rg = 40 Ω vale</p>
+    </div>
+
+    <div class="eq-wrap">
+      <div class="eq">GPR = I<sub style="font-size:14px;">f</sub> × Rg = 87,4 × 40 = 3497 V</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (19)</div>
+    </div>
+
+    <div class="prose">
+      <p>O GPR representa o pior caso de tensão disponível no sistema durante a falta. Se essa tensão fosse aplicada diretamente ao corpo de um operador sem proteção adicional, resultaria em uma corrente de 2,0 A, valor que excede o limite fisiológico mesmo com atuação do relé em 30 ms.</p>
+      <p>A proteção do operador é garantida pela <strong>equipotencialização da área de trabalho</strong>. O cabo de 50 mm² que interliga a carcaça da UGTM ao anel perimetral conecta eletricamente mãos e pés do operador ao mesmo ponto. Com isso, a tensão a que ele está exposto não é o GPR, mas a queda de tensão no próprio cabo de cobre que, para 20 m de comprimento e a corrente de falta de 87,4 A, vale apenas 0,6 V. Esse valor está abaixo do limiar de percepção elétrica estabelecido pela <a href="09-referencias.html#ref-2" class="cite">IEC 60479-1:2018 [2]</a>, tornando o risco de choque desprezível dentro do perímetro do anel. O IEEE 1246-2020 reconhece esse mecanismo, denominado <em>bonding</em>, como o requisito central de proteção para pessoas que trabalham em circuitos aterrados <a href="09-referencias.html#ref-20" class="cite">[20]</a>.</p>
+      <p>Para operadores fora do anel, a proteção é garantida pela restrição de acesso à área durante a operação, conforme exigido pela <a href="09-referencias.html#ref-4" class="cite">NR-10 [4]</a>. O procedimento operacional deste conjunto determina que o perímetro seja isolado com fita de sinalização e cones antes da energização, e que nenhum operador permaneça fora do anel durante a operação da UGTM.</p>
       <p>Os dois critérios — sensibilidade da proteção e segurança de pessoas — convergem para o mesmo parâmetro operacional. A IEEE 1246-2020 e a IEEE 1268-2016, que tratam especificamente de sistemas de aterramento provisório em subestações móveis, convergem para a mesma abordagem: o critério de aceite deve garantir a atuação da proteção e a equipotencialização da área de trabalho (<a href="09-referencias.html#ref-20" class="cite">20</a>, <a href="09-referencias.html#ref-19" class="cite">19</a>).</p>
     </div>
 
@@ -118,6 +199,8 @@
       <a href="09-referencias.html#ref-19" class="norma-tag">IEEE 1268-2016<span class="tag-num">19</span></a>
       <a href="09-referencias.html#ref-1" class="norma-tag">IEEE 80-2013<span class="tag-num">1</span></a>
       <a href="09-referencias.html#ref-2" class="norma-tag">IEC 60479-1:2018<span class="tag-num">2</span></a>
+      <a href="09-referencias.html#ref-27" class="norma-tag">Elek Software (2020)<span class="tag-num">27</span></a>
+      <a href="09-referencias.html#ref-28" class="norma-tag">E-Hazard (2024)<span class="tag-num">28</span></a>
       <a href="09-referencias.html#ref-5" class="norma-tag">SEPAM S40 — Schneider Electric<span class="tag-num">5</span></a>
     </div>
   </div>

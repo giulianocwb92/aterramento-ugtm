@@ -139,7 +139,7 @@
 
     const texto=`══════════════════════════════════
 REGISTRO DE OPERAÇÃO — POP ATERRAMENTO UGTM
-COPEL-DIST-AT-001 · v2.0.0
+COPEL-DIST-AT-001 · v2.1.0
 ══════════════════════════════════
 Data:          ${data}
 Hora de início: ${hora}

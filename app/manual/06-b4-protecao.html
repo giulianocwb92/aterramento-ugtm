@@ -29,7 +29,7 @@
     <div class="bloco-header"><span class="bloco-badge b4">BLOCO 4 · PROTEÇÃO 50N</span></div>
 
     <div class="prose">
-      <p>O relé SEPAM S40 da Schneider Electric é o equipamento de proteção embarcado na UGTM <a href="09-referencias.html#ref-5" class="cite">[5]</a>. A função relevante para este projeto é a <strong>função 50N — sobrecorrente de neutro instantânea</strong>, que detecta correntes de falta fase-terra pelo transformador de corrente toroidal ou pela conexão Holmgreen, conforme a família de normas <a href="09-referencias.html#ref-31" class="cite">IEC 60255 [31]</a> para relés de proteção.</p>
+      <p>O relé SEPAM S40 da Schneider Electric é o equipamento de proteção embarcado na UGTM <a href="09-referencias.html#ref-5" class="cite">[5]</a>. A função relevante para este projeto é a <strong>função 50N — sobrecorrente de neutro instantânea</strong>, que detecta correntes de falta fase-terra pelo transformador de corrente toroidal ou pela conexão Holmgreen, conforme a família de normas <a href="09-referencias.html#ref-35" class="cite">IEC 60255 [35]</a> para relés de proteção.</p>
       <p>O SEPAM S40 foi parametrizado para atuação instantânea, com tempo de operação fixo de <strong>30 ms</strong> sempre que a corrente de falta supera o pickup — sem depender de uma curva de tempo-corrente inversa. Esse tempo fixo é o valor usado no cálculo da corrente máxima suportável pelo corpo humano, conforme a <a href="09-referencias.html#ref-1" class="cite">IEEE 80-2013 [1]</a> (Bloco 2, Seção 04).</p>
     </div>
 
@@ -53,7 +53,7 @@
             <tr><td style="color:var(--muted);">Corrente de falta</td><td class="mono">87,4 A</td></tr>
             <tr><td style="color:var(--muted);">Múltiplo do pickup</td><td class="mono">13,9× (≈ 14×)</td></tr>
             <tr><td style="color:var(--muted);">Atuação</td><td class="mono">Instantânea — 30 ms</td></tr>
-            <tr><td style="color:var(--muted);">Margem de segurança Rg</td><td class="mono">24× sobre 1,66 Ω</td></tr>
+            <tr><td style="color:var(--muted);">Margem de segurança Rg</td><td class="mono">≈ 30× sobre R<sub>máx,relé</sub> = 1217 Ω</td></tr>
           </tbody>
         </table>
       </div>
@@ -62,7 +62,7 @@
     <div class="normas">
       <a href="09-referencias.html#ref-5" class="norma-tag">SEPAM S40 — Schneider Electric<span class="tag-num">5</span></a>
       <a href="09-referencias.html#ref-1" class="norma-tag">IEEE 80-2013<span class="tag-num">1</span></a>
-      <a href="09-referencias.html#ref-31" class="norma-tag">IEC 60255<span class="tag-num">31</span></a>
+      <a href="09-referencias.html#ref-35" class="norma-tag">IEC 60255<span class="tag-num">35</span></a>
     </div>
   </div>
 

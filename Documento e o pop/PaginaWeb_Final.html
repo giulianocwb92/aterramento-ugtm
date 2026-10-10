@@ -908,7 +908,7 @@ footer{
     </div>
   </div>
   <div class="topbar-right">
-    <span class="topbar-version" id="topbar-version">v1.1.0 · 2026</span>
+    <span class="topbar-version" id="topbar-version">v1.2.0 · 2026</span>
     <button id="theme-btn" onclick="toggleTheme()" style="background:var(--surface2);border:1px solid var(--border-strong);border-radius:8px;padding:4px 12px;font-size:13px;font-weight:500;color:var(--text);cursor:pointer;font-family:var(--sans);display:flex;align-items:center;gap:6px;transition:background 0.15s;">
       <span id="theme-icon">☀️</span>
       <span id="theme-label">Claro</span>
@@ -956,9 +956,9 @@ footer{
     <h1>Aterramento provisório de Unidade Geradora e Transformadora Móvel</h1>
     <p>Instalação do kit portátil de 4 hastes com critério de aceite Rg ≤ 40 Ω conforme função 50N do relé SEPAM S40.</p>
     <div class="doc-meta">
-      <div class="meta-item"><div class="meta-label">Versão</div><div class="meta-val">1.1.0</div></div>
+      <div class="meta-item"><div class="meta-label">Versão</div><div class="meta-val">1.2.0</div></div>
       <div class="meta-item"><div class="meta-label">Emissão</div><div class="meta-val">2026</div></div>
-      <div class="meta-item"><div class="meta-label">Prazo mínimo</div><div class="meta-val">−100 min</div></div>
+      <div class="meta-item"><div class="meta-label">Prazo mínimo</div><div class="meta-val">≥ 100 min antes</div></div>
       <div class="meta-item"><div class="meta-label">Critério</div><div class="meta-val">Rg ≤ 40 Ω</div></div>
     </div>
   </div>
@@ -1177,7 +1177,7 @@ footer{
         <div class="step-num">1</div>
         <div class="step-body">
           <div class="step-title">Verificar EPI completo e isolar a área</div>
-          <div class="step-desc">Confirmar uso de todos os EPI listados na seção 03. Delimitar a zona controlada com fita de sinalização e cones a partir de um raio mínimo de <strong>1,38 m</strong> do ponto energizado mais próximo (Rc para instalações de 13,8 kV, conforme a tabela de raios de delimitação do Anexo I da NR-10). Nenhum operador sem EPI deve permanecer dentro desse raio.</div>
+          <div class="step-desc">Confirmar uso de todos os EPI listados na seção 03. Delimitar a zona controlada com fita de sinalização e cones a partir de um raio mínimo de <strong>1,38 m</strong> do ponto energizado mais próximo (Rc para instalações de 13,8 kV, conforme a tabela de raios de delimitação do Anexo II da NR-10). Nenhum operador sem EPI deve permanecer dentro desse raio.</div>
           <span class="step-tag tag-warn">segurança — obrigatório · raio 1,38 m</span>
         </div>
       </div>
@@ -1576,15 +1576,15 @@ footer{
 
   <div class="prose">
     <p>Antes de qualquer instalação é necessário medir a resistividade do solo no local de operação. Esse parâmetro governa diretamente a resistência de espalhamento dos eletrodos — solos com resistividades distintas podem produzir resistências que diferem em uma ordem de grandeza para uma mesma geometria de hastes <a href="#ref-8" class="cite">[8]</a>.</p>
-    <p>O método adotado é o <strong>método de Wenner</strong>, padronizado pela <a href="#ref-7" class="cite">IEEE 81-2012 [7]</a> e pela <a href="#ref-9" class="cite">ABNT NBR 7117:2020 [9]</a>. Quatro eletrodos são cravados em linha reta com espaçamento igual <em>a</em>. Uma corrente de teste I é injetada pelos eletrodos externos e a queda de tensão V é medida pelos dois internos.</p>
+    <p>O método adotado é o <strong>método de Wenner</strong>, padronizado pela <a href="#ref-7" class="cite">IEEE 81-2012 [7]</a> e pela <a href="#ref-9" class="cite">ABNT NBR 7117:2020 [9]</a>. Quatro eletrodos são cravados em linha reta com espaçamento igual <em>S</em>. Uma corrente de teste I é injetada pelos eletrodos externos e a queda de tensão V é medida pelos dois internos.</p>
   </div>
 
   <div class="eq-wrap">
-    <div class="eq">ρ = 2π · a · R</div>
+    <div class="eq">ρ = 2π · S · R</div>
     <div style="text-align:left;display:inline-block;">
       <div class="eq-vars">
         onde <span>R = V/I</span> é a resistência lida pelo instrumento<br>
-        <span>a</span> = espaçamento entre eletrodos consecutivos (m)<br>
+        <span>S</span> = espaçamento entre eletrodos consecutivos (m)<br>
         <span>ρ</span> = resistividade aparente do solo (Ω·m)
       </div>
     </div>
@@ -1592,7 +1592,7 @@ footer{
   </div>
 
   <div class="prose">
-    <p>O espaçamento <em>a</em> define a profundidade de investigação, correspondendo à resistividade média do solo até uma profundidade aproximadamente igual a <em>a</em>. Para este projeto, recomendam-se espaçamentos entre <strong>1 m e 3 m</strong>, compatíveis com o comprimento das hastes de 2,4 m.</p>
+    <p>O espaçamento <em>S</em> define a profundidade de investigação, correspondendo à resistividade média do solo até uma profundidade aproximadamente igual a <em>S</em>. Para este projeto, recomendam-se espaçamentos entre <strong>1 m e 3 m</strong>, compatíveis com o comprimento das hastes de 2,4 m.</p>
   </div>
 
   <div class="card">
@@ -1623,19 +1623,84 @@ footer{
     <p>O critério de aceite Rg ≤ 40 Ω não é arbitrário — é derivado diretamente dos parâmetros do sistema de proteção embarcado na UGTM. O relé SEPAM S40 opera com a função <strong>50N (sobrecorrente de neutro instantânea)</strong>, com pickup ajustado em 30% da corrente nominal do lado de alta tensão e tempo de atuação configurado em 30 ms.</p>
   </div>
 
-  <div class="eq-wrap">
-    <div class="eq">I<sub style="font-size:14px;">pickup</sub> = 0,30 × I<sub style="font-size:14px;">nominal,AT</sub> = 6,28 A</div>
-    <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (2)</div>
-  </div>
-
   <div class="prose">
-    <p>Para que a proteção atue de forma garantida, a corrente de falta fase-terra deve ser superior ao pickup. Com Rg = 40 Ω, a corrente de falta resultante é:</p>
-  </div>
+      <p>A UGTM é composta por um gerador síncrono WEG de 500 kVA, 60 Hz, 220 V, acoplado a um transformador seco WEG de 500 kVA com enrolamento em estrela aterrado no lado de 13,8 kV e triângulo no lado de 220 V, com impedância percentual de 4,75% <a href="#ref-5" class="cite">[5]</a>. O cálculo parte da impedância de base referida ao lado de alta tensão, dada pelos parâmetros reais do conjunto gerador e transformador, e das impedâncias do sistema referidas ao lado de AT.</p>
+    </div>
 
-  <div class="eq-wrap">
-    <div class="eq">I<sub style="font-size:14px;">falta</sub> = V<sub style="font-size:14px;">fase</sub> / Rg = 87,4 A</div>
-    <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (3)</div>
-  </div>
+    <div class="eq-wrap">
+      <div class="eq" style="font-size:16px;">Z<sub style="font-size:12px;">base,AT</sub> = V<sub style="font-size:12px;">AT</sub>² / S = 13800² / 500000 = 380,9 Ω</div>
+      <div class="eq" style="font-size:16px;">Z<sub style="font-size:12px;">T</sub> = 4,75% × 380,9 = 18,1 Ω</div>
+      <div class="eq" style="font-size:16px;">X″<sub style="font-size:12px;">d,AT</sub> = 14% × 380,9 = 53,3 Ω</div>
+      <div class="eq" style="font-size:16px;">X<sub style="font-size:12px;">2,AT</sub> = 12% × 380,9 = 45,7 Ω</div>
+      <div style="text-align:left;display:inline-block;">
+        <div class="eq-vars">
+          onde <span>V<sub>AT</sub></span> = tensão nominal do lado de alta tensão (V)<br>
+          <span>S</span> = potência aparente nominal (VA)<br>
+          <span>Z<sub>T</sub></span> = impedância do transformador referida ao lado de AT (Ω)<br>
+          <span>X″<sub>d,AT</sub></span> = reatância subtransitória de eixo direto do gerador referida ao lado de AT (Ω)<br>
+          <span>X<sub>2,AT</sub></span> = reatância de sequência negativa do gerador referida ao lado de AT (Ω)
+        </div>
+      </div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (2) a (5)</div>
+    </div>
+
+    <div class="prose">
+      <p>Para uma falta fase terra franca no barramento de 13,8 kV, o método de componentes simétricas de Fortescue fornece a corrente de falta em função das impedâncias de sequência positiva, negativa e zero <a href="#ref-14" class="cite">[14]</a>.</p>
+    </div>
+
+    <div class="eq-wrap">
+      <div class="eq">I<sub style="font-size:14px;">f</sub> = 3·V<sub style="font-size:14px;">fase</sub> / (Z<sub style="font-size:14px;">1</sub> + Z<sub style="font-size:14px;">2</sub> + Z<sub style="font-size:14px;">0</sub>)</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (6)</div>
+    </div>
+
+    <div class="prose">
+      <p>As impedâncias de sequência positiva e negativa somam as contribuições do transformador e do gerador. Como o enrolamento em triângulo do lado de 220 V bloqueia a sequência zero, a impedância Z₀ contém apenas a reatância de dispersão do transformador e a resistência de aterramento Rg, que aparece multiplicada por três no circuito de sequência zero <a href="#ref-15" class="cite">[15]</a>.</p>
+    </div>
+
+    <div class="eq-wrap">
+      <div class="eq" style="font-size:16px;">Z<sub style="font-size:12px;">1</sub> = Z<sub style="font-size:12px;">T</sub> + X″<sub style="font-size:12px;">d,AT</sub> = 18,1 + 53,3 = 71,4 Ω</div>
+      <div class="eq" style="font-size:16px;">Z<sub style="font-size:12px;">2</sub> = Z<sub style="font-size:12px;">T</sub> + X<sub style="font-size:12px;">2,AT</sub> = 18,1 + 45,7 = 63,8 Ω</div>
+      <div class="eq" style="font-size:16px;">Z<sub style="font-size:12px;">0</sub> = Z<sub style="font-size:12px;">T,0</sub> + 3·Rg = 18,1 + 3·Rg Ω</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (7) a (9)</div>
+    </div>
+
+    <div class="prose">
+      <p>Substituindo, com V<sub>fase</sub> = 13800/√3 = 7967 V e a soma Z₁ + Z₂ + Z₀ = 153,3 + 3·Rg, a corrente de falta fica em função apenas da resistência de aterramento.</p>
+    </div>
+
+    <div class="eq-wrap">
+      <div class="eq">I<sub style="font-size:14px;">f</sub> = 23901 / (153,3 + 3·Rg) A</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (10)</div>
+    </div>
+
+    <div class="prose">
+      <p>A corrente nominal do lado de alta tensão e o pickup da função 50N, ajustado em 30% dessa corrente, valem</p>
+    </div>
+
+    <div class="eq-wrap">
+      <div class="eq" style="font-size:16px;">I<sub style="font-size:12px;">nom,AT</sub> = 500000 / (√3 × 13800) = 20,9 A</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (11)</div>
+      <div class="eq" style="font-size:16px;margin-top:10px;">I<sub style="font-size:12px;">pickup</sub> = 0,30 × 20,9 = 6,28 A (primário)</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (12)</div>
+    </div>
+
+    <div class="prose">
+      <p>Impondo I<sub>f</sub> = I<sub>pickup</sub> e isolando Rg, resulta o valor máximo de resistência de aterramento que ainda garante a atuação do relé <a href="#ref-16" class="cite">[16]</a>.</p>
+    </div>
+
+    <div class="eq-wrap">
+      <div class="eq">R<sub style="font-size:14px;">máx,relé</sub> = (23901/6,28 − 153,3) / 3 ≈ 1217 Ω</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (13)</div>
+    </div>
+
+    <div class="prose">
+      <p>Para verificação direta com Rg = 40 Ω, a corrente de falta é</p>
+    </div>
+
+    <div class="eq-wrap">
+      <div class="eq">I<sub style="font-size:14px;">f</sub>(Rg = 40 Ω) = 23901 / (153,3 + 120) = 87,4 A</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (14)</div>
+    </div>
 
   <div class="result-card">
     <div class="result-val">14×</div>
@@ -1646,7 +1711,7 @@ footer{
   </div>
 
   <div class="prose">
-    <p>Com Rg = 40 Ω a corrente de falta representa <strong>14 vezes o pickup</strong>, garantindo a atuação instantânea da função 50N do SEPAM S40 em 30 ms. Qualquer valor acima de 40 Ω reduz a corrente de falta abaixo do limiar de operação segura.</p>
+    <p>Com Rg = 40 Ω a corrente de falta é 87,4 A, o que representa <strong>14 vezes o pickup</strong> do 50N. Comparando os limites, o critério de 40 Ω satisfaz a condição de sensibilidade com uma margem de R<sub>máx,relé</sub>/40 ≈ <strong>30 vezes</strong>, o que demonstra que a proteção opera de forma confiável em qualquer condição de solo para a qual o conjunto for dimensionado <a href="#ref-16" class="cite">[16]</a> <a href="#ref-17" class="cite">[17]</a>.</p>
   </div>
 
   <div class="bloco-header" style="margin-top:1.75rem;"><span class="bloco-badge b2">CRITÉRIO 2 · SEGURANÇA DE PESSOAS</span></div>
@@ -1657,7 +1722,7 @@ footer{
 
   <div class="eq-wrap">
     <div class="eq">I<sub style="font-size:14px;">corpo</sub> = 0,116 / √t<sub style="font-size:14px;">s</sub> = 0,116 / √0,030 = 0,670 A</div>
-    <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (15–16)</div>
+    <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (15) e (16)</div>
   </div>
 
   <div class="prose">
@@ -1687,20 +1752,36 @@ footer{
       <div>
         <div class="result-info-title">Tensão de passo máxima</div>
         <div class="result-info-sub">(1000 + 6 × 500) × 0,670</div>
+        </div>
       </div>
     </div>
-  </div>
+    <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (18)</div>
 
-  <div class="alert warning">
-    <span class="alert-icon">⚠️</span>
-    <div>
-      <strong>Resistividade máxima do solo: 500 Ω·m</strong>
-      <p>Solos com resistividade acima de 500 Ω·m estão fora do envelope de operação do conjunto sem análise adicional — os limites de tensão de toque e de passo calculados acima deixam de estar garantidos e a engenharia responsável deve ser consultada.</p>
+    <div class="prose">
+      <p>O valor de ρₛ = 500 Ω·m é comumente utilizado em projetos de engenharia de aterramento como parâmetro de referência para solo de resistividade alta, na ausência de dados de campo específicos para o local de instalação <a href="#ref-27" class="cite">[27]</a>. Solos com resistividade ainda mais elevada podem ser encontrados na prática, mas adotar um valor superior tornaria os parâmetros de segurança inviáveis para a configuração deste projeto.</p>
     </div>
-  </div>
 
-  <div class="prose">
-    <p>Para um operador equipotencializado com o anel perimetral do conjunto, a tensão de toque efetiva é aproximadamente zero, independentemente do valor do GPR. Para operadores fora do anel, as tensões efetivas de malha (Eₘ) e de passo (Eₛ) são calculadas pelo método de Schwarz — ver Bloco 3 — e devem permanecer dentro dos limites de 1.172 V e 2.679 V calculados acima.</p>
+    <div class="alert warning">
+      <span class="alert-icon">⚠️</span>
+      <div>
+        <strong>Resistividade de referência de projeto: 500 Ω·m</strong>
+        <p>O valor de 500 Ω·m é o parâmetro de referência adotado em projeto para solo de resistividade alta <a href="#ref-27" class="cite">[27]</a>, e não um valor medido em campo. Para solos com resistividade acima desse valor, a engenharia responsável deve ser consultada antes de prosseguir.</p>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>A elevação de potencial de terra com Rg = 40 Ω vale</p>
+    </div>
+
+    <div class="eq-wrap">
+      <div class="eq">GPR = I<sub style="font-size:14px;">f</sub> × Rg = 87,4 × 40 = 3497 V</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (19)</div>
+    </div>
+
+    <div class="prose">
+      <p>O GPR representa o pior caso de tensão disponível no sistema durante a falta. Se essa tensão fosse aplicada diretamente ao corpo de um operador sem proteção adicional, resultaria em uma corrente de 2,0 A, valor que excede o limite fisiológico mesmo com atuação do relé em 30 ms.</p>
+      <p>A proteção do operador é garantida pela <strong>equipotencialização da área de trabalho</strong>. O cabo de 50 mm² que interliga a carcaça da UGTM ao anel perimetral conecta eletricamente mãos e pés do operador ao mesmo ponto. Com isso, a tensão a que ele está exposto não é o GPR, mas a queda de tensão no próprio cabo de cobre que, para 20 m de comprimento e a corrente de falta de 87,4 A, vale apenas 0,6 V. Esse valor está abaixo do limiar de percepção elétrica estabelecido pela <a href="#ref-2" class="cite">IEC 60479-1:2018 [2]</a>, tornando o risco de choque desprezível dentro do perímetro do anel. O IEEE 1246-2020 reconhece esse mecanismo, denominado <em>bonding</em>, como o requisito central de proteção para pessoas que trabalham em circuitos aterrados <a href="#ref-20" class="cite">[20]</a>.</p>
+      <p>Para operadores fora do anel, a proteção é garantida pela restrição de acesso à área durante a operação, conforme exigido pela <a href="#ref-4" class="cite">NR-10 [4]</a>. O procedimento operacional deste conjunto determina que o perímetro seja isolado com fita de sinalização e cones antes da energização, e que nenhum operador permaneça fora do anel durante a operação da UGTM.</p>
     <p>Os dois critérios — sensibilidade da proteção e segurança de pessoas — convergem para o mesmo parâmetro operacional. A IEEE 1246-2020 e a IEEE 1268-2016, que tratam especificamente de sistemas de aterramento provisório em subestações móveis, convergem para a mesma abordagem: o critério de aceite deve garantir a atuação da proteção e a equipotencialização da área de trabalho (<a href="#ref-20" class="cite">20</a>, <a href="#ref-19" class="cite">19</a>).</p>
   </div>
 
@@ -1709,7 +1790,9 @@ footer{
     <a href="#ref-19" class="norma-tag">IEEE 1268-2016<span class="tag-num">19</span></a>
     <a href="#ref-1" class="norma-tag">IEEE 80-2013<span class="tag-num">1</span></a>
     <a href="#ref-2" class="norma-tag">IEC 60479-1:2018<span class="tag-num">2</span></a>
-    <a href="#ref-5" class="norma-tag">SEPAM S40 — Schneider Electric<span class="tag-num">5</span></a>
+      <a href="#ref-27" class="norma-tag">Elek Software (2020)<span class="tag-num">27</span></a>
+      <a href="#ref-28" class="norma-tag">E-Hazard (2024)<span class="tag-num">28</span></a>
+      <a href="#ref-5" class="norma-tag">SEPAM S40 — Schneider Electric<span class="tag-num">5</span></a>
   </div>
 </div>
 
@@ -1719,7 +1802,7 @@ footer{
   <div class="bloco-header"><span class="bloco-badge b3">BLOCO 3 · SCHWARZ</span></div>
 
   <div class="prose">
-    <p>O sistema físico é composto por três elementos que atuam em conjunto: os eletrodos verticais (hastes), o sistema de interligação (cabos) e o tratamento químico do solo (bentonita). A resistência total é calculada pelo <strong>método de Schwarz</strong> <a href="#ref-29" class="cite">[29]</a>, sistematizado no livro de <a href="#ref-30" class="cite">Visacro Filho [30]</a>, que combina a contribuição dos cabos e das hastes com suas resistências mútuas.</p>
+    <p>O sistema físico é composto por três elementos que atuam em conjunto: os eletrodos verticais (hastes), o sistema de interligação (cabos) e o tratamento químico do solo (bentonita). A resistência total é calculada pelo <strong>método de Schwarz</strong> <a href="#ref-33" class="cite">[33]</a>, sistematizado no livro de <a href="#ref-34" class="cite">Visacro Filho [34]</a>, que combina a contribuição dos cabos e das hastes com suas resistências mútuas.</p>
   </div>
 
   <!-- GEOMETRIA SVG -->
@@ -1728,7 +1811,7 @@ footer{
     <svg width="100%" viewBox="0 0 500 160" style="font-family:'Inter',sans-serif;">
       <!-- fundo UGTM -->
       <rect x="60" y="30" width="380" height="100" rx="6" fill="#1a5fb010" stroke="#1a5fb0" stroke-width="1" stroke-dasharray="6 3"/>
-      <text x="250" y="80" text-anchor="middle" font-size="12" fill="#1a5fb0" font-weight="500">UGTM — 17 m × 4 m</text>
+      <text x="250" y="80" text-anchor="middle" font-size="12" fill="#1a5fb0" font-weight="500">UGTM — 15 m × 4 m</text>
 
       <!-- cabo perimetral -->
       <rect x="40" y="18" width="420" height="124" rx="4" fill="none" stroke="#854F0B" stroke-width="1.5"/>
@@ -1761,7 +1844,7 @@ footer{
   <div class="card">
     <div class="card-title">Configuração dos eletrodos — hastes em paralelo vs. anel perimetral</div>
     <div class="prose">
-      <p>A escolha por interligar as hastes com um cabo formando um anel perimetral, em vez de instalá-las isoladamente em paralelo, foi validada empiricamente por ensaios de campo com 1 a 5 hastes (Seção 6.1 do TCC), medindo a resistência de aterramento pelo método de queda de potencial a cada haste adicionada.</p>
+      <p>A escolha por interligar as hastes com um cabo formando um anel perimetral, em vez de instalá-las isoladamente em paralelo, foi validada empiricamente por ensaios de campo com 1 a 5 hastes (Seção 6.1 do TCC), medindo a resistência de aterramento pelo método de queda de potencial a cada haste adicionada. Os ensaios usaram hastes de 1,5 m, com espaçamento de 1,5 m entre cravações consecutivas.</p>
     </div>
     <div class="table-stack">
       <div>
@@ -1804,23 +1887,23 @@ footer{
     <div class="card-title">Método de Schwarz — 4 equações</div>
 
     <div class="eq-wrap" style="margin-top:10px;">
-      <div style="font-size:12px;color:var(--muted);font-family:var(--mono);margin-bottom:6px;text-align:left;">Eq. (4) — Resistência da malha de cabos</div>
+      <div style="font-size:12px;color:var(--muted);font-family:var(--mono);margin-bottom:6px;text-align:left;">Eq. (20) — Resistência da malha de cabos</div>
       <div class="eq" style="font-size:16px;">Rc = (ρ / π·Lc) · [ln(2·Lc/h) + k₁·(Lc/√A) − k₂]</div>
     </div>
 
     <div class="eq-wrap">
-      <div style="font-size:12px;color:var(--muted);font-family:var(--mono);margin-bottom:6px;text-align:left;">Eq. (5) — Resistência das hastes verticais</div>
+      <div style="font-size:12px;color:var(--muted);font-family:var(--mono);margin-bottom:6px;text-align:left;">Eq. (21) — Resistência das hastes verticais</div>
       <div class="eq" style="font-size:16px;">Rh = (ρ / 2π·n·L) · [ln(4L/d) − 1 + (2k₁·L/√A)·(√n − 1)²]</div>
     </div>
 
     <div class="eq-wrap">
-      <div style="font-size:12px;color:var(--muted);font-family:var(--mono);margin-bottom:6px;text-align:left;">Eq. (6) — Resistência mútua malha–hastes</div>
+      <div style="font-size:12px;color:var(--muted);font-family:var(--mono);margin-bottom:6px;text-align:left;">Eq. (22) — Resistência mútua malha–hastes</div>
       <div class="eq" style="font-size:16px;">Rm = (ρ / π·Lc) · [ln(2·Lc/L) + k₁·(Lc/√A) − k₂ + 1]</div>
     </div>
 
     <div class="eq-wrap">
-      <div style="font-size:12px;color:var(--muted);font-family:var(--mono);margin-bottom:6px;text-align:left;">Eq. (7) — Resistência total combinada</div>
-      <div class="eq" style="font-size:16px;">Rg = (Rc · Rh) / (Rc + Rh − 2·Rm)</div>
+      <div style="font-size:12px;color:var(--muted);font-family:var(--mono);margin-bottom:6px;text-align:left;">Eq. (23) — Resistência total combinada</div>
+      <div class="eq" style="font-size:16px;">Rg = (Rc · Rh − Rm²) / (Rc + Rh − 2·Rm)</div>
     </div>
 
     <div class="eq-vars" style="display:block;margin-top:12px;padding:10px 14px;background:var(--surface2);border-radius:8px;">
@@ -1844,13 +1927,13 @@ footer{
         <tr><td>Protótipo em escala reduzida — 4×1,5 m, 4 hastes 1,50 m</td><td class="mono">33,8</td><td class="mono">5,15</td><td class="mono">7,85</td><td>Validação de campo (Seção 6.2)</td></tr>
       </tbody>
     </table>
-    <div style="font-size:12px;color:var(--muted);margin-top:6px;">O TCC não deriva uma resistividade crítica pelo método de Schwarz — o limiar operacional de aplicação de bentonita é ρ ≤ 500 Ω·m, adotado no Bloco 2 a partir do critério de tensão de toque/passo. A diferença entre o Rg previsto e o medido no protótipo é atribuída à heterogeneidade do solo no ponto de ensaio (Seção 6.2).</div>
+    <div style="font-size:12px;color:var(--muted);margin-top:6px;">O TCC não deriva uma resistividade crítica pelo método de Schwarz. O limiar operacional de 500 Ω·m é o parâmetro de referência adotado em projeto <a href="#ref-27" class="cite">[27]</a>, e para esse solo o método estima Rg ≈ 34,27 Ω, abaixo do critério de 40 Ω. O efeito da bentonita foi validado em campo até ρ = 76 Ω·m. A diferença entre o Rg previsto e o medido no protótipo é atribuída à heterogeneidade do solo no ponto de ensaio (Seção 6.2).</div>
   </div>
 
   <div class="normas">
-    <a href="#ref-1" class="norma-tag">IEEE 80-2013 Tab. 54<span class="tag-num">1</span></a>
-    <a href="#ref-29" class="norma-tag">Schwarz (1954)<span class="tag-num">29</span></a>
-    <a href="#ref-30" class="norma-tag">Visacro Filho (2002)<span class="tag-num">30</span></a>
+    <a href="#ref-1" class="norma-tag">IEEE 80-2013 Fig. 24 (Curva A)<span class="tag-num">1</span></a>
+    <a href="#ref-33" class="norma-tag">Schwarz (1954)<span class="tag-num">33</span></a>
+    <a href="#ref-34" class="norma-tag">Visacro Filho (2002)<span class="tag-num">34</span></a>
     <a href="#ref-22" class="norma-tag">ABNT NBR 14039<span class="tag-num">22</span></a>
   </div>
 </div>
@@ -1900,7 +1983,7 @@ footer{
       </div>
     </div>
     <div class="prose">
-      <p>Os dois efeitos — anel perimetral e bentonita sódica — são complementares: essa configuração combinada apresentou a maior redução de resistência entre todos os ensaios do TCC, confirmando a bentonita como tratamento eficaz mesmo sobre uma malha já otimizada geometricamente.</p>
+      <p>A resistência de aterramento foi reduzida de 15,89 Ω para 7,53 Ω, uma redução de 52,6%. O resultado demonstra que os dois efeitos, a interligação por anel perimetral e o tratamento com bentonita sódica, são complementares, confirmando a bentonita sódica como tratamento eficaz mesmo quando associada a uma malha já otimizada geometricamente.</p>
     </div>
   </div>
 
@@ -1917,7 +2000,7 @@ footer{
   <div class="bloco-header"><span class="bloco-badge b4">BLOCO 4 · PROTEÇÃO 50N</span></div>
 
   <div class="prose">
-    <p>O relé SEPAM S40 da Schneider Electric é o equipamento de proteção embarcado na UGTM <a href="#ref-5" class="cite">[5]</a>. A função relevante para este projeto é a <strong>função 50N — sobrecorrente de neutro instantânea</strong>, que detecta correntes de falta fase-terra pelo transformador de corrente toroidal ou pela conexão Holmgreen, conforme a família de normas <a href="#ref-31" class="cite">IEC 60255 [31]</a> para relés de proteção.</p>
+    <p>O relé SEPAM S40 da Schneider Electric é o equipamento de proteção embarcado na UGTM <a href="#ref-5" class="cite">[5]</a>. A função relevante para este projeto é a <strong>função 50N — sobrecorrente de neutro instantânea</strong>, que detecta correntes de falta fase-terra pelo transformador de corrente toroidal ou pela conexão Holmgreen, conforme a família de normas <a href="#ref-35" class="cite">IEC 60255 [35]</a> para relés de proteção.</p>
     <p>O SEPAM S40 foi parametrizado para atuação instantânea, com tempo de operação fixo de <strong>30 ms</strong> sempre que a corrente de falta supera o pickup — sem depender de uma curva de tempo-corrente inversa. Esse tempo fixo é o valor usado no cálculo da corrente máxima suportável pelo corpo humano, conforme a <a href="#ref-1" class="cite">IEEE 80-2013 [1]</a> (Bloco 2, Seção 04).</p>
   </div>
 
@@ -1941,7 +2024,7 @@ footer{
           <tr><td style="color:var(--muted);">Corrente de falta</td><td class="mono">87,4 A</td></tr>
           <tr><td style="color:var(--muted);">Múltiplo do pickup</td><td class="mono">13,9× (≈ 14×)</td></tr>
           <tr><td style="color:var(--muted);">Atuação</td><td class="mono">Instantânea — 30 ms</td></tr>
-          <tr><td style="color:var(--muted);">Margem de segurança Rg</td><td class="mono">24× sobre 1,66 Ω</td></tr>
+          <tr><td style="color:var(--muted);">Margem de segurança Rg</td><td class="mono">≈ 30× sobre R<sub>máx,relé</sub> = 1217 Ω</td></tr>
         </tbody>
       </table>
     </div>
@@ -1950,7 +2033,7 @@ footer{
   <div class="normas">
     <a href="#ref-5" class="norma-tag">SEPAM S40 — Schneider Electric<span class="tag-num">5</span></a>
     <a href="#ref-1" class="norma-tag">IEEE 80-2013<span class="tag-num">1</span></a>
-    <a href="#ref-31" class="norma-tag">IEC 60255<span class="tag-num">31</span></a>
+    <a href="#ref-35" class="norma-tag">IEC 60255<span class="tag-num">35</span></a>
   </div>
 </div>
 
@@ -1999,7 +2082,7 @@ footer{
 
   <div class="prose">
     <p>Se após a instalação primária o valor de Rg medido for superior a 40 Ω, é instalada a configuração suplementar: <strong>2 hastes adicionais nas arestas da malha</strong>, interligadas ao anel perimetral e com bentonita.</p>
-    <p>O efeito geométrico das hastes adicionais reduz a resistência total pela adição de paralelos — cada haste contribui com sua própria resistência de espalhamento. O fator de interação mútua entre hastes, capturado pelo termo <em>(√n − 1)²</em> da equação de Schwarz <a href="#ref-29" class="cite">[29]</a> (Eq. 5), quantifica a redução marginal de eficiência com mais hastes próximas.</p>
+    <p>O efeito geométrico das hastes adicionais reduz a resistência total pela adição de paralelos — cada haste contribui com sua própria resistência de espalhamento. O fator de interação mútua entre hastes, capturado pelo termo <em>(√n − 1)²</em> da equação de Schwarz <a href="#ref-33" class="cite">[33]</a> (Eq. 21), quantifica a redução marginal de eficiência com mais hastes próximas.</p>
     <p>Se após a configuração suplementar o Rg ainda for superior a 40 Ω, a intervenção deve ser cancelada e a equipe de engenharia acionada. Solos com ρ &gt; 500 Ω·m estão fora do envelope operacional adotado no TCC (Bloco 2).</p>
   </div>
 
@@ -2007,7 +2090,7 @@ footer{
     <span class="alert-icon">⚠️</span>
     <div>
       <strong>Limite operacional validado</strong>
-      <p>O limiar de 500 Ω·m vem do cálculo de Schwarz e do critério de tensão de toque/passo (IEEE 80-2013, Bloco 2). O efeito da bentonita foi validado em campo até ρ = 76 Ω·m (Bloco 3 — Bentonita). Para resistividades muito acima disso, consultar engenharia antes de prosseguir.</p>
+      <p>O limiar de 500 Ω·m é o parâmetro de referência adotado em projeto <a href="#ref-27" class="cite">[27]</a>. Para esse solo, o método de Schwarz estima Rg ≈ 34,27 Ω, abaixo do critério de 40 Ω (Bloco 3, Resultados). O efeito da bentonita foi validado em campo até ρ = 76 Ω·m (Bloco 3, Bentonita). Para resistividades muito acima disso, consultar engenharia antes de prosseguir.</p>
     </div>
   </div>
 
@@ -2054,16 +2137,20 @@ footer{
     <div class="ref-item" id="ref-26"><div class="ref-num">26.</div><div class="ref-text">SINCHI, F. M. S. et al. Soil treatment to reduce grounding resistance by applying low-resistivity material (LRM) and chemical ground electrode in different grounding systems configurations. In: <strong>IEEE INTERNATIONAL AUTUMN MEETING ON POWER, ELECTRONICS AND COMPUTING (ROPEC)</strong>, 2018, Ixtapa. Anais [...]. New York: IEEE, 2019. p. 1-6.</div></div>
     <div class="ref-item" id="ref-27"><div class="ref-num">27.</div><div class="ref-text">ELEK SOFTWARE. <strong>Fundamentals of earthing design</strong>. Melbourne, 2020. Disponível em: <a href="https://elek.com/articles/fundamentals-of-earthing-design/" target="_blank" rel="noopener">elek.com</a>. Acesso em: 4 set. 2026.</div></div>
     <div class="ref-item" id="ref-28"><div class="ref-num">28.</div><div class="ref-text">E-HAZARD. <strong>Grounding or bonding of portable electric generators, more than a ground rod, parte 2</strong>. Franklin, 2024. Disponível em: <a href="https://e-hazard.com/grounding-or-bonding-of-portable-electric-generators-more-than-a-ground-rod-pt-2/" target="_blank" rel="noopener">e-hazard.com</a>. Acesso em: 4 set. 2026.</div></div>
-    <div class="ref-item" id="ref-29"><div class="ref-num">29.</div><div class="ref-text">SCHWARZ, S. J. Analytical expressions for the resistance of grounding systems. <strong>Transactions of the American Institute of Electrical Engineers, Part III</strong>, v. 73, n. 2, p. 1011-1016, 1954.<span class="ref-tag">referência complementar — exclusiva deste manual</span></div></div>
-    <div class="ref-item" id="ref-30"><div class="ref-num">30.</div><div class="ref-text">VISACRO FILHO, Silvério. <strong>Aterramentos elétricos</strong>: conceitos básicos, técnicas de medição e instrumentação, filosofias de aterramento. 1. ed. São Paulo: Artliber, 2002. 160 p. ISBN 85-88098-12-1.<span class="ref-tag">referência complementar — exclusiva deste manual</span></div></div>
-    <div class="ref-item" id="ref-31"><div class="ref-num">31.</div><div class="ref-text">INTERNATIONAL ELECTROTECHNICAL COMMISSION. <strong>IEC 60255-1</strong>: measuring relays and protection equipment — part 1: common requirements. Geneva: IEC, 2022.<span class="ref-tag">referência complementar — exclusiva deste manual</span></div></div>
+<div class="ref-item" id="ref-29"><div class="ref-num">29.</div><div class="ref-text">INTERNATIONAL COPPER ASSOCIATION. <strong>The importance of recycling</strong>. [S.l.]: ICA, 2021. Disponível em: <a href="https://internationalcopper.org/wp-content/uploads/2022/02/ICA-RecyclingBrief-202201-A4-R2.pdf" target="_blank" rel="noopener">internationalcopper.org</a>. Acesso em: 10 out. 2026.</div></div>
+<div class="ref-item" id="ref-30"><div class="ref-num">30.</div><div class="ref-text">ZHAO, J. et al. Review on soil corrosion and protection of grounding grids. <strong>Materials</strong>, v. 17, n. 2, art. 507, 2024. DOI: <a href="https://doi.org/10.3390/ma17020507" target="_blank" rel="noopener">10.3390/ma17020507</a>.</div></div>
+<div class="ref-item" id="ref-31"><div class="ref-num">31.</div><div class="ref-text">AZMI, A. et al. The use of enhancement material in grounding system: a review. <strong>Indonesian Journal of Electrical Engineering and Computer Science</strong>, v. 13, n. 2, p. 453-460, 2019. DOI: <a href="https://doi.org/10.11591/ijeecs.v13.i2.pp453-460" target="_blank" rel="noopener">10.11591/ijeecs.v13.i2.pp453-460</a>.</div></div>
+<div class="ref-item" id="ref-32"><div class="ref-num">32.</div><div class="ref-text">BOLING, D. <strong>Requirements for earthing enhancement compounds</strong>. [S.l.]: ERICO International, 2014. Apresentação baseada na IEC 62561-7. Disponível em: <a href="https://peg.atis.org/wp-content/uploads/2018/09/Requirements-for-Earthing-Enhancement-Compounds.pdf" target="_blank" rel="noopener">peg.atis.org</a>. Acesso em: 10 out. 2026.</div></div>
+    <div class="ref-item" id="ref-33"><div class="ref-num">33.</div><div class="ref-text">SCHWARZ, S. J. Analytical expressions for the resistance of grounding systems. <strong>Transactions of the American Institute of Electrical Engineers, Part III</strong>, v. 73, n. 2, p. 1011-1016, 1954.<span class="ref-tag">referência complementar — exclusiva deste manual</span></div></div>
+    <div class="ref-item" id="ref-34"><div class="ref-num">34.</div><div class="ref-text">VISACRO FILHO, Silvério. <strong>Aterramentos elétricos</strong>: conceitos básicos, técnicas de medição e instrumentação, filosofias de aterramento. 1. ed. São Paulo: Artliber, 2002. 160 p. ISBN 85-88098-12-1.<span class="ref-tag">referência complementar — exclusiva deste manual</span></div></div>
+    <div class="ref-item" id="ref-35"><div class="ref-num">35.</div><div class="ref-text">INTERNATIONAL ELECTROTECHNICAL COMMISSION. <strong>IEC 60255-1</strong>: measuring relays and protection equipment — part 1: common requirements. Geneva: IEC, 2022.<span class="ref-tag">referência complementar — exclusiva deste manual</span></div></div>
   </div>
 
   <div class="alert info" style="margin-top:1.25rem;">
     <span class="alert-icon">ℹ️</span>
     <div>
       <strong>Sobre esta lista</strong>
-      <p>As referências 1 a 28 são exatamente as mesmas — e com os mesmos números — usadas no TCC (Projeto Físico Revisado) que originou este manual, para que os dois documentos permaneçam cruzáveis entre si. As referências 29 a 31 são complementares, citadas apenas neste manual interativo.</p>
+      <p>As referências 1 a 32 são exatamente as mesmas, e com os mesmos números, usadas no TCC (Projeto Físico Revisado, V29_05), para que os dois documentos permaneçam cruzáveis entre si. As referências 33 a 35 são complementares, citadas apenas neste manual interativo.</p>
     </div>
   </div>
 </div>
@@ -2256,7 +2343,7 @@ function exportar(){
 
   const texto=`══════════════════════════════════
 REGISTRO DE OPERAÇÃO — POP ATERRAMENTO UGTM
-COPEL-DIST-AT-001 · v1.1.0
+COPEL-DIST-AT-001 · v1.2.0
 ══════════════════════════════════
 Data:          ${data}
 Hora de início: ${hora}
