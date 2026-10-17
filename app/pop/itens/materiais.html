@@ -44,7 +44,13 @@
 
     <div class="alert warning" style="margin-top:1rem;">
       <span class="alert-icon">⚠️</span>
-      <div><strong>Confira cada item antes de seguir</strong><p>Se algum material não estiver disponível, é possível justificar e seguir mesmo assim — a justificativa fica registrada no relatório final.</p></div>
+      <div>
+        <strong>Procure cada item antes de marcar como indisponível</strong>
+        <p>Se mesmo assim um item estiver faltando, marque como <strong>Não disponível</strong> e justifique.
+        Ao clicar em <strong>Próximo</strong>, o sistema decide automaticamente:
+        se qualquer item obrigatório para a instalação elétrica estiver faltando,
+        a operação é <strong>abortada imediatamente</strong> e um relatório de falha é gerado.</p>
+      </div>
     </div>
 
     <div id="gate-banner-mount"></div>
@@ -71,23 +77,63 @@
 
   var MAT_ITEMS = [
     {key:'hastes',       label:'4 hastes de aterramento — 5/8" × 2.400 mm', critical:false},
-    {key:'neutro',       label:'1 cabo de neutro — 50 mm², 5 m', critical:false},
-    {key:'interligacao', label:'42 m de cabo de interligação — 25 mm²', critical:false},
-    {key:'bentonita',    label:'4 doses de bentonita sódica pré-dosada', critical:false},
-    {key:'terrometro',   label:'1 terrômetro (método queda de potencial)', critical:false},
-    {key:'marreta',      label:'Marreta / martelete para cravação', critical:false},
-    {key:'ferramental',  label:'Ferramental para as conexões', critical:false},
-    {key:'fita',         label:'≥ 6 m de fita de sinalização', critical:false},
-    {key:'cones',        label:'4 cones de sinalização', critical:false}
+    {key:'neutro',       label:'1 cabo de neutro — 50 mm², 5 m',            critical:false},
+    {key:'interligacao', label:'42 m de cabo de interligação — 25 mm²',     critical:false},
+    {key:'bentonita',    label:'4 doses de bentonita sódica pré-dosada',    critical:false},
+    {key:'terrometro',   label:'1 terrômetro (método queda de potencial)',   critical:false},
+    {key:'marreta',      label:'Marreta / martelete para cravação',          critical:false},
+    {key:'ferramental',  label:'Ferramental para as conexões',               critical:false},
+    {key:'fita',         label:'≥ 6 m de fita de sinalização',              critical:false},
+    {key:'cones',        label:'4 cones de sinalização',                    critical:false}
   ];
 
-  function canAdvance(){ return window.Ugtm.Wizard.evaluateChecklist(MAT_ITEMS.map(function(i){return {key:'materiais.'+i.key, label:i.label, critical:i.critical};})); }
+  // Qualquer item não resolvido (sem check E sem justificativa) bloqueia o avanço.
+  // Itens justificados passam — o Hub decide para onde ir com base no grupo.
+  function canAdvance(){
+    return window.Ugtm.Wizard.evaluateChecklist(MAT_ITEMS.map(function(i){
+      return {key:'materiais.'+i.key, label:i.label, critical:false};
+    }));
+  }
 
   window.Ugtm.Checklist.render('mat-checklist-mount', 'materiais', MAT_ITEMS, function(){
     window.Ugtm.Wizard.renderGateBanner('gate-banner-mount', canAdvance());
   });
+  window.Ugtm.Wizard.renderGateBanner('gate-banner-mount', canAdvance());
 
-  window.Ugtm.Hub.renderItemFooter('wizard-footer-mount', {itemId:'materiais', basePath:'../', canAdvance:canAdvance, bannerMount:'gate-banner-mount'});
+  // Rodapé customizado: ao clicar Próximo, verifica se deve abortar
+  var mount = document.getElementById('wizard-footer-mount');
+  mount.innerHTML =
+    '<div class="wizard-footer">' +
+      '<a class="wizard-btn wizard-btn-prev" href="../02-procedimento.html">← Voltar ao Procedimento</a>' +
+      '<button class="wizard-btn wizard-btn-next" id="mat-next-btn">Próximo →</button>' +
+    '</div>';
+
+  document.getElementById('mat-next-btn').addEventListener('click', function(){
+    var result = canAdvance();
+
+    // Ainda há itens sem resposta (nem check nem justificativa) — bloqueia
+    if(!result.ok){
+      window.Ugtm.Wizard.renderGateBanner('gate-banner-mount', result);
+      var banner = document.getElementById('gate-banner-mount');
+      if(banner) banner.scrollIntoView({behavior:'smooth', block:'center'});
+      return;
+    }
+
+    // Todos os itens foram respondidos. Verifica se deve abortar.
+    if(window.Ugtm.Hub.deveAbortar()){
+      // Avança o hub até o item de materiais para registrar que foi concluído
+      // (a página de aborto lê Hub.materiaisIndisponiveis() diretamente do state — não precisa de flag)
+      var idxMat = window.Ugtm.Hub.indexOf('materiais');
+      window.Ugtm.State.unlockHubUpTo(idxMat + 1);
+      window.location.href = '../04-aborto-materiais.html';
+      return;
+    }
+
+    // Tudo OK — segue o fluxo normal
+    var idxMat = window.Ugtm.Hub.indexOf('materiais');
+    window.Ugtm.State.unlockHubUpTo(idxMat + 1);
+    window.location.href = '../02-procedimento.html';
+  });
 </script>
 </body>
 </html>

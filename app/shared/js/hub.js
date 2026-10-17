@@ -7,7 +7,15 @@
    - kind:'page'   → item complexo (checklist múltiplo, campo numérico) que
                       abre sua própria página em pop/itens/*.html.
    - kind:'inline' → passo simples ("concluí este passo") resolvido direto
-                      na lista do hub, sem navegar — marca, esmaece e avança. */
+                      na lista do hub, sem navegar — marca, esmaece e avança.
+
+   Três grupos de materiais:
+   1. CRÍTICOS (hastes, terrômetro): ausência → cancelamento imediato, sem justificativa.
+   2. BLOQUEADORES (neutro, interligação, ferramental, bentonita*): podem ser justificados,
+      mas sem eles a instalação elétrica/física é inviável → cancelamento forçado.
+      *bentonita só é bloqueadora se ρ > 500 Ω·m (condicional).
+   3. OPERACIONAIS (marreta, fita, cones): podem ser justificados,
+      operação continua com alerta no relatório. */
 (function(){
   window.Ugtm = window.Ugtm || {};
 
@@ -26,11 +34,80 @@
     {id:'cancelar',          kind:'inline', title:'Cancelar intervenção',                     desc:'Rg ainda acima de 40 Ω após a configuração secundária. Acionar a equipe de engenharia responsável. Não energizar a UGTM.', critical:false, cond:'cancelar', danger:true}
   ];
 
+  // GRUPO 1 — críticos: ausência bloqueia imediatamente (sem justificativa)
+  const MATERIAIS_CRITICOS = ['hastes', 'terrometro'];
+
+  // GRUPO 2 — elétricos/ferramenteiros: justificáveis, mas ausência → cancelamento forçado
+  // Inclui ferramental (sem ele a instalação física não é possível com segurança)
+  // bentonita só conta como bloqueador se ρ > 500 Ω·m
+  const MATERIAIS_ELETRICOS = ['neutro', 'interligacao', 'bentonita', 'ferramental'];
+
+  // Passos que dependem dos materiais críticos ou elétricos/ferramenteiros
+  const PASSOS_DEPENDEM_MATERIAIS = [
+    'solo', 'hastes', 'bentonita', 'cabos', 'neutro',
+    'espera-bentonita', 'medir-rg', 'criterio', 'config-secundaria'
+  ];
+
   function indexOf(id){ return ITEMS.findIndex(function(i){ return i.id===id; }); }
 
-  /** 'required' | 'skip' | 'manual' (sem dado suficiente pra decidir — exige confirmação manual) */
+  /** Verifica se um item de material NÃO está confirmado (checked:false). */
+  function itemIndisponivel(key){
+    return !window.Ugtm.State.getChecklistItem('materiais.' + key).checked;
+  }
+
+  /** GRUPO 1: algum crítico (hastes/terrômetro) não confirmado → aborto. */
+  function temCriticoAusente(){
+    return MATERIAIS_CRITICOS.some(itemIndisponivel);
+  }
+
+  /** GRUPO 2: elétricos não confirmados. Bentonita só conta se ρ > 500.
+   *  Retorna array com as chaves bloqueadoras. */
+  function eletricosIndisponiveis(){
+    return MATERIAIS_ELETRICOS.filter(function(key){
+      if(key === 'bentonita'){
+        var rho = window.Ugtm.State.getRho();
+        if(rho == null || rho <= 500) return false;
+      }
+      return itemIndisponivel(key);
+    });
+  }
+
+  /** true se há itens operacionais justificados (gera alerta no relatório).
+   *  Operacionais: apenas marreta, fita, cones — ferramental agora é bloqueador. */
+  function temAlertaOperacional(){
+    var OPERACIONAIS = ['marreta', 'fita', 'cones'];
+    return OPERACIONAIS.some(function(key){
+      var st = window.Ugtm.State.getChecklistItem('materiais.' + key);
+      return !st.checked && !!st.justification;
+    });
+  }
+
+  /** true se a operação deve ser ABORTADA.
+   *  Chamado no clique de Próximo em materiais.html — sem guard de hubFurthest. */
+  function deveAbortar(){
+    return temCriticoAusente() || eletricosIndisponiveis().length > 0;
+  }
+
+  /** Alias mantido para compatibilidade com applicability(). */
+  function deveForcarCancelamento(){ return deveAbortar(); }
+
+  /** Lista todos os materiais bloqueadores (críticos + elétricos indisponíveis). */
+  function materiaisIndisponiveis(){
+    var criticos = MATERIAIS_CRITICOS.filter(itemIndisponivel);
+    return criticos.concat(eletricosIndisponiveis());
+  }
+
+  /** 'required' | 'skip' | 'manual' */
   function applicability(item){
     const S = window.Ugtm.State;
+
+    // Se materiais já foram confirmados e há indisponíveis → pula passos de campo
+    if(deveForcarCancelamento()){
+      if(item.id === 'epi' || item.id === 'materiais') return 'required';
+      if(item.id === 'cancelar') return 'required';
+      if(PASSOS_DEPENDEM_MATERIAIS.indexOf(item.id) !== -1) return 'skip';
+    }
+
     if(item.cond==='bentonita'){
       const r = S.getRho();
       if(r==null) return 'manual';
@@ -49,9 +126,7 @@
     return 'required';
   }
 
-  /** empurra hubFurthest pra frente automaticamente sobre itens condicionais
-   * que não se aplicam (ex.: bentonita quando ρ ≤ 500) — o operador não
-   * precisa "resolver" um item que não existe pro caso dele. */
+  /** Empurra hubFurthest sobre itens que não se aplicam. */
   function autoAdvanceSkips(){
     const S = window.Ugtm.State;
     let idx = S.getHubFurthest();
@@ -66,8 +141,6 @@
     return window.Ugtm.State.getHubFurthest() >= ITEMS.length;
   }
 
-  /** Chamar no topo de cada página de item (kind:'page'): redireciona se o
-   * operador tentar acessar um item ainda não desbloqueado (URL direta). */
   function guardItem(itemId, basePath){
     autoAdvanceSkips();
     const idx = indexOf(itemId);
@@ -79,7 +152,6 @@
     return true;
   }
 
-  /** Rodapé padrão de cada página de item tipo 'page'. */
   function renderItemFooter(mountId, opts){
     const mount = document.getElementById(mountId);
     if(!mount) return;
@@ -121,5 +193,10 @@
       + '</div></div>';
   }
 
-  window.Ugtm.Hub = {ITEMS, indexOf, applicability, autoAdvanceSkips, isComplete, guardItem, renderItemFooter, renderProgress};
+  window.Ugtm.Hub = {
+    ITEMS, indexOf, applicability, autoAdvanceSkips, isComplete,
+    guardItem, renderItemFooter, renderProgress,
+    deveAbortar, deveForcarCancelamento, materiaisIndisponiveis,
+    temCriticoAusente, eletricosIndisponiveis, temAlertaOperacional
+  };
 })();

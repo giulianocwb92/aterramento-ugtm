@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="theme-color" content="#1d5bbf">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="POP UGTM">
+<link rel="apple-touch-icon" href="../assets/icons/icon-180.png">
+<link rel="icon" href="../assets/icons/icon-192.png">
+<title>Aborto por falta de material — POP Aterramento UGTM</title>
+<link rel="stylesheet" href="../shared/css/base.css">
+<link rel="stylesheet" href="../shared/css/layout.css">
+<link rel="stylesheet" href="../shared/css/components.css">
+<link rel="stylesheet" href="../shared/css/wizard.css">
+<style>
+  .aborto-header {
+    background: #b91c1c;
+    color: #fff;
+    border-radius: var(--radius);
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .aborto-header .aborto-icon { font-size: 2.5rem; line-height: 1; }
+  .aborto-header h1 { font-size: 1.25rem; font-weight: 700; margin: 0 0 .35rem; }
+  .aborto-header p  { font-size: .9rem; margin: 0; opacity: .9; }
+
+  .aborto-itens {
+    background: var(--surface);
+    border: 1.5px solid #fca5a5;
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .aborto-itens h2 {
+    font-size: .95rem;
+    font-weight: 700;
+    color: #b91c1c;
+    margin: 0 0 .75rem;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+  }
+  .aborto-item-row {
+    display: flex;
+    gap: .75rem;
+    padding: .6rem 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+  .aborto-item-row:last-child { border-bottom: none; }
+  .aborto-item-icon { font-size: 1.1rem; margin-top: .05rem; flex-shrink: 0; }
+  .aborto-item-label { font-weight: 600; font-size: .95rem; }
+  .aborto-item-just  { font-size: .85rem; color: var(--text-secondary); margin-top: .2rem; }
+
+  .aborto-instrucoes {
+    background: #fff7ed;
+    border: 1.5px solid #fed7aa;
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .aborto-instrucoes h2 {
+    font-size: .95rem;
+    font-weight: 700;
+    color: #c2410c;
+    margin: 0 0 .75rem;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+  }
+  .aborto-instrucoes ol { margin: 0; padding-left: 1.4rem; }
+  .aborto-instrucoes li { margin-bottom: .5rem; font-size: .95rem; }
+
+  .relatorio-box {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .relatorio-box h2 {
+    font-size: .95rem; font-weight: 700;
+    margin: 0 0 1rem;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+  }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+  @media(max-width:600px){ .form-grid { grid-template-columns: 1fr; } }
+  .form-row { display: flex; flex-direction: column; gap: .3rem; }
+  .form-row-full { grid-column: 1/-1; }
+  .form-row label { font-size: .8rem; font-weight: 600; color: var(--text-secondary); }
+  .form-input {
+    padding: .5rem .75rem;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg);
+    color: var(--text);
+    font-size: .95rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .form-input:focus { outline: none; border-color: #b91c1c; }
+
+  .export-preview {
+    display: none;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1rem;
+    font-family: monospace;
+    font-size: .8rem;
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin-top: 1rem;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  .export-preview.show { display: block; }
+
+  .btn-gerar {
+    display: block;
+    width: 100%;
+    padding: .8rem;
+    background: #b91c1c;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 1rem;
+  }
+  .btn-gerar:hover { background: #991b1b; }
+  .btn-copiar {
+    display: none;
+    width: 100%;
+    padding: .65rem;
+    background: var(--surface);
+    color: var(--text);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-size: .9rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: .5rem;
+  }
+</style>
+</head>
+<body>
+<div id="topbar-mount"></div>
+
+<div class="app-body">
+<div class="sidebar-col" id="sidebar-mount"></div>
+<div class="content-col">
+<div class="main" style="padding-top:1.75rem;">
+
+  <div class="aborto-header">
+    <div class="aborto-icon">⛔</div>
+    <div>
+      <h1>OPERAÇÃO ABORTADA — Falta de material</h1>
+      <p>A intervenção não pode prosseguir. Os itens abaixo são indispensáveis para a instalação elétrica segura da malha de aterramento. A UGTM <strong>não deve ser energizada</strong>.</p>
+    </div>
+  </div>
+
+  <div class="aborto-itens">
+    <h2>⚠️ Itens indisponíveis</h2>
+    <div id="itens-faltando-mount">Carregando...</div>
+  </div>
+
+  <div class="aborto-instrucoes">
+    <h2>📋 O que fazer agora</h2>
+    <ol>
+      <li><strong>Não energize a UGTM</strong> sob nenhuma hipótese.</li>
+      <li>Acione o <strong>engenheiro responsável</strong> imediatamente e informe os itens faltando.</li>
+      <li>Gere e copie o <strong>relatório de aborto</strong> abaixo para envio ao engenheiro.</li>
+      <li>Aguarde autorização antes de qualquer nova tentativa.</li>
+    </ol>
+  </div>
+
+  <div class="relatorio-box">
+    <h2>📄 Relatório de aborto</h2>
+    <div class="form-grid">
+      <div class="form-row">
+        <label for="ab-data">Data</label>
+        <input class="form-input" type="date" id="ab-data">
+      </div>
+      <div class="form-row">
+        <label for="ab-hora">Hora</label>
+        <input class="form-input" type="time" id="ab-hora">
+      </div>
+      <div class="form-row form-row-full">
+        <label for="ab-local">Local / identificação da UGTM</label>
+        <input class="form-input" type="text" id="ab-local" placeholder="Ex: UGTM-042 · Subestação Curitiba Norte">
+      </div>
+      <div class="form-row form-row-full">
+        <label for="ab-resp">Responsável técnico</label>
+        <input class="form-input" type="text" id="ab-resp" placeholder="Nome e matrícula">
+      </div>
+      <div class="form-row form-row-full">
+        <label for="ab-obs">Observações adicionais</label>
+        <input class="form-input" type="text" id="ab-obs" placeholder="Condições do local, tentativas realizadas, etc.">
+      </div>
+    </div>
+
+    <button class="btn-gerar" id="btn-gerar-relatorio">⛔ Gerar relatório de aborto</button>
+    <div class="export-preview" id="export-preview"></div>
+    <button class="btn-copiar" id="btn-copiar">Copiar relatório</button>
+  </div>
+
+  <div class="wizard-footer" style="margin-top:1rem;">
+    <a class="wizard-btn wizard-btn-prev" href="itens/materiais.html">← Rever Materiais</a>
+    <a class="wizard-btn wizard-btn-prev" href="../../" style="background:var(--surface);color:var(--text);border:1.5px solid var(--border);margin-left:.5rem;">↩ Início</a>
+  </div>
+
+</div>
+</div>
+</div>
+
+<script src="../shared/js/pwa.js"></script>
+<script>window.Ugtm.PWA.init('../');</script>
+<script src="../shared/js/state.js"></script>
+<script src="../shared/js/chrome.js"></script>
+<script src="../shared/js/theme.js"></script>
+<script src="../shared/js/hub.js"></script>
+<script>
+  window.Ugtm.Chrome.render({mode:'pop', activeId:'procedimento', basePath:'../'});
+
+  // Labels de todos os materiais — usados na lista de bloqueadores e na auditoria completa
+  var TODOS_LABELS = {
+    hastes:       '4 hastes de aterramento — 5/8" × 2.400 mm',
+    terrometro:   '1 terrômetro (método queda de potencial)',
+    neutro:       '1 cabo de neutro — 50 mm², 5 m',
+    interligacao: '42 m de cabo de interligação — 25 mm²',
+    ferramental:  'Ferramental para as conexões (alicate, chaves)',
+    bentonita:    '4 doses de bentonita sódica pré-dosada',
+    marreta:      'Marreta / martelete para cravação',
+    fita:         '≥ 6 m de fita de sinalização',
+    cones:        '4 cones de sinalização'
+  };
+
+  var TODOS_KEYS = Object.keys(TODOS_LABELS);
+
+  // Delega ao Hub: retorna apenas os materiais bloqueadores (críticos + elétricos/ferramenteiros)
+  // Operacionais (marreta, fita, cones) não causam aborto — não aparecem aqui
+  function getItensFaltando(){
+    return window.Ugtm.Hub.materiaisIndisponiveis();
+  }
+
+  function renderItensFaltando(){
+    var mount = document.getElementById('itens-faltando-mount');
+    var faltando = getItensFaltando();
+    if(faltando.length === 0){
+      mount.innerHTML = '<p style="color:green;">✅ Nenhum item bloqueador indisponível — verifique o checklist de materiais.</p>';
+      return;
+    }
+    mount.innerHTML = faltando.map(function(key){
+      var st = window.Ugtm.State.getChecklistItem('materiais.' + key);
+      var just = st.justification ? '"' + st.justification + '"' : 'sem justificativa registrada';
+      return '<div class="aborto-item-row">' +
+        '<div class="aborto-item-icon">⛔</div>' +
+        '<div>' +
+          '<div class="aborto-item-label">' + TODOS_LABELS[key] + '</div>' +
+          '<div class="aborto-item-just">Operador informou: ' + just + '</div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  function gerarTextoRelatorio(){
+    var faltando = getItensFaltando();
+    var data   = document.getElementById('ab-data').value  || '—';
+    var hora   = document.getElementById('ab-hora').value  || '—';
+    var local  = document.getElementById('ab-local').value || '—';
+    var resp   = document.getElementById('ab-resp').value  || '—';
+    var obs    = document.getElementById('ab-obs').value   || '—';
+
+    var linhasItens = faltando.map(function(key){
+      var st = window.Ugtm.State.getChecklistItem('materiais.' + key);
+      var just = st.justification ? st.justification : '(sem justificativa)';
+      return '  • ' + TODOS_LABELS[key] + '\n    Operador: "' + just + '"';
+    }).join('\n');
+
+    // Trilha de auditoria dos itens confirmados
+    var todosItens = TODOS_KEYS.filter(function(key){
+      if(key === 'bentonita'){
+        var rho = window.Ugtm.State.getRho();
+        return rho != null && rho > 500;
+      }
+      return true;
+    });
+    var linhasAuditoria = todosItens.map(function(key){
+      var st = window.Ugtm.State.getChecklistItem('materiais.' + key);
+      var status = st.checked
+        ? '✓ disponível'
+        : (st.justification ? '✗ indisponível — "' + st.justification + '"' : '✗ não respondido');
+      return '  ' + TODOS_LABELS[key] + ': ' + status;
+    }).join('\n');
+
+    return [
+      '══════════════════════════════════',
+      'RELATÓRIO DE ABORTO — POP ATERRAMENTO UGTM',
+      'COPEL-DIST-AT-001 · v2.1.0',
+      '══════════════════════════════════',
+      'RESULTADO:      ⛔ OPERAÇÃO ABORTADA POR FALTA DE MATERIAL',
+      'Data:           ' + data,
+      'Hora:           ' + hora,
+      'Local / UGTM:   ' + local,
+      'Responsável:    ' + resp,
+      'Observações:    ' + obs,
+      '──────────────────────────────────',
+      'ITENS INDISPONÍVEIS (causas do aborto):',
+      linhasItens,
+      '──────────────────────────────────',
+      'AUDITORIA COMPLETA DE MATERIAIS:',
+      linhasAuditoria,
+      '──────────────────────────────────',
+      'AÇÃO REQUERIDA: Acionar engenheiro responsável imediatamente.',
+      'A UGTM NÃO DEVE SER ENERGIZADA.',
+      '══════════════════════════════════'
+    ].join('\n');
+  }
+
+  // Preenche data/hora automaticamente
+  (function(){
+    var now = new Date();
+    var reg = window.Ugtm.State.getRegistro();
+    document.getElementById('ab-data').value  = reg['r-data']  || now.toISOString().split('T')[0];
+    document.getElementById('ab-hora').value  = reg['r-hora']  || now.toTimeString().slice(0,5);
+    document.getElementById('ab-local').value = reg['r-local'] || '';
+    document.getElementById('ab-resp').value  = reg['r-resp']  || '';
+  })();
+
+  renderItensFaltando();
+
+  document.getElementById('btn-gerar-relatorio').addEventListener('click', function(){
+    var texto = gerarTextoRelatorio();
+    // Salva os campos no registro para reutilização
+    window.Ugtm.State.setRegistroField('r-data',  document.getElementById('ab-data').value);
+    window.Ugtm.State.setRegistroField('r-hora',  document.getElementById('ab-hora').value);
+    window.Ugtm.State.setRegistroField('r-local', document.getElementById('ab-local').value);
+    window.Ugtm.State.setRegistroField('r-resp',  document.getElementById('ab-resp').value);
+    window.Ugtm.State.addLog('aborto-gerado', 'relatório de aborto por falta de material emitido');
+    window.Ugtm.State.save();
+
+    var prev = document.getElementById('export-preview');
+    prev.textContent = texto;
+    prev.classList.add('show');
+    document.getElementById('btn-copiar').style.display = 'block';
+    prev.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+
+  document.getElementById('btn-copiar').addEventListener('click', function(){
+    var txt = document.getElementById('export-preview').textContent;
+    var btn = document.getElementById('btn-copiar');
+    navigator.clipboard.writeText(txt).then(function(){
+      btn.textContent = '✅ Copiado!';
+      setTimeout(function(){ btn.textContent = 'Copiar relatório'; }, 2000);
+    });
+  });
+</script>
+</body>
+</html>
