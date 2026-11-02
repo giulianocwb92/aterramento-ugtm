@@ -76,13 +76,11 @@
     var v = parseFloat(input.value);
     window.Ugtm.State.setRg(isNaN(v)?null:v);
     renderResult();
-    window.Ugtm.Wizard.renderGateBanner('gate-banner-mount', canAdvance());
   });
 
   function canAdvance(){
     return window.Ugtm.State.getRg()!=null ? {ok:true} : {ok:false, softPending:[{label:'Informe o valor de Rg medido'}]};
   }
-  window.Ugtm.Wizard.renderGateBanner('gate-banner-mount', canAdvance());
 
   window.Ugtm.Hub.renderItemFooter('wizard-footer-mount', {itemId:ITEM_ID, basePath:'../', canAdvance:canAdvance, bannerMount:'gate-banner-mount'});
 </script>

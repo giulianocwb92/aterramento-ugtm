@@ -95,10 +95,7 @@
     }));
   }
 
-  window.Ugtm.Checklist.render('mat-checklist-mount', 'materiais', MAT_ITEMS, function(){
-    window.Ugtm.Wizard.renderGateBanner('gate-banner-mount', canAdvance());
-  });
-  window.Ugtm.Wizard.renderGateBanner('gate-banner-mount', canAdvance());
+  window.Ugtm.Checklist.render('mat-checklist-mount', 'materiais', MAT_ITEMS);
 
   // Rodapé customizado: ao clicar Próximo, verifica se deve abortar
   var mount = document.getElementById('wizard-footer-mount');

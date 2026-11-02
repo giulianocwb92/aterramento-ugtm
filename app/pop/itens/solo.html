@@ -94,12 +94,9 @@
   document.getElementById('rho-val').addEventListener('input', function(){
     syncRhoCheck();
     checklistCtrl.refresh();
-    window.Ugtm.Wizard.renderGateBanner('gate-banner-mount', canAdvance());
   });
 
-  var checklistCtrl = window.Ugtm.Checklist.render('rho-checklist-mount', 'solo', RHO_ITEM, function(){
-    window.Ugtm.Wizard.renderGateBanner('gate-banner-mount', canAdvance());
-  });
+  var checklistCtrl = window.Ugtm.Checklist.render('rho-checklist-mount', 'solo', RHO_ITEM);
 
   window.Ugtm.Hub.renderItemFooter('wizard-footer-mount', {itemId:'solo', basePath:'../', canAdvance:canAdvance, bannerMount:'gate-banner-mount'});
 </script>

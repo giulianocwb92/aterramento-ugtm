@@ -74,9 +74,7 @@
 
   function canAdvance(){ return window.Ugtm.Wizard.evaluateChecklist(EPI_ITEMS.map(function(i){return {key:'epi.'+i.key, label:i.label, critical:i.critical};})); }
 
-  window.Ugtm.Checklist.render('epi-checklist-mount', 'epi', EPI_ITEMS, function(){
-    window.Ugtm.Wizard.renderGateBanner('gate-banner-mount', canAdvance());
-  });
+  window.Ugtm.Checklist.render('epi-checklist-mount', 'epi', EPI_ITEMS);
 
   window.Ugtm.Hub.renderItemFooter('wizard-footer-mount', {itemId:'epi', basePath:'../', canAdvance:canAdvance, bannerMount:'gate-banner-mount'});
 </script>
