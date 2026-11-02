@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-title" content="POP UGTM">
 <link rel="apple-touch-icon" href="../assets/icons/icon-180.png">
 <link rel="icon" href="../assets/icons/icon-192.png">
-<title>Aborto por falta de material — POP Aterramento UGTM</title>
+<title>Cancelamento por falta de material — POP Aterramento UGTM</title>
 <link rel="stylesheet" href="../shared/css/base.css">
 <link rel="stylesheet" href="../shared/css/layout.css">
 <link rel="stylesheet" href="../shared/css/components.css">
@@ -162,7 +162,7 @@
   <div class="aborto-header">
     <div class="aborto-icon">⛔</div>
     <div>
-      <h1>OPERAÇÃO ABORTADA — Falta de material</h1>
+      <h1>OPERAÇÃO CANCELADA — Falta de material</h1>
       <p>A intervenção não pode prosseguir. Os itens abaixo são indispensáveis para a instalação elétrica segura da malha de aterramento. A UGTM <strong>não deve ser energizada</strong>.</p>
     </div>
   </div>
@@ -177,13 +177,13 @@
     <ol>
       <li><strong>Não energize a UGTM</strong> sob nenhuma hipótese.</li>
       <li>Acione o <strong>engenheiro responsável</strong> imediatamente e informe os itens faltando.</li>
-      <li>Gere e copie o <strong>relatório de aborto</strong> abaixo para envio ao engenheiro.</li>
+      <li>Gere e copie o <strong>relatório de cancelamento</strong> abaixo para envio ao engenheiro.</li>
       <li>Aguarde autorização antes de qualquer nova tentativa.</li>
     </ol>
   </div>
 
   <div class="relatorio-box">
-    <h2>📄 Relatório de aborto</h2>
+    <h2>📄 Relatório de cancelamento</h2>
     <div class="form-grid">
       <div class="form-row">
         <label for="ab-data">Data</label>
@@ -207,7 +207,7 @@
       </div>
     </div>
 
-    <button class="btn-gerar" id="btn-gerar-relatorio">⛔ Gerar relatório de aborto</button>
+    <button class="btn-gerar" id="btn-gerar-relatorio">⛔ Gerar relatório de cancelamento</button>
     <div class="export-preview" id="export-preview"></div>
     <button class="btn-copiar" id="btn-copiar">Copiar relatório</button>
   </div>
@@ -303,17 +303,17 @@
 
     return [
       '══════════════════════════════════',
-      'RELATÓRIO DE ABORTO — POP ATERRAMENTO UGTM',
+      'RELATÓRIO DE CANCELAMENTO — POP ATERRAMENTO UGTM',
       'COPEL-DIST-AT-001 · v2.1.0',
       '══════════════════════════════════',
-      'RESULTADO:      ⛔ OPERAÇÃO ABORTADA POR FALTA DE MATERIAL',
+      'RESULTADO:      ⛔ OPERAÇÃO CANCELADA POR FALTA DE MATERIAL',
       'Data:           ' + data,
       'Hora:           ' + hora,
       'Local / UGTM:   ' + local,
       'Responsável:    ' + resp,
       'Observações:    ' + obs,
       '──────────────────────────────────',
-      'ITENS INDISPONÍVEIS (causas do aborto):',
+      'ITENS INDISPONÍVEIS (causas do cancelamento):',
       linhasItens,
       '──────────────────────────────────',
       'AUDITORIA COMPLETA DE MATERIAIS:',
@@ -344,7 +344,7 @@
     window.Ugtm.State.setRegistroField('r-hora',  document.getElementById('ab-hora').value);
     window.Ugtm.State.setRegistroField('r-local', document.getElementById('ab-local').value);
     window.Ugtm.State.setRegistroField('r-resp',  document.getElementById('ab-resp').value);
-    window.Ugtm.State.addLog('aborto-gerado', 'relatório de aborto por falta de material emitido');
+    window.Ugtm.State.addLog('aborto-gerado', 'relatório de cancelamento por falta de material emitido');
     window.Ugtm.State.save();
 
     var prev = document.getElementById('export-preview');
