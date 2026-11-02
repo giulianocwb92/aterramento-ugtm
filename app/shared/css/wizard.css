@@ -28,11 +28,15 @@
 .gate-banner strong{display:block;font-size:14px;margin-bottom:3px;}
 .gate-banner ul{margin:6px 0 0 1.1rem;}
 
-/* ===== WIZARD FOOTER (Voltar / Próximo) ===== */
+/* ===== WIZARD FOOTER (Voltar / Diagrama / Próximo) =====
+   Grid de 3 colunas simétricas — cada botão fica preso à sua coluna
+   (esquerda/centro/direita) pela classe, não pela ordem no HTML, então o
+   layout fica idêntico em toda página mesmo quando um botão não existe. */
 .wizard-footer{
-  display:flex;
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
   gap:10px;
-  justify-content:space-between;
   margin-top:2rem;
   padding-top:1.25rem;
   border-top:1px solid var(--border);
@@ -53,8 +57,12 @@
   color:var(--text);
 }
 .wizard-btn:hover{background:var(--surface2);}
-.wizard-btn-prev{margin-right:auto;}
+.wizard-footer-left{grid-column:1;justify-self:start;display:flex;gap:.5rem;}
+.wizard-btn-prev{grid-column:1;justify-self:start;}
+.wizard-btn-diagram{grid-column:2;justify-self:center;}
 .wizard-btn-next{
+  grid-column:3;
+  justify-self:end;
   background:var(--accent);
   color:#fff;
   border-color:transparent;
@@ -299,6 +307,9 @@
 }
 
 @media(max-width:560px){
-  .wizard-footer{flex-wrap:wrap;}
+  .wizard-footer{grid-template-columns:1fr;}
+  .wizard-footer-left,.wizard-btn-prev,.wizard-btn-diagram,.wizard-btn-next{
+    grid-column:1;justify-self:stretch;
+  }
   .wizard-btn{flex:1;justify-content:center;}
 }
