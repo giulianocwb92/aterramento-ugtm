@@ -19,6 +19,7 @@ const ASSETS = [
   './pop/01-objetivo.html',
   './pop/02-procedimento.html',
   './pop/03-registro.html',
+  './pop/04-aborto-materiais.html',
 
   './pop/itens/epi.html',
   './pop/itens/materiais.html',
