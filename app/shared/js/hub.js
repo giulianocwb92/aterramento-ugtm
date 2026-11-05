@@ -29,7 +29,7 @@
     {id:'neutro',            kind:'inline', title:'Conectar o cabo de neutro',                desc:'Conectar o cabo 50 mm² entre a malha e o neutro da UGTM. Verificar continuidade e aperto da conexão.', critical:false},
     {id:'espera-bentonita',  kind:'inline', title:'Aguardar tempo de espera da bentonita',    desc:'Não realizar a medição de Rg antes do prazo indicado.', critical:false, cond:'bentonita', timer:60},
     {id:'medir-rg',          kind:'page',   title:'Medir a resistência de aterramento (Rg)', file:'itens/passo-medir-rg.html',          critical:false},
-    {id:'criterio',          kind:'inline', title:'Critério de aceite',                       desc:'Rg ≤ 40 Ω — critério derivado do pickup da função 50N do relé SEPAM S40.', critical:false, showRgResult:true},
+    {id:'criterio',          kind:'inline', title:'Critério de aceite',                       desc:'Rg ≤ 40 Ω. Critério adotado e verificado pelo cálculo de sensibilidade da proteção 50N do relé SEPAM S40.', critical:false, showRgResult:true},
     {id:'config-secundaria', kind:'page',   title:'Configuração secundária',                  file:'itens/passo-config-secundaria.html', critical:false, cond:'secundaria'},
     {id:'cancelar',          kind:'inline', title:'Cancelar intervenção',                     desc:'Rg ainda acima de 40 Ω após a configuração secundária. Acionar a equipe de engenharia responsável. Não energizar a UGTM.', critical:false, cond:'cancelar', danger:true}
   ];
