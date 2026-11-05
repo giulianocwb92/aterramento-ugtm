@@ -29,21 +29,22 @@
     <div class="bloco-header"><span class="bloco-badge b6">BLOCO 6 · +2 HASTES</span></div>
 
     <div class="prose">
-      <p>Se após a instalação primária o valor de Rg medido for superior a 40 Ω, é instalada a configuração suplementar: <strong>2 hastes adicionais nos pontos médios das arestas dianteira e traseira da carreta</strong>, interligadas ao anel perimetral e com bentonita.</p>
-      <p>O efeito geométrico das hastes adicionais reduz a resistência total pela adição de paralelos — cada haste contribui com sua própria resistência de espalhamento. O fator de interação mútua entre hastes, capturado pelo termo <em>(√n − 1)²</em> da equação de Schwarz <a href="09-referencias.html#ref-33" class="cite">[33]</a> (Eq. 21), quantifica a redução marginal de eficiência com mais hastes próximas.</p>
-      <p>Se após a configuração suplementar o Rg ainda for superior a 40 Ω, a intervenção deve ser cancelada e a equipe de engenharia acionada. Solos com ρ &gt; 500 Ω·m estão fora do envelope operacional adotado no TCC (Bloco 2).</p>
+      <p>Caso a resistência medida ainda supere 40 Ω, <strong>duas hastes suplementares são instaladas nos pontos médios das arestas dianteira e traseira da carreta</strong>. As hastes suplementares ficam a 2 m das hastes dos vértices, espaçamento menor que o comprimento das hastes, e a interação entre elas é considerada no termo <em>(√n − 1)²</em> da Eq. (22). Quando as hastes ficam próximas, a corrente de cada uma eleva o potencial do solo ao redor das demais, e por isso o ganho de cada haste adicional diminui <a href="09-referencias.html#ref-26" class="cite">[26]</a>.</p>
+      <p>Se após a configuração suplementar o Rg ainda for superior a 40 Ω, a intervenção deve ser cancelada e a equipe de engenharia acionada.</p>
     </div>
 
     <div class="alert warning">
       <span class="alert-icon">⚠️</span>
       <div>
-        <strong>Limite operacional validado</strong>
-        <p>O limiar de 500 Ω·m é o parâmetro de referência adotado em projeto <a href="09-referencias.html#ref-27" class="cite">[27]</a>. Para esse solo, o método de Schwarz estima Rg ≈ 31,04 Ω, abaixo do critério de 40 Ω (Bloco 3, Resultados). O efeito da bentonita foi validado em campo até ρ = 76 Ω·m (Bloco 3, Bentonita). Para resistividades muito acima disso, consultar engenharia antes de prosseguir.</p>
+        <strong>Limiar de avaliação de 500 Ω·m</strong>
+        <p>Por ter servido de base aos cálculos de tensão de toque e de passo e à estimativa de Rg, o valor de 500 Ω·m foi incorporado ao procedimento como limiar de avaliação <a href="09-referencias.html#ref-22" class="cite">[22]</a>. Se a resistividade medida for menor ou igual a esse valor, as premissas desses cálculos cobrem o local e a instalação segue sem tratamento prévio do solo. Se for maior, essas premissas deixam de cobrir o local, e o procedimento prevê o tratamento com bentonita sódica. Nesses casos a aceitação depende da medição de Rg e não da estimativa analítica, e se o critério de 40 Ω não for atingido com a configuração completa, a equipe de engenharia deve ser acionada.</p>
       </div>
     </div>
 
     <div class="normas">
       <a href="09-referencias.html#ref-1" class="norma-tag">IEEE 80-2013<span class="tag-num">1</span></a>
+      <a href="09-referencias.html#ref-22" class="norma-tag">Elek Software (2020)<span class="tag-num">22</span></a>
+      <a href="09-referencias.html#ref-26" class="norma-tag">Stoch (2011)<span class="tag-num">26</span></a>
       <span class="norma-tag">Ensaio de campo — Os autores (2026)</span>
     </div>
   </div>

@@ -30,6 +30,7 @@
 
     <div class="prose">
       <p>As quatro equações abaixo combinam a contribuição do anel de cabos, das hastes verticais e da resistência mútua entre os dois, chegando à resistência de aterramento total do conjunto.</p>
+      <p>As equações de Schwarz pressupõem solo homogêneo <a href="09-referencias.html#ref-1" class="cite">[1]</a> <a href="09-referencias.html#ref-29" class="cite">[29]</a>, e a combinação das parcelas de cabos, hastes e resistência mútua é uma aproximação analítica da interação entre os eletrodos. Por isso, o resultado deve ser tratado como estimativa, sujeita a diferença em relação ao valor medido quando o solo é estratificado, quando a geometria se afasta da malha retangular idealizada ou quando os eletrodos estão muito próximos, como discutido na Seção 3.1.2.</p>
     </div>
 
     <div class="card">
@@ -42,10 +43,10 @@
           <span>·[ln(</span>
           <span class="eq-frac"><span class="eq-frac-num">2·<span class="v">L</span><sub>c</sub></span><span class="eq-frac-den v">h</span></span>
           <span>)&nbsp;+&nbsp;<span class="v">k</span><sub>1</sub>·</span>
-          <span class="eq-frac"><span class="eq-frac-num v">L</span><span class="eq-frac-den"><span class="eq-sqrt"><span class="eq-sqrt-inner v">A</span></span></span></span>
+          <span class="eq-frac"><span class="eq-frac-num"><span class="v">L</span><sub>c</sub></span><span class="eq-frac-den"><span class="eq-sqrt"><span class="eq-sqrt-inner v">A</span></span></span></span>
           <span>−&nbsp;<span class="v">k</span><sub>2</sub>]</span>
         </div>
-        <div class="equation-num">Eq. (20)</div>
+        <div class="equation-num">Eq. (21)</div>
         <div class="eq-legend">
           <div class="eq-legend-label">Onde</div>
           <div class="eq-legend-row"><span class="eq-legend-sym">ρ</span><span class="eq-legend-desc">resistividade do solo (Ω·m)</span></div>
@@ -63,18 +64,18 @@
         <div class="equation">
           <span class="v">R</span><sub>h</sub>
           <span>=</span>
-          <span class="eq-frac"><span class="eq-frac-num v">ρ</span><span class="eq-frac-den">2<span class="v">π</span>·<span class="v">n</span>·<span class="v">L</span></span></span>
+          <span class="eq-frac"><span class="eq-frac-num v">ρ</span><span class="eq-frac-den">2<span class="v">π</span>·<span class="v">n</span>·<span class="v">L</span><sub>R</sub></span></span>
           <span>·[ln(</span>
-          <span class="eq-frac"><span class="eq-frac-num">4<span class="v">L</span></span><span class="eq-frac-den v">d</span></span>
+          <span class="eq-frac"><span class="eq-frac-num">4·<span class="v">L</span><sub>R</sub></span><span class="eq-frac-den v">d</span></span>
           <span>)&nbsp;−&nbsp;1&nbsp;+&nbsp;</span>
-          <span class="eq-frac"><span class="eq-frac-num">2<span class="v">k</span><sub>1</sub>·<span class="v">L</span></span><span class="eq-frac-den"><span class="eq-sqrt"><span class="eq-sqrt-inner v">A</span></span></span></span>
+          <span class="eq-frac"><span class="eq-frac-num">2<span class="v">k</span><sub>1</sub>·<span class="v">L</span><sub>R</sub></span><span class="eq-frac-den"><span class="eq-sqrt"><span class="eq-sqrt-inner v">A</span></span></span></span>
           <span>·(<span class="eq-sqrt"><span class="eq-sqrt-inner v">n</span></span>&nbsp;−&nbsp;1)<sup>2</sup>]</span>
         </div>
-        <div class="equation-num">Eq. (21)</div>
+        <div class="equation-num">Eq. (22)</div>
         <div class="eq-legend">
           <div class="eq-legend-label">Onde (além dos termos já definidos acima)</div>
           <div class="eq-legend-row"><span class="eq-legend-sym">n</span><span class="eq-legend-desc">número de hastes = 4</span></div>
-          <div class="eq-legend-row"><span class="eq-legend-sym">L</span><span class="eq-legend-desc">comprimento das hastes = 2,40 m</span></div>
+          <div class="eq-legend-row"><span class="eq-legend-sym">L<sub>R</sub></span><span class="eq-legend-desc">comprimento das hastes = 2,40 m</span></div>
           <div class="eq-legend-row"><span class="eq-legend-sym">d</span><span class="eq-legend-desc">diâmetro das hastes = 0,01588 m (5/8")</span></div>
         </div>
       </div>
@@ -88,12 +89,12 @@
           <span>=</span>
           <span class="eq-frac"><span class="eq-frac-num v">ρ</span><span class="eq-frac-den"><span class="v">π</span>·<span class="v">L</span><sub>c</sub></span></span>
           <span>·[ln(</span>
-          <span class="eq-frac"><span class="eq-frac-num">2·<span class="v">L</span><sub>c</sub></span><span class="eq-frac-den v">L</span></span>
+          <span class="eq-frac"><span class="eq-frac-num">2·<span class="v">L</span><sub>c</sub></span><span class="eq-frac-den"><span class="v">L</span><sub>R</sub></span></span>
           <span>)&nbsp;+&nbsp;<span class="v">k</span><sub>1</sub>·</span>
-          <span class="eq-frac"><span class="eq-frac-num v">L</span><sub>c</sub><span class="eq-frac-den"><span class="eq-sqrt"><span class="eq-sqrt-inner v">A</span></span></span></span>
+          <span class="eq-frac"><span class="eq-frac-num"><span class="v">L</span><sub>c</sub></span><span class="eq-frac-den"><span class="eq-sqrt"><span class="eq-sqrt-inner v">A</span></span></span></span>
           <span>−&nbsp;<span class="v">k</span><sub>2</sub>&nbsp;+&nbsp;1]</span>
         </div>
-        <div class="equation-num">Eq. (22)</div>
+        <div class="equation-num">Eq. (23)</div>
       </div>
     </div>
 
@@ -108,14 +109,14 @@
             <span class="eq-frac-den"><span class="v">R</span><sub>c</sub>&nbsp;+&nbsp;<span class="v">R</span><sub>h</sub>&nbsp;−&nbsp;2·<span class="v">R</span><sub>m</sub></span>
           </span>
         </div>
-        <div class="equation-num">Eq. (23)</div>
+        <div class="equation-num">Eq. (24)</div>
       </div>
     </div>
 
     <div class="card">
       <div class="prose">
         <p style="font-size:13px;color:var(--muted);"><span class="eq-legend-sym" style="font-size:13px;">k₁ = 1,24</span> e <span class="eq-legend-sym" style="font-size:13px;">k₂ = 6,14</span> — coeficientes geométricos da Curva A da Figura 24 da <a href="09-referencias.html#ref-1" class="cite">IEEE 80-2013 [1]</a> para x = comprimento/largura = 17/4 = 4,25 (cabos na superfície), com k₁ = −0,04·x + 1,41 e k₂ = 0,15·x + 5,50.</p>
-        <p style="font-size:13px;color:var(--muted);">Como h = 0, o termo logarítmico da Eq. (20) usa o raio do condutor de 25 mm², cerca de 2,8 mm, no lugar de h.</p>
+        <p style="font-size:13px;color:var(--muted);">Como h = 0, o termo logarítmico da Eq. (21) usa o raio do condutor de 25 mm², cerca de 2,8 mm, no lugar de h.</p>
       </div>
     </div>
   </div>

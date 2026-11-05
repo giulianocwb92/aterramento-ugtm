@@ -29,7 +29,8 @@
     <div class="bloco-header"><span class="bloco-badge b2">CRITÉRIO 1 · SENSIBILIDADE DA PROTEÇÃO</span></div>
 
     <div class="prose">
-      <p>O critério de aceite Rg ≤ 40 Ω não é arbitrário — é derivado diretamente dos parâmetros do sistema de proteção embarcado na UGTM. O relé SEPAM S40 opera com a função <strong>50N (sobrecorrente de neutro instantânea)</strong>, com pickup ajustado em 30% da corrente nominal do lado de alta tensão e tempo de atuação configurado em 30 ms.</p>
+      <p>Este bloco concentra a contribuição técnica central do trabalho, que é fundamentar analiticamente o critério de aceite de 40 Ω para o aterramento provisório da UGTM. A fundamentação parte dos parâmetros reais do equipamento e percorre dois critérios. O primeiro, de sensibilidade da proteção, determina a resistência máxima de aterramento que garante a atuação do relé, e o valor de 40 Ω a atende com ampla margem. O segundo, de segurança de pessoas, mostra que o limite de tensão de toque da IEEE 80-2013 não é respeitado apenas pelo valor de Rg, e por isso a proteção do operador depende também da equipotencialização da área de trabalho.</p>
+      <p>Para que o relé SEPAM atue em uma falta fase-terra no barramento de 13,8 kV, a corrente resultante precisa superar o pickup configurado na função 50N. O pickup está ajustado em 30% da corrente nominal do lado de alta tensão. O critério de aceite pelo lado da proteção é, portanto, o valor máximo de Rg que ainda garante corrente de falta acima desse limiar.</p>
     </div>
 
     <div class="prose">
@@ -54,7 +55,7 @@
     </div>
 
     <div class="prose">
-      <p>Para uma falta fase terra franca no barramento de 13,8 kV, o método de componentes simétricas de Fortescue fornece a corrente de falta em função das impedâncias de sequência positiva, negativa e zero <a href="09-referencias.html#ref-14" class="cite">[14]</a>.</p>
+      <p>Para uma falta fase-terra franca no barramento de 13,8 kV, o método de componentes simétricas de Fortescue fornece a corrente de falta em função das impedâncias de sequência positiva, negativa e zero <a href="09-referencias.html#ref-17" class="cite">[17]</a>.</p>
     </div>
 
     <div class="eq-wrap">
@@ -63,7 +64,7 @@
     </div>
 
     <div class="prose">
-      <p>As impedâncias de sequência positiva e negativa somam as contribuições do transformador e do gerador. Como o enrolamento em triângulo do lado de 220 V bloqueia a sequência zero, a impedância Z₀ contém apenas a reatância de dispersão do transformador e a resistência de aterramento Rg, que aparece multiplicada por três no circuito de sequência zero <a href="09-referencias.html#ref-15" class="cite">[15]</a>.</p>
+      <p>As impedâncias de sequência positiva e negativa somam as contribuições do transformador e do gerador. Como o enrolamento em triângulo do lado de 220 V bloqueia a sequência zero, a impedância Z₀ contém apenas a reatância de dispersão do transformador e a resistência de aterramento Rg, que aparece multiplicada por três no circuito de sequência zero <a href="09-referencias.html#ref-18" class="cite">[18]</a>.</p>
     </div>
 
     <div class="eq-wrap">
@@ -94,7 +95,7 @@
     </div>
 
     <div class="prose">
-      <p>Impondo I<sub>f</sub> = I<sub>pickup</sub> e isolando Rg, resulta o valor máximo de resistência de aterramento que ainda garante a atuação do relé <a href="09-referencias.html#ref-16" class="cite">[16]</a>.</p>
+      <p>Impondo I<sub>f</sub> = I<sub>pickup</sub> e isolando Rg, resulta o valor máximo de resistência de aterramento que ainda garante a atuação do relé <a href="09-referencias.html#ref-19" class="cite">[19]</a>.</p>
     </div>
 
     <div class="eq-wrap">
@@ -120,88 +121,139 @@
     </div>
 
     <div class="prose">
-      <p>Com Rg = 40 Ω a corrente de falta é 87,4 A, o que representa <strong>14 vezes o pickup</strong> do 50N. Comparando os limites, o critério de 40 Ω satisfaz a condição de sensibilidade com uma margem de R<sub>máx,relé</sub>/40 ≈ <strong>30 vezes</strong>, o que demonstra que a proteção opera de forma confiável em qualquer condição de solo para a qual o conjunto for dimensionado <a href="09-referencias.html#ref-16" class="cite">[16]</a> <a href="09-referencias.html#ref-17" class="cite">[17]</a>.</p>
+      <p>O resultado mostra que, com a malha no critério de 40 Ω, a corrente de falta é 87,4 A, o que representa <strong>14 vezes o pickup</strong> do 50N. Comparando os limites, o critério de 40 Ω satisfaz a condição de sensibilidade com uma margem de R<sub>máx,relé</sub>/40 ≈ <strong>30 vezes</strong>, o que indica que a proteção atua de forma confiável sempre que Rg estiver dentro do critério, qualquer que seja a resistividade do solo que levou a esse valor <a href="09-referencias.html#ref-19" class="cite">[19]</a> <a href="09-referencias.html#ref-20" class="cite">[20]</a>.</p>
     </div>
 
     <div class="bloco-header" style="margin-top:1.75rem;"><span class="bloco-badge b2">CRITÉRIO 2 · SEGURANÇA DE PESSOAS</span></div>
 
     <div class="prose">
-      <p>O segundo critério verifica se as tensões de toque e de passo a que os operadores estão expostos durante uma falta permanecem abaixo dos limites fisiológicos estabelecidos pela <a href="09-referencias.html#ref-1" class="cite">IEEE 80-2013 [1]</a> e fundamentados na <a href="09-referencias.html#ref-2" class="cite">IEC 60479-1:2018 [2]</a>. Para uma pessoa de 70 kg, a corrente máxima tolerável pelo corpo, com o tempo de atuação de 30 ms do relé, é:</p>
+      <p>O segundo critério verifica se as tensões de toque e de passo a que os operadores estão expostos durante uma falta permanecem abaixo dos limites fisiológicos estabelecidos pela <a href="09-referencias.html#ref-1" class="cite">IEEE 80-2013 [1]</a> e fundamentados na <a href="09-referencias.html#ref-2" class="cite">IEC 60479-1:2018 [2]</a>. O risco de fibrilação ventricular é função da magnitude e da duração da corrente que percorre o corpo humano. A <a href="09-referencias.html#ref-1" class="cite">IEEE 80-2013 [1]</a> define a corrente máxima tolerável a partir do limiar de fibrilação ventricular suportado por 99,5% das pessoas, em função da duração do choque, e apresenta a constante 0,116 para pessoas de 50 kg e 0,157 para pessoas de 70 kg. Este trabalho adota a constante de 70 kg, e a corrente máxima tolerável é <a href="09-referencias.html#ref-1" class="cite">[1]</a></p>
     </div>
 
     <div class="eq-wrap">
-      <div class="eq">I<sub style="font-size:14px;">corpo</sub> = 0,116 / √t<sub style="font-size:14px;">s</sub> = 0,116 / √0,030 = 0,670 A</div>
-      <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (15) e (16)</div>
+      <div class="eq">I<sub style="font-size:14px;">corpo</sub> = 0,157 / √t<sub style="font-size:14px;">s</sub></div>
+      <div style="text-align:left;display:inline-block;">
+        <div class="eq-vars">
+          onde <span>I<sub>corpo</sub></span> = corrente máxima tolerável pelo corpo humano (A)<br>
+          <span>t<sub>s</sub></span> = tempo de atuação da proteção (s)
+        </div>
+      </div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (15)</div>
     </div>
 
     <div class="prose">
-      <p>As tensões de toque e de passo máximas admissíveis incorporam a resistência do corpo humano (1000 Ω) e a resistência da camada superficial do solo, caracterizada pela resistividade ρₛ e pelo fator de redução Cₛ:</p>
+      <p>O tempo de atuação do relé SEPAM está configurado em 30 ms <a href="09-referencias.html#ref-5" class="cite">[5]</a>, que é adotado como o tempo de eliminação da falta, sem acrescentar o tempo de abertura do disjuntor. Substituindo t<sub>s</sub> = 0,030 s</p>
     </div>
 
     <div class="eq-wrap">
-      <div class="eq">E<sub style="font-size:14px;">toque,máx</sub> = (1000 + 1,5 · ρₛ · Cₛ) × 0,670</div>
-      <div class="eq" style="margin-top:10px;">E<sub style="font-size:14px;">passo,máx</sub> = (1000 + 6 · ρₛ · Cₛ) × 0,670</div>
+      <div class="eq">I<sub style="font-size:14px;">corpo</sub> = 0,157 / √0,030 = 0,157 / 0,173 = 0,906 A</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (16)</div>
+    </div>
+
+    <div class="prose">
+      <p>As tensões de toque e de passo máximas admissíveis incorporam a resistência do corpo humano (1000 Ω) e a resistência da camada superficial do solo, caracterizada por ρₛ, adotado neste trabalho como 500 Ω·m, e pelo fator de redução Cₛ <a href="09-referencias.html#ref-1" class="cite">[1]</a> <a href="09-referencias.html#ref-21" class="cite">[21]</a></p>
+    </div>
+
+    <div class="eq-wrap">
+      <div class="eq">E<sub style="font-size:14px;">toque,máx</sub> = (1000 + 1,5 · ρₛ · Cₛ) × 0,906</div>
+      <div class="eq" style="margin-top:10px;">E<sub style="font-size:14px;">passo,máx</sub> = (1000 + 6 · ρₛ · Cₛ) × 0,906</div>
+      <div style="text-align:left;display:inline-block;">
+        <div class="eq-vars">
+          onde <span>E<sub>toque,máx</sub></span> = tensão de toque máxima admissível (V)<br>
+          <span>E<sub>passo,máx</sub></span> = tensão de passo máxima admissível (V)<br>
+          <span>ρₛ</span> = resistividade da camada superficial do solo (Ω·m)<br>
+          <span>Cₛ</span> = fator de redução da resistividade superficial
+        </div>
+      </div>
       <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (17)</div>
     </div>
 
     <div class="prose">
-      <p>O coeficiente 6 no limite de passo, em vez de 1,5 para o toque, reflete que a corrente percorre o caminho pé a pé sem atravessar o coração diretamente, admitindo uma exposição quatro vezes maior para o mesmo risco fisiológico <a href="09-referencias.html#ref-2" class="cite">[2]</a>. Adotando <strong>ρₛ = 500 Ω·m</strong> como cenário de pior caso e Cₛ = 1 (sem tratamento da camada superficial), os limites numéricos de aceite para este projeto são:</p>
+      <p>Os coeficientes 1,5 e 6 decorrem do modelo da <a href="09-referencias.html#ref-1" class="cite">IEEE 80-2013 [1]</a>, no qual cada pé é representado por um disco metálico de raio 0,08 m com resistência de 3·ρₛ·Cₛ. Na tensão de toque, os dois pés ficam em paralelo e somam 1,5·ρₛ·Cₛ. Na tensão de passo, os pés ficam em série e somam 6·ρₛ·Cₛ. A diferença entre os dois limites vem, portanto, da associação das resistências dos pés, e não de uma tolerância fisiológica diferente. Adotando <strong>ρₛ = 500 Ω·m</strong> como cenário de pior caso e Cₛ = 1, os limites numéricos de aceite para este projeto são</p>
     </div>
 
     <div class="two-col-grid">
       <div class="result-card">
-        <div class="result-val" style="font-size:26px;">1.172 V</div>
+        <div class="result-val" style="font-size:26px;">1586 V</div>
         <div>
           <div class="result-info-title">Tensão de toque máxima</div>
-          <div class="result-info-sub">(1000 + 1,5 × 500) × 0,670</div>
+          <div class="result-info-sub">(1000 + 1,5 × 500) × 0,906</div>
         </div>
       </div>
       <div class="result-card">
-        <div class="result-val" style="font-size:26px;">2.679 V</div>
+        <div class="result-val" style="font-size:26px;">3626 V</div>
         <div>
           <div class="result-info-title">Tensão de passo máxima</div>
-          <div class="result-info-sub">(1000 + 6 × 500) × 0,670</div>
+          <div class="result-info-sub">(1000 + 6 × 500) × 0,906</div>
         </div>
       </div>
     </div>
     <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (18)</div>
 
     <div class="prose">
-      <p>O valor de ρₛ = 500 Ω·m é comumente utilizado em projetos de engenharia de aterramento como parâmetro de referência para solo de resistividade alta, na ausência de dados de campo específicos para o local de instalação <a href="09-referencias.html#ref-27" class="cite">[27]</a>. Solos com resistividade ainda mais elevada podem ser encontrados na prática, mas adotar um valor superior tornaria os parâmetros de segurança inviáveis para a configuração deste projeto.</p>
-    </div>
-
-    <div class="alert warning">
-      <span class="alert-icon">⚠️</span>
-      <div>
-        <strong>Resistividade de referência de projeto: 500 Ω·m</strong>
-        <p>O valor de 500 Ω·m é o parâmetro de referência adotado em projeto para solo de resistividade alta <a href="09-referencias.html#ref-27" class="cite">[27]</a>, e não um valor medido em campo. Para solos com resistividade acima desse valor, a engenharia responsável deve ser consultada antes de prosseguir.</p>
-      </div>
+      <p>O valor de ρₛ igual a 500 Ω·m é comumente utilizado em projetos de engenharia de aterramento como referência de pior caso para solo de resistividade alta, na ausência de dados de campo específicos para o local de instalação <a href="09-referencias.html#ref-22" class="cite">[22]</a>. Neste trabalho, ele representa o solo mais resistivo para o qual o conjunto foi dimensionado, pois é nesse solo que a resistência de aterramento é mais difícil de ser atingida. Para esse solo, o método de Schwarz estima Rg de aproximadamente 31,04 Ω com a configuração proposta, dentro do critério de 40 Ω (Seção 2.3.4). O mesmo valor foi adotado como resistividade da camada superficial nas tensões de toque e de passo admissíveis da Eq. (18). Como o limite de toque cresce com ρₛ, o valor de 500 Ω·m é o mais favorável dessa equação dentro do envelope considerado, e mesmo com ele o GPR calculado adiante o supera, o que mantém a conclusão para qualquer solo de resistividade inferior.</p>
+      <p>Por ter servido de base aos cálculos de tensão de toque e de passo e à estimativa de Rg, o valor de 500 Ω·m foi incorporado ao procedimento como limiar de avaliação. O técnico mede a resistividade do local pelo método de Wenner e a compara com 500 Ω·m. Se a resistividade medida for menor ou igual a esse valor, as premissas desses cálculos cobrem o local e a instalação segue sem tratamento prévio do solo. Se for maior, essas premissas deixam de cobrir o local, e o procedimento prevê o tratamento com bentonita sódica. Nesses casos a aceitação depende da medição de Rg e não da estimativa analítica, e se o critério de 40 Ω não for atingido com a configuração completa, a equipe de engenharia deve ser acionada.</p>
     </div>
 
     <div class="prose">
-      <p>A elevação de potencial de terra com Rg = 40 Ω vale</p>
+      <p>A proteção do operador se baseia na equipotencialização da área de trabalho, discutida adiante, e não na simples confirmação de Rg menor ou igual a 40 Ω. O potencial de elevação de terra com Rg igual a 40 Ω vale</p>
     </div>
 
     <div class="eq-wrap">
       <div class="eq">GPR = I<sub style="font-size:14px;">f</sub> × Rg = 87,4 × 40 = 3497 V</div>
+      <div style="text-align:left;display:inline-block;">
+        <div class="eq-vars">
+          onde <span>GPR</span> = elevação de potencial de terra (V)<br>
+          <span>I<sub>f</sub></span> = corrente de falta fase-terra (A)<br>
+          <span>Rg</span> = resistência de aterramento da malha instalada (Ω)
+        </div>
+      </div>
       <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (19)</div>
     </div>
 
     <div class="prose">
-      <p>O GPR representa o pior caso de tensão disponível no sistema durante a falta. Se essa tensão fosse aplicada diretamente ao corpo de um operador sem proteção adicional, resultaria em uma corrente de 2,0 A, valor que excede o limite fisiológico mesmo com atuação do relé em 30 ms.</p>
-      <p>A proteção do operador é garantida pela <strong>equipotencialização da área de trabalho</strong>. O cabo de 50 mm² que interliga a carcaça da UGTM ao anel perimetral conecta eletricamente mãos e pés do operador ao mesmo ponto. Com isso, a tensão a que ele está exposto não é o GPR, mas a queda de tensão no próprio cabo de cobre que, para 20 m de comprimento e a corrente de falta de 87,4 A, vale apenas 0,6 V. Esse valor está abaixo do limiar de percepção elétrica estabelecido pela <a href="09-referencias.html#ref-2" class="cite">IEC 60479-1:2018 [2]</a>, tornando o risco de choque desprezível dentro do perímetro do anel. O IEEE 1246-2020 reconhece esse mecanismo, denominado <em>bonding</em>, como o requisito central de proteção para pessoas que trabalham em circuitos aterrados <a href="09-referencias.html#ref-20" class="cite">[20]</a>.</p>
+      <p>O GPR representa o pior caso de tensão disponível no sistema durante a falta. Se essa tensão fosse aplicada diretamente ao corpo de um operador sem proteção adicional, a corrente que o atravessaria seria o GPR dividido pela resistência total do circuito de toque. Essa resistência é a mesma adotada na Eq. (18) e soma a resistência do corpo humano, de 1000 Ω, com a resistência dos dois pés em paralelo sobre o solo, de 1,5·ρₛ·Cₛ, que vale 750 Ω para ρₛ igual a 500 Ω·m e Cₛ igual a 1, totalizando 1750 Ω.</p>
+    </div>
+
+    <div class="eq-wrap">
+      <div class="eq">I<sub style="font-size:14px;">op</sub> = GPR / (1000 + 1,5 · ρₛ · Cₛ) = 3497 / (1000 + 1,5 × 500) = 3497 / 1750 ≈ 2,0 A</div>
+      <div style="font-size:12px;color:var(--muted);margin-top:6px;">Corrente no corpo do operador sem equipotencialização, para Rg = 40 Ω</div>
+      <div style="text-align:left;display:inline-block;">
+        <div class="eq-vars">
+          onde <span>I<sub>op</sub></span> = corrente no corpo do operador (A)<br>
+          <span>GPR</span> = elevação de potencial de terra da Eq. (19) (V)<br>
+          <span>ρₛ</span> = resistividade da camada superficial do solo (Ω·m)<br>
+          <span>Cₛ</span> = fator de redução da resistividade superficial<br>
+          <span>1000</span> = resistência do corpo humano (Ω)<br>
+          <span>1,5·ρₛ·Cₛ</span> = resistência dos dois pés em paralelo sobre o solo (Ω)
+        </div>
+      </div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--hint);text-align:right;margin-top:8px;">Eq. (20)</div>
+    </div>
+
+    <div class="prose">
+      <p>A corrente de 2,0 A é cerca de 2,2 vezes maior que o limite de 906 mA da Eq. (16), e portanto excede o limite fisiológico mesmo com a atuação do relé em 30 ms. De modo equivalente, o GPR de 3497 V supera o limite de tensão de toque de 1586 V da Eq. (18), o que mostra que a segurança do operador não pode depender apenas do valor de Rg e exige a equipotencialização da área de trabalho.</p>
+      <p>A proteção do operador é garantida pela <strong>equipotencialização da área de trabalho</strong>. O cabo de 50 mm² que interliga a carcaça da UGTM ao anel perimetral conecta eletricamente mãos e pés do operador ao mesmo ponto. Com isso, a tensão a que ele está exposto não é o GPR, mas a queda de tensão no próprio cabo de cobre que, para 20 m de comprimento e a corrente de falta de 87,4 A, vale apenas 0,6 V. Considerando a resistência do corpo de 1000 Ω, essa tensão produziria uma corrente da ordem de 0,6 mA, mais de mil vezes menor que o limite de 906 mA calculado na Eq. (16), o que torna o risco de choque desprezível dentro do perímetro do anel. O IEEE 1246-2020 reconhece esse mecanismo, denominado <em>bonding</em>, como o requisito central de proteção para pessoas que trabalham em circuitos aterrados <a href="09-referencias.html#ref-23" class="cite">[23]</a>.</p>
       <p>Para operadores fora do anel, a proteção é garantida pela restrição de acesso à área durante a operação, conforme exigido pela <a href="09-referencias.html#ref-4" class="cite">NR-10 [4]</a>. O procedimento operacional deste conjunto determina que o perímetro seja isolado com fita de sinalização e cones antes da energização, e que nenhum operador permaneça fora do anel durante a operação da UGTM.</p>
-      <p>Os dois critérios — sensibilidade da proteção e segurança de pessoas — convergem para o mesmo parâmetro operacional. A IEEE 1246-2020 e a IEEE 1268-2016, que tratam especificamente de sistemas de aterramento provisório em subestações móveis, convergem para a mesma abordagem: o critério de aceite deve garantir a atuação da proteção e a equipotencialização da área de trabalho (<a href="09-referencias.html#ref-20" class="cite">20</a>, <a href="09-referencias.html#ref-19" class="cite">19</a>).</p>
+    </div>
+
+    <div class="bloco-header" style="margin-top:1.75rem;"><span class="bloco-badge b2">CRITÉRIO DE ACEITE ADOTADO · POR QUE 40 Ω</span></div>
+
+    <div class="prose">
+      <p>Os dois critérios calculados nas seções anteriores apontam para conclusões complementares. O critério de sensibilidade da proteção estabelece que qualquer resistência de aterramento abaixo de 1217 Ω garante a atuação do relé 50N. O critério de segurança de pessoas estabelece que a proteção ao operador é assegurada pela equipotencialização da área de trabalho, combinada com a eliminação rápida da falta viabilizada pela atuação do 50N. O valor de 40 Ω satisfaz o primeiro critério com margem de 30 vezes e, ao mesmo tempo, é um patamar atingível pela geometria do conjunto proposto, complementada por tratamento químico do solo com bentonita sódica quando a resistividade medida em campo assim exigir, conforme demonstrado pelos ensaios de campo de Sinchi et al. <a href="09-referencias.html#ref-12" class="cite">[12]</a> e pela caracterização geométrica apresentada na Seção 3.1.1.</p>
+      <p>O valor de 40 Ω é, portanto, justificado pelos cálculos, e não apenas por convenção. Ele representa o ponto de equilíbrio entre a exigência técnica da proteção, que poderia ser satisfeita com resistências muito mais altas, e a viabilidade prática de instalação em campo, onde resistividades elevadas e condições adversas de solo impõem um limite ao menor valor de Rg que é possível atingir com um conjunto de aterramento portátil. Castenschiold e Johnson <a href="09-referencias.html#ref-6" class="cite">[6]</a> observam que sistemas de geração móvel operam em condições de solo altamente variáveis e que critérios de aterramento praticáveis precisam ser derivados dos parâmetros reais do equipamento de proteção, não de valores genéricos de norma. Cabe destacar que o valor de 40 Ω é um critério de aceite adotado neste trabalho e verificado pelo cálculo de sensibilidade da proteção, e não um limite fixado diretamente por norma. A <a href="09-referencias.html#ref-1" class="cite">IEEE 80-2013 [1]</a>, por exemplo, não estabelece uma resistência de aterramento máxima e conduz o projeto pelos limites de tensão de toque e de passo, enquanto as normas de aterramento provisório e de subestações móveis tratam da atuação da proteção e da equipotencialização da área de trabalho <a href="09-referencias.html#ref-23" class="cite">[23]</a> <a href="09-referencias.html#ref-24" class="cite">[24]</a>.</p>
+      <p>A <a href="09-referencias.html#ref-23" class="cite">IEEE 1246-2020 [23]</a>, que trata especificamente de sistemas de aterramento provisório em subestações móveis, e a <a href="09-referencias.html#ref-24" class="cite">IEEE 1268-2016 [24]</a>, que estabelece diretrizes de segurança para instalação de equipamentos de subestação móvel, convergem para a mesma abordagem, em que a proteção deve atuar e a área de trabalho deve ser equipotencializada <a href="09-referencias.html#ref-23" class="cite">[23]</a> <a href="09-referencias.html#ref-24" class="cite">[24]</a>. O valor de 40 Ω é, portanto, o critério operacional adotado neste trabalho, fundamentado na sensibilidade da proteção e na viabilidade de instalação, e a segurança de pessoas é assegurada pelo procedimento de equipotencialização e de restrição de acesso à área.</p>
     </div>
 
     <div class="normas">
-      <a href="09-referencias.html#ref-20" class="norma-tag">IEEE 1246-2020<span class="tag-num">20</span></a>
-      <a href="09-referencias.html#ref-19" class="norma-tag">IEEE 1268-2016<span class="tag-num">19</span></a>
       <a href="09-referencias.html#ref-1" class="norma-tag">IEEE 80-2013<span class="tag-num">1</span></a>
       <a href="09-referencias.html#ref-2" class="norma-tag">IEC 60479-1:2018<span class="tag-num">2</span></a>
-      <a href="09-referencias.html#ref-27" class="norma-tag">Elek Software (2020)<span class="tag-num">27</span></a>
-      <a href="09-referencias.html#ref-28" class="norma-tag">E-Hazard (2024)<span class="tag-num">28</span></a>
-      <a href="09-referencias.html#ref-5" class="norma-tag">SEPAM S40 — Schneider Electric<span class="tag-num">5</span></a>
+      <a href="09-referencias.html#ref-5" class="norma-tag">Manual UGTM Aggreko<span class="tag-num">5</span></a>
+      <a href="09-referencias.html#ref-6" class="norma-tag">Castenschiold e Johnson (2001)<span class="tag-num">6</span></a>
+      <a href="09-referencias.html#ref-21" class="norma-tag">ABNT NBR 15751<span class="tag-num">21</span></a>
+      <a href="09-referencias.html#ref-22" class="norma-tag">Elek Software (2020)<span class="tag-num">22</span></a>
+      <a href="09-referencias.html#ref-23" class="norma-tag">IEEE 1246-2020<span class="tag-num">23</span></a>
+      <a href="09-referencias.html#ref-24" class="norma-tag">IEEE 1268-2016<span class="tag-num">24</span></a>
     </div>
   </div>
 
